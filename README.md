@@ -1,4 +1,6 @@
-<img style="display: block;margin: 0 auto;" src="/imagem/logo.png" target="_blank">
+<div align="center">
+<img style="display: block;margin: 0 auto;" src="/imagem/logo.png" target="_blank"></h2>
+</div>
 
 # Projeto Integrador Programa ElaTech
 

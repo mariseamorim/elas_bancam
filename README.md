@@ -23,19 +23,23 @@ histórico de transações. No histórico de transações permite a busca de res
 
 # Métodos esperados
 
+--- TODO Inserir imagem do swagger
+--- TODO Revisar os verbos dos endpoints
+
 Endpoints
 | Verbo | Endpoint | Parâmetro | Body |
 |--------|------------------------- |-----------|--------------- |
-| GET | /Clientes/ObterTodos | N/A | N/A |
-| GET | /Clientes/{id} | id | N/A |
-| POST | /Clientes | N/A | Schema Clientes |
-| POST | /Transferencia/Trasferir | titulo | Schema Transacao|
-| GET | /Transferencia/Historico | N/A | N/A |
+| GET | /clientes/obterTodos | N/A | N/A |
+| GET | /clientes/{id} | id | N/A |
+| POST | /clientes | N/A | Schema Clientes |
+| POST | /transferencia/trasferir | N/A | Schema Transacao|
+| GET | /transferencia/historico | N/A | N/A |
 
 # Stack utilizada
 
 - Java 19 com module path
 - Spring Boot 2.7.5
+- Swagger
 - JUnit 5 com AssertJ e Mockito
 - Maven
 - MySql
@@ -49,13 +53,15 @@ Endpoints
 
 ---TO DO
 
-# Autores
+# Autoras
 
+- [Ana Flavia](https://github.com/anaflxvia)
 - [Camila Belota](https://github.com/camilabelota)
 - [Chrislanne Oliveira](https://github.com/Chrislanneo)
 - [Laise France](https://github.com/LaiFrance)
 - [Laura Neves](https://github.com/lmtfn)
 - [Nathaly Barreto](https://github.com/nathalybarreto)
+- [Marise Amorim](https://github.com/nathalybarreto)
 
 # Referências
 

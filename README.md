@@ -22,18 +22,24 @@ histórico de transações. No histórico de transações permite a busca de res
 - A conta bancária deve ter um valor inicial;
 
 # Métodos esperados
+ 
+ **Swagger**
 
---- TODO Inserir imagem do swagger
---- TODO Revisar os verbos dos endpoints
+ ![Swagger](/imagem/swagger.png)
+
 
 Endpoints
-| Verbo | Endpoint | Parâmetro | Body |
-|--------|------------------------- |-----------|--------------- |
-| GET | /clientes/obterTodos | N/A | N/A |
-| GET | /clientes/{id} | id | N/A |
-| POST | /clientes | N/A | Schema Clientes |
-| POST | /transferencia/trasferir | N/A | Schema Transacao|
-| GET | /transferencia/historico | N/A | N/A |
+| Verbo | Endpoint            | Parâmetro          | Body |
+|--------|--------------------|-----------------|-----------------|
+| GET    | /clientes/{id}     | id              | N/A             |
+| PUT    | /clientes/{id}     | id              | Schema Clientes |
+| DELETE | /clientes/{id}     | id              | N/A             |
+| POST   | /clientes          | N/A             | Schema Clientes |
+| GET    | /clientes/todos    | N/A             | N/A             |
+| POST   | /transacoes        | N/A             | Schema Transacao|
+| GET    | /transacoes/tipo   | tipo            | N/A             |
+| GET    | /transacoes/periodo| data            | N/A             |
+| GET    | /transacoes/cliente| id              | N/A             |
 
 # Stack utilizada
 

@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "endereco")
 public class Endereco {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
 
     @Column(length = 10, nullable = false)
@@ -37,10 +37,4 @@ public class Endereco {
 
     @Column(length = 2)
     private String regiao;
-
-    @OneToOne(mappedBy = "endereco")
-    private PessoaFisica clientePF;
-
-    @OneToOne(mappedBy = "endereco")
-    private PessoaJuridica clientePJ;
 }

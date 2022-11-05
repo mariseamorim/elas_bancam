@@ -1,43 +1,59 @@
 package com.elasbancam.services;
 
-import com.elasbancam.models.Cliente;
-import com.elasbancam.repositories.ClienteRepository;
+import com.elasbancam.models.PessoaFisica;
+import com.elasbancam.models.PessoaJuridica;
+import com.elasbancam.repositories.PessoaFisicaRepository;
+import com.elasbancam.repositories.PessoaJuridicaRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
+
+
+@AllArgsConstructor
 @Service
 public class ClienteService {
 
-    private ClienteRepository _repository;
+    private PessoaFisicaRepository _repositoryPessoaFisica;
 
+    private PessoaJuridicaRepository _repositoryPessoaJuridica;
 
-    public ClienteService(ClienteRepository repository) {
-        _repository = repository;
+    @Transactional
+    public PessoaFisica save(PessoaFisica pessoaFisica) {
+        return _repositoryPessoaFisica.save(pessoaFisica);
     }
 
     @Transactional
-    public Cliente save(Cliente cliente) {
-        return _repository.save(cliente);
+    public PessoaJuridica save(PessoaJuridica pessoaJuridica) {
+        return _repositoryPessoaJuridica.save(pessoaJuridica);
     }
 
-    public List<Cliente> getAll(){
-        return _repository.findAll();
+    public List<Object> getAll(){
+        List<Object> object = new ArrayList<Object>();
+        var pf = _repositoryPessoaFisica.findAll();
+        var pj = _repositoryPessoaJuridica.findAll();
+        object.add(pf);
+        object.add(pj);
+        return object;
     }
 
-    public Optional<Cliente> getId(int idCliente){
-       return  _repository.findById(idCliente);
+    public Optional<PessoaFisica> getId(int idCliente){
+       return  _repositoryPessoaFisica.findById(idCliente);
 
     }
 
-    public Cliente update(Cliente cliente) {
-        return _repository.save(cliente);
+    public PessoaFisica update(PessoaFisica cliente) {
+        return _repositoryPessoaFisica.save(cliente);
     }
 
+    @Transactional
     public void deletar(int id) {
-        _repository.deleteById(id);
+        _repositoryPessoaFisica.deleteById(id);
     }
 
 

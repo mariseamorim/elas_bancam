@@ -3,8 +3,10 @@ package com.elasbancam.models;
 import com.elasbancam.models.enums.TipoPessoa;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -35,6 +37,7 @@ public abstract  class Pessoa {
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     private Endereco endereco;
 
-    @Column(length = 20, nullable = false)
-    private Date criado_em;
+    @Column(length = 20, updatable = false, nullable = false)
+    @CreationTimestamp
+    private LocalDateTime criado_em;
 }

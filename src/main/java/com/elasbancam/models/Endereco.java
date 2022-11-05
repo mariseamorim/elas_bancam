@@ -39,5 +39,8 @@ public class Endereco {
     private String regiao;
 
     @OneToOne(mappedBy = "endereco")
-    private Pessoa cliente;
+    private PessoaFisica clientePF;
+
+    @OneToOne(mappedBy = "endereco")
+    private PessoaJuridica clientePJ;
 }

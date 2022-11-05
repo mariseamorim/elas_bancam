@@ -8,25 +8,33 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "tab_endereco")
+@Table(name = "endereco")
 public class Endereco {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int id;
-    @Column(length = 20, nullable = false)
-    private String cep;
+
     @Column(length = 10, nullable = false)
-    private String numero;
+    private String cep;
+
+    @Column(length = 255, nullable = false)
+    private String rua;
+
+    @Column(nullable = false)
+    private int numero;
+
     @Column(length = 20)
     private String complemento;
-    @Column(length = 20)
+
+    @Column(length = 255)
     private String bairro;
-    @Column(length = 20)
+
+    @Column(length = 255)
     private String cidade;
-    @Column(length = 10)
+
+    @Column(length = 2)
     private String uf;
-    @Column(length = 15)
+
+    @Column(length = 2)
     private String regiao;
-    /*@OneToOne(mappedBy = "endereco")
-    private Pessoa cliente;*/
 }

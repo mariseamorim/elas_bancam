@@ -1,5 +1,6 @@
 package com.elasbancam.models;
 
+import com.elasbancam.models.enums.TipoOperacao;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,12 +28,13 @@ public class Conta {
     private int agencia;
 
     @Enumerated(EnumType.ORDINAL)
-    private String operacao;
+    @Column(nullable = false)
+    private TipoOperacao operacao;
 
     @Column(nullable = false)
     private BigDecimal saldo;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     private boolean status;
 }
 

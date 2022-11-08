@@ -1,12 +1,11 @@
 package com.elasbancam.models;
 
+import com.elasbancam.models.enums.Genero;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.util.Date;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,8 +14,17 @@ import java.util.Date;
 public class PessoaFisica extends Pessoa{
     @Column(length = 20, nullable = false)
     private String cpf;
+
     @Column(length = 20, nullable = false)
     private String rg;
+
     @Column(length = 20, nullable = false)
-    private Date dt_nascimento;
+    private LocalDate dt_nascimento;
+
+    @Column(nullable = false)
+    private String nome_mae;
+
+    @Column(length = 20, nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    private Genero genero;
 }

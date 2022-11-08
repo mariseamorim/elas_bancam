@@ -11,15 +11,16 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
+@Table(name = "conta")
 public class Conta {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private UUID id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
-    private Pessoa pessoa;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "cliente_id", referencedColumnName = "id")
+//    private Pessoa pessoa;
 
     @Column(length = 20, nullable = false, updatable = false)
     private int numeroConta;

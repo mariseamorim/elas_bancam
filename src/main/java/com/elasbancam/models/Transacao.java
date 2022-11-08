@@ -19,15 +19,13 @@ public class Transacao {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private UUID id;
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "conta_origem", referencedColumnName = "id")
-//    @Column(nullable = false)
-//    private Conta conta_origem;
-//
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "conta_destino", referencedColumnName = "id")
-//    @Column(nullable = false)
-//    private Conta conta_destino;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "conta_origem_id", referencedColumnName = "id")
+    private Conta conta_origem_id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "conta_destino_id", referencedColumnName = "id")
+    private Conta conta_destino_id;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)

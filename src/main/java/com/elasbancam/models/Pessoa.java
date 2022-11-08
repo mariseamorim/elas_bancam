@@ -9,11 +9,12 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-
-@MappedSuperclass
+@Entity
+@Table(name = "pessoa")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract  class Pessoa {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy= GenerationType.TABLE)
     private int id;
 
     @Column(length = 50, nullable = false)
@@ -31,6 +32,10 @@ public abstract  class Pessoa {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     private Endereco endereco;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "conta_id", referencedColumnName = "id")
+    private Conta conta;
 
     @Column(length = 20, updatable = false, nullable = false)
     @CreationTimestamp

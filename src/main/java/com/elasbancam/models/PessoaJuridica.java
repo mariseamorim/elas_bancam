@@ -12,9 +12,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "pessoa_juridica")
 public class PessoaJuridica extends Pessoa{
-    @Column(length = 50, nullable = false)
+    @Column(length = 100, nullable = false)
     private String nome_fantasia;
+
+    @Column(length = 50, nullable = false)
     private String inscricao_estadual;
+
+    @Column(length = 14, nullable = false)
     private String cnpj;
-    private String contato;
+
+    @Column(length = 50, nullable = false)
+    private String nome_contato;
 }

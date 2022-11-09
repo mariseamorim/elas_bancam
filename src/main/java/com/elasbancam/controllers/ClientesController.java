@@ -18,13 +18,13 @@ public class ClientesController {
 
     private ClienteService service;
 
-    @PostMapping("pf")
+    @PostMapping("/pf")
     public ResponseEntity<Object> post(@RequestBody PessoaFisica pessoaFisica){
 
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(pessoaFisica));
     }
 
-    @PostMapping("pj")
+    @PostMapping("/pj")
     public  ResponseEntity<Object> post (@RequestBody PessoaJuridica pessoaJuridica){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(pessoaJuridica));
     }

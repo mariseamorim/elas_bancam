@@ -37,8 +37,9 @@ Endpoints
 | GET | /clientes/todos | N/A | N/A |
 | POST | /transacoes | N/A | Schema Transacao|
 | GET | /transacoes/tipo | tipo | N/A |
-| GET | /transacoes/periodo| data | N/A |
-| GET | /transacoes/cliente| id | N/A |
+| GET | /transacoes/periodo | N/A | Schema DataTransacao |
+| GET | /transacoes/conta | id | N/A |
+| GET | /transacoes | id | N/A |
 
 # Stack utilizada
 

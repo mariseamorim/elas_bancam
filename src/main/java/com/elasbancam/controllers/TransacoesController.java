@@ -1,6 +1,6 @@
 package com.elasbancam.controllers;
 
-import com.elasbancam.dtos.DataTransacaoDto;
+import com.elasbancam.dtos.input.DataTransacaoDto;
 import com.elasbancam.models.Transacao;
 import com.elasbancam.enums.TipoTransacao;
 import com.elasbancam.services.TransacoesService;

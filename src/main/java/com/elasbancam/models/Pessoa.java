@@ -57,5 +57,5 @@ public abstract  class Pessoa {
     @Getter
     @Setter
     @Column(nullable = false)
-    private boolean status;
+    private boolean status = true;
 }

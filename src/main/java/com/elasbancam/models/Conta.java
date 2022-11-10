@@ -43,6 +43,6 @@ public class Conta {
     @Getter
     @Setter
     @Column(nullable = false)
-    private boolean status;
+    private boolean status = true;
 }
 

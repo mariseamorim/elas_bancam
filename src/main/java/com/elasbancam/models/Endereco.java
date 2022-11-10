@@ -5,36 +5,51 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "endereco")
 public class Endereco {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Getter
     private int id;
 
+    @Getter
+    @Setter
     @Column(length = 10, nullable = false)
     private String cep;
 
-    @Column(length = 255, nullable = false)
+    @Getter
+    @Setter
+    @Column(nullable = false)
     private String rua;
 
+    @Getter
+    @Setter
     @Column(nullable = false)
     private int numero;
 
+    @Getter
+    @Setter
     @Column(length = 20)
     private String complemento;
 
-    @Column(length = 255)
+    @Getter
+    @Setter
+    @Column
     private String bairro;
 
-    @Column(length = 255)
+    @Getter
+    @Setter
+    @Column
     private String cidade;
 
+    @Getter
+    @Setter
     @Column(length = 2)
     private String uf;
 
+    @Getter
+    @Setter
     @Column(length = 2)
     private String regiao;
 }

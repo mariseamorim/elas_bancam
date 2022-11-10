@@ -1,43 +1,57 @@
 package com.elasbancam.models;
 
-import com.elasbancam.models.enums.TipoTransacao;
+import com.elasbancam.enums.TipoTransacao;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "transacao")
 public class Transacao {
+    @Getter
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(insertable = false, unique = true, updatable = false, nullable = false)
+    private String id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Getter
+    @Setter
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "conta_origem_id", referencedColumnName = "id")
     private Conta conta_origem_id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @Getter
+    @Setter
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "conta_destino_id", referencedColumnName = "id")
     private Conta conta_destino_id;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Getter
+    @Setter
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoTransacao tipo_trasacao;
 
+    @Getter
+    @Setter
     @Column(nullable = false)
     @CreationTimestamp
     private LocalDateTime data;
 
+    @Getter
+    @Setter
     @Column(nullable = false)
     private BigDecimal valor;
 
+    @Getter
+    @Setter
     @Column()
     private String descricao;
 }

@@ -1,6 +1,6 @@
 package com.elasbancam.models;
 
-import com.elasbancam.models.enums.Genero;
+import com.elasbancam.enums.Genero;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,10 +12,10 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "pessoa_fisica")
 public class PessoaFisica extends Pessoa{
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = false, unique = true)
     private String cpf;
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = false, unique = true)
     private String rg;
 
     @Column(length = 20, nullable = false)
@@ -25,6 +25,6 @@ public class PessoaFisica extends Pessoa{
     private String nome_mae;
 
     @Column(length = 20, nullable = false)
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private Genero genero;
 }

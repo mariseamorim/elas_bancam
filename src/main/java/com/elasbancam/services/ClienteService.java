@@ -5,6 +5,7 @@ import com.elasbancam.models.PessoaJuridica;
 import com.elasbancam.repositories.PessoaFisicaRepository;
 import com.elasbancam.repositories.PessoaJuridicaRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 
 @AllArgsConstructor
+@Component
 @Service
 public class ClienteService {
 

@@ -1,15 +1,13 @@
 package com.elasbancam.services;
 
-import com.elasbancam.dtos.DataTransacaoDto;
 import com.elasbancam.models.Transacao;
-import com.elasbancam.models.enums.TipoTransacao;
+import com.elasbancam.enums.TipoTransacao;
 import com.elasbancam.repositories.TransacaoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -36,8 +34,8 @@ public class TransacoesService {
         return resposta;
     }
 
-    public List<Transacao> getByAccount(int id){
-        //Buscar informação nas colunas de conta de origem e destino
+    public List<Transacao> getByAccount(UUID id){
+        //Validar id passado através do service de conta
         var resposta = _repositoryTransacao.findByAccount(id);
         return resposta;
     }

@@ -23,13 +23,13 @@ public class Transacao {
 
     @Getter
     @Setter
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "conta_origem_id", referencedColumnName = "id")
     private Conta conta_origem_id;
 
     @Getter
     @Setter
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "conta_destino_id", referencedColumnName = "id")
     private Conta conta_destino_id;
 

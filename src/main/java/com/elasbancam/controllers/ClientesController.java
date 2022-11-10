@@ -48,6 +48,7 @@ public class ClientesController {
         return ResponseEntity.status(HttpStatus.OK).body(service.update(cliente));
     }
 
+    //Mudar para PUT (/delete/{id})
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable int id ){
         var cli = service.getId(id);

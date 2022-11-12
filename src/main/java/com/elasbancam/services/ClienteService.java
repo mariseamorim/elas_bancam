@@ -44,7 +44,7 @@ public class ClienteService {
         return object;
     }
 
-    public Optional<PessoaFisica> getId(int idCliente){
+    public Optional<PessoaFisica> getId(Long idCliente){
        return  _repositoryPessoaFisica.findById(idCliente);
 
     }
@@ -54,7 +54,7 @@ public class ClienteService {
     }
 
     @Transactional
-    public void deletar(int id) {
+    public void deletar(Long id) {
         _repositoryPessoaFisica.deleteById(id);
     }
 

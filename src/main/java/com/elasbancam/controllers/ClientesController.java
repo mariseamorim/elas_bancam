@@ -4,7 +4,6 @@ import com.elasbancam.models.PessoaFisica;
 import com.elasbancam.models.PessoaJuridica;
 import com.elasbancam.services.ClienteService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,22 +34,22 @@ public class ClientesController {
     }
 
     @GetMapping("/{id}")
-    public Optional<PessoaFisica> getId(@PathVariable int id){
+    public Optional<PessoaFisica> getId(@PathVariable Long id){
         return  service.getId(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@RequestBody PessoaFisica cliente, @PathVariable int id ){
+    public ResponseEntity<Object> update(@RequestBody PessoaFisica cliente, @PathVariable Long id ){
         var cli = service.getId(id);
         if(!cli.isPresent())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");;
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
 
         return ResponseEntity.status(HttpStatus.OK).body(service.update(cliente));
     }
 
     //Mudar para PUT (/delete/{id})
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id ){
+    public ResponseEntity<Void> delete(@PathVariable Long id ){
         var cli = service.getId(id);
         if(!cli.isPresent())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

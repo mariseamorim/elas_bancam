@@ -11,7 +11,7 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Getter
-    private int id;
+    private Long id;
 
     @Getter
     @Setter

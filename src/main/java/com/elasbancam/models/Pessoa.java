@@ -14,7 +14,7 @@ public abstract  class Pessoa {
     @Id
     @GeneratedValue(strategy= GenerationType.TABLE)
     @Getter
-    private int id;
+    private Long id;
 
     @Getter
     @Setter
@@ -53,6 +53,12 @@ public abstract  class Pessoa {
     @Column(length = 20, updatable = false, nullable = false)
     @CreationTimestamp
     private LocalDateTime criado_em;
+
+    @Getter
+    @Setter
+    @Column(length = 20, updatable = false, nullable = false)
+    @CreationTimestamp
+    private LocalDateTime alterado_em;
 
     @Getter
     @Setter

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
@@ -22,18 +21,17 @@ public class TransacoesController {
 
     @PostMapping
     public ResponseEntity<Transacao> post(@RequestBody Transacao transacao){
-        Object resposta = new Object();
+        ResponseEntity<Transacao> resposta = null;
         try{
             resposta = ResponseEntity.status(HttpStatus.CREATED).body(service.save(transacao));
         } catch (Exception e) {
 
         }
-
-        return (ResponseEntity<Transacao>) resposta;
+        return resposta;
     }
 
     @GetMapping("/tipo")
-    public List<Transacao> getByType(@RequestParam TipoTransacao tipoTransacao){
+    public List<Transacao> getByType(@PathVariable TipoTransacao tipoTransacao){
         Object resposta = new Object();
         try{
             resposta = ResponseEntity.status(HttpStatus.OK).body(service.getByType(tipoTransacao));
@@ -58,7 +56,7 @@ public class TransacoesController {
     }
 
     @GetMapping("/conta/{id}")
-    public List<Transacao> getByAccount(@PathVariable UUID id){
+    public List<Transacao> getByAccount(@PathVariable String id){
         Object resposta = new Object();
         // Fazer validação de dados (id é válido?)
         try{
@@ -72,7 +70,7 @@ public class TransacoesController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Transacao> getById(@PathVariable UUID id){
+    public ResponseEntity<Transacao> getById(@PathVariable String id){
         Object resposta = new Object();
         try{
             resposta = ResponseEntity.status(HttpStatus.OK).body(service.getById(id));

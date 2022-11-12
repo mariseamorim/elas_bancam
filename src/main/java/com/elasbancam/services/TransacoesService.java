@@ -4,7 +4,6 @@ import com.elasbancam.models.Transacao;
 import com.elasbancam.enums.TipoTransacao;
 import com.elasbancam.repositories.TransacaoRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -12,37 +11,33 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @AllArgsConstructor
-@Component
 @Service
 public class TransacoesService {
     private TransacaoRepository _repositoryTransacao;
+    private ContaService contaService;
 
     @Transactional
     public Transacao save(Transacao transacao) {
-        //Fazer regra de validacao e atualizacao de saldo
+        contaService.updateSaldo(transacao);
         return _repositoryTransacao.save(transacao);
     }
 
 
     public List<Transacao> getByType(TipoTransacao tipoTransacao){
-        var resposta = _repositoryTransacao.findByType(tipoTransacao);
-        return resposta;
+        return _repositoryTransacao.findByType(tipoTransacao);
     }
 
     public List<Transacao> getByDate(LocalDateTime dataInicial, LocalDateTime dataFinal){
-        var resposta = _repositoryTransacao.findByDate(dataInicial, dataFinal);
-        return resposta;
+        return _repositoryTransacao.findByDate(dataInicial, dataFinal);
     }
 
-    public List<Transacao> getByAccount(UUID id){
+    public List<Transacao> getByAccount(String id){
         //Validar id passado através do service de conta
-        var resposta = _repositoryTransacao.findByAccount(id);
-        return resposta;
+        return _repositoryTransacao.findByAccount(id);
     }
 
-    public Optional<Transacao> getById(UUID id){
-        var resposta = _repositoryTransacao.findById(id);
-        return resposta;
+    public Optional<Transacao> getById(String id){
+        return _repositoryTransacao.findById(id);
     }
 
 }

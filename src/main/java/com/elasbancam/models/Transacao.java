@@ -9,7 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
+
 
 @Entity
 @Table(name = "transacao")
@@ -23,13 +23,13 @@ public class Transacao {
 
     @Getter
     @Setter
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "conta_origem_id", referencedColumnName = "id")
     private Conta conta_origem_id;
 
     @Getter
     @Setter
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "conta_destino_id", referencedColumnName = "id")
     private Conta conta_destino_id;
 
@@ -37,7 +37,7 @@ public class Transacao {
     @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TipoTransacao tipo_trasacao;
+    private TipoTransacao tipo_transacao;
 
     @Getter
     @Setter

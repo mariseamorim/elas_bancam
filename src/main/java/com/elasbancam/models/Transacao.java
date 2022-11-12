@@ -1,6 +1,7 @@
 package com.elasbancam.models;
 
 import com.elasbancam.enums.TipoTransacao;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table(name = "transacao")
 public class Transacao {
@@ -37,7 +38,7 @@ public class Transacao {
     @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private TipoTransacao tipo_transacao;
+    private TipoTransacao tipo_transacao ;
 
     @Getter
     @Setter

@@ -19,12 +19,13 @@ public class TransacoesService {
     @Transactional
     public Transacao save(Transacao transacao) {
         contaService.updateSaldo(transacao);
+        transacao.setTipo_transacao(transacao.getTipo_transacao());
         return _repositoryTransacao.save(transacao);
     }
 
 
     public List<Transacao> getByType(TipoTransacao tipoTransacao){
-        return _repositoryTransacao.findByType(tipoTransacao);
+        return _repositoryTransacao.findByType(tipoTransacao.toString());
     }
 
     public List<Transacao> getByDate(LocalDateTime dataInicial, LocalDateTime dataFinal){

@@ -21,25 +21,13 @@ public class TransacoesController {
 
     @PostMapping
     public ResponseEntity<Transacao> post(@RequestBody Transacao transacao){
-        ResponseEntity<Transacao> resposta = null;
-        try{
-            resposta = ResponseEntity.status(HttpStatus.CREATED).body(service.save(transacao));
-        } catch (Exception e) {
-
-        }
-        return resposta;
+        System.out.println(transacao.getTipo_transacao());
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(transacao));
     }
 
-    @GetMapping("/tipo")
+    @GetMapping("/tipo/{tipoTransacao}")
     public List<Transacao> getByType(@PathVariable TipoTransacao tipoTransacao){
-        Object resposta = new Object();
-        try{
-            resposta = ResponseEntity.status(HttpStatus.OK).body(service.getByType(tipoTransacao));
-        } catch (Exception e) {
-
-        }
-
-        return (List<Transacao>) resposta;
+        return ResponseEntity.status(HttpStatus.OK).body(service.getByType(tipoTransacao)).getBody();
     }
 
     @GetMapping("/periodo")
@@ -57,15 +45,7 @@ public class TransacoesController {
 
     @GetMapping("/conta/{id}")
     public List<Transacao> getByAccount(@PathVariable String id){
-        Object resposta = new Object();
-        // Fazer validação de dados (id é válido?)
-        try{
-            resposta = ResponseEntity.status(HttpStatus.OK).body(service.getByAccount(id));
-        } catch (Exception e) {
-
-        }
-
-        return (List<Transacao>) resposta;
+        return ResponseEntity.status(HttpStatus.OK).body(service.getByAccount(id)).getBody();
     }
 
 

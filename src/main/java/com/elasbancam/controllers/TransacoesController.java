@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -20,45 +21,28 @@ public class TransacoesController {
     private TransacoesService service;
 
     @PostMapping
-    public ResponseEntity<Transacao> post(@RequestBody Transacao transacao){
-        System.out.println(transacao.getTipo_transacao());
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(transacao));
+    public ResponseEntity<Optional<Transacao>> create(@RequestBody Transacao transacao){
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(transacao));
     }
 
     @GetMapping("/tipo/{tipoTransacao}")
-    public List<Transacao> getByType(@PathVariable TipoTransacao tipoTransacao){
-        return ResponseEntity.status(HttpStatus.OK).body(service.getByType(tipoTransacao)).getBody();
+    public ResponseEntity<List<Transacao>> getByType(@PathVariable TipoTransacao tipoTransacao){
+        return ResponseEntity.status(HttpStatus.OK).body(service.getByType(tipoTransacao));
     }
 
     @GetMapping("/periodo")
-    public List<Transacao> getByDate(@RequestBody @Valid DataTransacaoDto periodo){
-        Object resposta = new Object();
-        try{
-            //Fazer mapeamento da DTO pra entidade
-            resposta = ResponseEntity.status(HttpStatus.OK).body(service.getByDate(periodo.getDataInicial(), periodo.getDataFinal()));
-        } catch (Exception e) {
-
-        }
-
-        return (List<Transacao>) resposta;
+    public ResponseEntity<List<Transacao>> getByDate(@RequestBody @Valid DataTransacaoDto periodo) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.getByDate(periodo.getDataInicial(), periodo.getDataFinal()));
     }
 
     @GetMapping("/conta/{id}")
-    public List<Transacao> getByAccount(@PathVariable String id){
-        return ResponseEntity.status(HttpStatus.OK).body(service.getByAccount(id)).getBody();
+    public ResponseEntity<List<Transacao>> getByAccount(@PathVariable String id){
+        return ResponseEntity.status(HttpStatus.OK).body(service.getByAccount(id));
     }
 
-
     @GetMapping("/{id}")
-    public ResponseEntity<Transacao> getById(@PathVariable String id){
-        Object resposta = new Object();
-        try{
-            resposta = ResponseEntity.status(HttpStatus.OK).body(service.getById(id));
-        } catch (Exception e) {
-
-        }
-
-        return (ResponseEntity<Transacao>) resposta;
+    public ResponseEntity<Optional<Transacao>> getById(@PathVariable String id){
+        return ResponseEntity.status(HttpStatus.OK).body(service.getById(id));
     }
 
 }

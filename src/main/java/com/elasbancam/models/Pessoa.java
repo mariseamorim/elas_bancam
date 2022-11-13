@@ -52,13 +52,13 @@ public abstract  class Pessoa {
     @Setter
     @Column(length = 20, updatable = false, nullable = false)
     @CreationTimestamp
-    private LocalDateTime criado_em;
+    private LocalDateTime criado_em = LocalDateTime.now();
 
     @Getter
     @Setter
     @Column(length = 20, updatable = false, nullable = false)
     @CreationTimestamp
-    private LocalDateTime alterado_em;
+    private LocalDateTime alterado_em =  LocalDateTime.now();
 
     @Getter
     @Setter

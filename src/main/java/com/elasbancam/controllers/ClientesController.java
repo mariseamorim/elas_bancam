@@ -58,7 +58,7 @@ public class ClientesController {
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
 
-    @PutMapping("pf")
+    @PutMapping("/pf")
     public ResponseEntity<Object> updatePf(@RequestBody PessoaFisicaUpdateDto pessoa){
         var cliente = service.getIdPf(pessoa.getId());
         if(!cliente.isPresent())
@@ -66,7 +66,7 @@ public class ClientesController {
         clienteMapper.toEntityUpdatePf(pessoa, cliente.get());
        return ResponseEntity.status(HttpStatus.OK).body(service.updatePf(cliente.get()));
     }
-    @PutMapping("pj")
+    @PutMapping("/pj")
     public ResponseEntity<Object> updatePj(@RequestBody PessoaJuridicaUpdateDto pessoa ){
         var cliente = service.getIdPj(pessoa.getId());
         if(!cliente.isPresent())

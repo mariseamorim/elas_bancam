@@ -32,8 +32,6 @@ public class ContaService {
             Conta objetoContaOrigem = contaOrigem.get();
             Conta objetoContaDestino = contaDestino.get();
 
-            System.out.println(objetoContaOrigem.getSaldo().floatValue());
-
             if(objetoContaOrigem.getSaldo().compareTo(valor) >= 0) {
                 objetoContaOrigem.setSaldo(objetoContaOrigem.getSaldo().subtract(valor));
                 objetoContaDestino.setSaldo(objetoContaDestino.getSaldo().add(valor));

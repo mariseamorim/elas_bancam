@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.*;
 
 @AllArgsConstructor
@@ -26,8 +27,8 @@ public class TransacoesService {
         return _repositoryTransacao.findByType(tipoTransacao.toString());
     }
 
-    public List<Transacao> getByDate(String dataInicial, String dataFinal){
-        return _repositoryTransacao.findByDate(dataInicial, dataFinal);
+    public List<Transacao> getByDate(LocalDate dataInicial, LocalDate dataFinal){
+        return _repositoryTransacao.findByDate(dataInicial, dataFinal.plusDays(1));
     }
 
     public List<Transacao> getByAccount(String id){

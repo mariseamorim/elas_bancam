@@ -9,7 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
@@ -44,7 +44,7 @@ public class Transacao {
     @Setter
     @Column(nullable = false)
     @CreationTimestamp
-    private Date data;
+    private LocalDateTime data;
 
     @Getter
     @Setter

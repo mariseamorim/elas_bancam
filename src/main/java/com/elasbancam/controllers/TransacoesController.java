@@ -21,7 +21,7 @@ public class TransacoesController {
     private TransacoesService service;
 
     @PostMapping
-    public ResponseEntity<Optional<Transacao>> create(@RequestBody Transacao transacao){
+    public ResponseEntity<Transacao> create(@RequestBody Transacao transacao){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(transacao));
     }
 

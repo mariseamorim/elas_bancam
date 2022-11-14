@@ -17,10 +17,9 @@ public class TransacoesService {
     private ContaService contaService;
 
     @Transactional
-    public Optional<Transacao> create(Transacao transacao) {
+    public Transacao create(Transacao transacao) {
         contaService.updateSaldo(transacao);
-        Transacao transacaoCriada = _repositoryTransacao.save(transacao);
-        return getById(transacaoCriada.getId());
+        return _repositoryTransacao.save(transacao);
     }
 
     public List<Transacao> getByType(TipoTransacao tipoTransacao){

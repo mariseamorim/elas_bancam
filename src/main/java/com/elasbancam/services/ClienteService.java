@@ -1,5 +1,7 @@
 package com.elasbancam.services;
 
+import com.elasbancam.exceptions.ContaNaoExistenteException;
+import com.elasbancam.exceptions.UpdateInvalidoException;
 import com.elasbancam.models.PessoaFisica;
 import com.elasbancam.models.PessoaJuridica;
 import com.elasbancam.repositories.PessoaFisicaRepository;
@@ -8,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,13 +47,17 @@ public class ClienteService {
         return object;
     }
 
-    public Optional<PessoaFisica> getId(Long idCliente){
-       return  _repositoryPessoaFisica.findById(idCliente);
-
+    public Optional<PessoaFisica> getId(Long idCliente) throws ContaNaoExistenteException {
+        Optional<PessoaFisica> obj = _repositoryPessoaFisica.findById(idCliente);
+       return Optional.ofNullable(obj.orElseThrow(() -> new ContaNaoExistenteException(idCliente)));
     }
 
-    public PessoaFisica update(PessoaFisica cliente) {
-        return _repositoryPessoaFisica.save(cliente);
+    public PessoaFisica update(PessoaFisica cliente) throws UpdateInvalidoException {
+        try {
+            return _repositoryPessoaFisica.save(cliente);
+    } catch (RuntimeException e) {
+        throw new UpdateInvalidoException(cliente);
+        }
     }
 
     @Transactional

@@ -1,5 +1,7 @@
 package com.elasbancam.controllers;
 
+import com.elasbancam.exceptions.ContaNaoExistenteException;
+import com.elasbancam.exceptions.UpdateInvalidoException;
 import com.elasbancam.models.PessoaFisica;
 import com.elasbancam.models.PessoaJuridica;
 import com.elasbancam.services.ClienteService;
@@ -34,29 +36,32 @@ public class ClientesController {
     }
 
     @GetMapping("/{id}")
-    public Optional<PessoaFisica> getId(@PathVariable Long id){
+    public Optional<PessoaFisica> getId(@PathVariable Long id) throws ContaNaoExistenteException {
         return  service.getId(id);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@RequestBody PessoaFisica cliente, @PathVariable Long id ){
+    public Object update(@RequestBody PessoaFisica cliente, @PathVariable Long id) throws ContaNaoExistenteException, UpdateInvalidoException {
         var cli = service.getId(id);
-        if(!cli.isPresent())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
+        if (!cli.isPresent())
+            return service.getId(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(service.update(cliente));
     }
-
-    //Mudar para PUT (/delete/{id})
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id ){
-        var cli = service.getId(id);
-        if(!cli.isPresent())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-        service.deletar(id);
-
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
-
 }
+
+
+//
+//    //Mudar para PUT (/delete/{id})
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> delete(@PathVariable Long id ){
+//        var cli = service.getId(id);
+//        if(!cli.isPresent())
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//
+//        service.deletar(id);
+//
+//        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+//    }
+//
+//}

@@ -1,6 +1,7 @@
 package com.elasbancam.models;
 
 import com.elasbancam.enums.TipoOperacao;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -37,6 +39,14 @@ public class Conta {
 
     @Column(nullable = false)
     private boolean status = true;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "conta_origem")
+    private List<Transacao> transacoesContaOrigem;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "conta_destino")
+    private List<Transacao> transacoesContaDestino;
 
     @Override
     public boolean equals(Object o) {

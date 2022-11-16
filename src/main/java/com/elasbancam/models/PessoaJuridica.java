@@ -2,6 +2,7 @@ package com.elasbancam.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CNPJ;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,6 +20,7 @@ public class PessoaJuridica extends Pessoa{
     private String inscricao_estadual;
 
     @Column(length = 14, unique = true, nullable = false)
+    @CNPJ
     private String cnpj;
 
     @Column(length = 50, nullable = false)

@@ -15,5 +15,4 @@ public interface PessoaFisicaRepository extends JpaRepository<PessoaFisica, Long
 
     @Query(value = "SELECT * FROM pessoa_fisica p WHERE p.id = ?1 AND p.status = 1", nativeQuery = true)
     Optional<PessoaFisica> findById(Long id);
-
 }

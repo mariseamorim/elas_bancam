@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @Component
-
 public class ClienteMapper {
     private ModelMapper modelMapper;
 
@@ -47,8 +46,8 @@ public class ClienteMapper {
         return modelMapper.map(pessoaJuridicaDtoInput, PessoaJuridica.class);
     }
 
-    public void toEntityUpdatePf( PessoaFisicaUpdateDto pessoaFisicaUpdateDto, PessoaFisica pessoaFisica) {
-        modelMapper.map( pessoaFisicaUpdateDto, pessoaFisica);
+    public void toEntityUpdatePf(PessoaFisicaUpdateDto pessoaFisicaUpdateDto, PessoaFisica pessoaFisica) {
+        modelMapper.map(pessoaFisicaUpdateDto, pessoaFisica);
     }
 
     public void toEntityUpdatePj(PessoaJuridicaUpdateDto pessoaFisicaUpdateDto, PessoaJuridica pessoaJuridica) {

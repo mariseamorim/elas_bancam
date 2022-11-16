@@ -12,7 +12,6 @@ import javax.validation.constraints.Size;
 @Getter
 @Setter
 public class PessoaJuridicaUpdateDto {
-
     @Valid
     @NotNull
     private Long id;
@@ -47,5 +46,4 @@ public class PessoaJuridicaUpdateDto {
     private String celular;
 
     private EndereDto endereco;
-
 }

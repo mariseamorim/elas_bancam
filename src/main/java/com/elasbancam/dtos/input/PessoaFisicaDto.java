@@ -13,7 +13,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class PessoaFisicaDto {
-
     @Valid
     @Size(max = 20)
     @NotBlank
@@ -27,10 +26,12 @@ public class PessoaFisicaDto {
     @NotNull
     @Past
     private LocalDate dt_nascimento;
+
     @Valid
     @NotBlank
     @NotNull
     private String nome;
+
     @Valid
     @NotBlank
     @Email
@@ -49,7 +50,5 @@ public class PessoaFisicaDto {
     @NotBlank
     private String nome_mae;
 
-
     private Genero genero;
-
 }

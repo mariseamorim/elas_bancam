@@ -21,14 +21,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/cliente")
 public class ClientesController {
-
     private ClienteService service;
 
     private ClienteMapper clienteMapper;
 
-
     @PostMapping("/pf")
-
     public ResponseEntity<Object> post(@RequestBody @Valid  PessoaFisicaDto pessoaFisicaDto){
         PessoaFisica novoCliente = clienteMapper.toEntityPf(pessoaFisicaDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(service.savePf(novoCliente));
@@ -64,7 +61,7 @@ public class ClientesController {
         if(!cliente.isPresent())
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
         clienteMapper.toEntityUpdatePf(pessoa, cliente.get());
-       return ResponseEntity.status(HttpStatus.OK).body(service.updatePf(cliente.get()));
+        return ResponseEntity.status(HttpStatus.OK).body(service.updatePf(cliente.get()));
     }
     @PutMapping("/pj")
     public ResponseEntity<Object> updatePj(@RequestBody PessoaJuridicaUpdateDto pessoa ){
@@ -74,7 +71,6 @@ public class ClientesController {
         clienteMapper.toEntityUpdatePj(pessoa, cliente.get());
         return ResponseEntity.status(HttpStatus.OK).body(service.updatePj(cliente.get()));
     }
-
 
     @PutMapping("delete/{id}")
     public ResponseEntity<Void> inactive(@PathVariable Long id ){

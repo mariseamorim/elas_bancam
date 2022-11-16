@@ -14,12 +14,15 @@ public class PessoaFisicaUpdateDto {
     @Valid
     @NotNull
     private Long id;
+
     @Past
     @NotNull
     private LocalDate dt_nascimento;
+
     @Valid
     @NotBlank
     private String nome;
+
     @Valid
     @NotBlank
     @Email

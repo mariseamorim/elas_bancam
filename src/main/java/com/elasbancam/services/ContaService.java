@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -20,22 +22,31 @@ public class ContaService {
     }
 
     @Transactional
-    public void updateSaldo(Transacao transacao) {
-        String conta_origem_id = transacao.getConta_origem_id().getId();
-        String conta_destino_id = transacao.getConta_destino_id().getId();
-        BigDecimal valor = transacao.getValor();
+    public List<Conta> updateSaldo(Transacao transacao) {
+        List<Conta> listaContas = new ArrayList<>();
+        try {
+            String idContaOrigem = transacao.getConta_origem().getId();
+            String idContaDestino = transacao.getConta_destino().getId();
+            BigDecimal valor = transacao.getValor();
 
-        Optional<Conta> contaOrigem = getById(conta_origem_id);
-        Optional<Conta> contaDestino = getById(conta_destino_id);
+            Optional<Conta> contaOrigem = getById(idContaOrigem);
+            Optional<Conta> contaDestino = getById(idContaDestino);
 
-        if(contaOrigem.isPresent() && contaDestino.isPresent()) {
-            Conta objetoContaOrigem = contaOrigem.get();
-            Conta objetoContaDestino = contaDestino.get();
+            if(contaOrigem.isPresent() && contaDestino.isPresent()) {
+                Conta objetoContaOrigem = contaOrigem.get();
+                Conta objetoContaDestino = contaDestino.get();
 
-            if(objetoContaOrigem.getSaldo().compareTo(valor) >= 0) {
-                objetoContaOrigem.setSaldo(objetoContaOrigem.getSaldo().subtract(valor));
-                objetoContaDestino.setSaldo(objetoContaDestino.getSaldo().add(valor));
+                if(objetoContaOrigem.getSaldo().compareTo(valor) >= 0) {
+                    objetoContaOrigem.setSaldo(objetoContaOrigem.getSaldo().subtract(valor));
+                    objetoContaDestino.setSaldo(objetoContaDestino.getSaldo().add(valor));
+                }
+
+                listaContas.add(contaOrigem.get());
+                listaContas.add(contaDestino.get());
             }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+        return listaContas;
     }
 }

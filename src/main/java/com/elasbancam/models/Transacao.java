@@ -26,13 +26,13 @@ public class Transacao {
     @Getter
     @Setter
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "conta_origem", referencedColumnName = "id")
+    @JoinColumn(name = "conta_origem_id", referencedColumnName = "id")
     private Conta conta_origem;
 
     @Getter
     @Setter
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "conta_destino", referencedColumnName = "id")
+    @JoinColumn(name = "conta_destino_id", referencedColumnName = "id")
     private Conta conta_destino;
 
     @Getter

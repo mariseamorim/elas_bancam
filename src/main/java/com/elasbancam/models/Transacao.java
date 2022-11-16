@@ -10,6 +10,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
@@ -25,14 +26,14 @@ public class Transacao {
     @Getter
     @Setter
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "conta_origem_id", referencedColumnName = "id")
-    private Conta conta_origem_id;
+    @JoinColumn(name = "conta_origem", referencedColumnName = "id")
+    private Conta conta_origem;
 
     @Getter
     @Setter
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "conta_destino_id", referencedColumnName = "id")
-    private Conta conta_destino_id;
+    @JoinColumn(name = "conta_destino", referencedColumnName = "id")
+    private Conta conta_destino;
 
     @Getter
     @Setter
@@ -55,4 +56,17 @@ public class Transacao {
     @Setter
     @Column()
     private String descricao;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transacao transacao = (Transacao) o;
+        return Objects.equals(id, transacao.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

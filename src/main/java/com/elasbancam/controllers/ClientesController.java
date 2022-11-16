@@ -1,7 +1,6 @@
 package com.elasbancam.controllers;
 
-import com.elasbancam.exceptions.ContaNaoExistenteException;
-import com.elasbancam.exceptions.UpdateInvalidoException;
+import com.elasbancam.exceptions.IDNaoExistenteException;
 import com.elasbancam.models.PessoaFisica;
 import com.elasbancam.models.PessoaJuridica;
 import com.elasbancam.services.ClienteService;
@@ -10,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 @AllArgsConstructor
@@ -20,13 +20,13 @@ public class ClientesController {
     private ClienteService service;
 
     @PostMapping("/pf")
-    public ResponseEntity<Object> post(@RequestBody PessoaFisica pessoaFisica){
+    public ResponseEntity<Object> post(@RequestBody @Valid PessoaFisica pessoaFisica){
 
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(pessoaFisica));
     }
 
     @PostMapping("/pj")
-    public  ResponseEntity<Object> post (@RequestBody PessoaJuridica pessoaJuridica){
+    public  ResponseEntity<Object> post (@RequestBody @Valid PessoaJuridica pessoaJuridica){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(pessoaJuridica));
     }
 
@@ -36,16 +36,15 @@ public class ClientesController {
     }
 
     @GetMapping("/{id}")
-    public Optional<PessoaFisica> getId(@PathVariable Long id) throws ContaNaoExistenteException {
+    public Optional<PessoaFisica> getId(@PathVariable Long id) throws IDNaoExistenteException {
         return  service.getId(id);
     }
 
     @PutMapping("/{id}")
-    public Object update(@RequestBody PessoaFisica cliente, @PathVariable Long id) throws ContaNaoExistenteException, UpdateInvalidoException {
+    public Object update(@RequestBody PessoaFisica cliente, @PathVariable Long id) throws IDNaoExistenteException {
         var cli = service.getId(id);
         if (!cli.isPresent())
             return service.getId(id);
-
         return ResponseEntity.status(HttpStatus.OK).body(service.update(cliente));
     }
 }

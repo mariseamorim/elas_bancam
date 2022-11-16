@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,7 +24,11 @@ public class TransacoesController {
     @PostMapping
     public ResponseEntity<Transacao> post(@RequestBody Transacao transacao){
         System.out.println(transacao.getTipo_transacao());
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(transacao));
+        Calendar now = new GregorianCalendar();
+        int nowHour = now.get(Calendar.HOUR);
+        if (nowHour > 8 && nowHour < 19)
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.save(transacao));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
     @GetMapping("/tipo/{tipoTransacao}")

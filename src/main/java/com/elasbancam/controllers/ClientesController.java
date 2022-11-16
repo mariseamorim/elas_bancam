@@ -5,11 +5,17 @@ import com.elasbancam.models.PessoaFisica;
 import com.elasbancam.models.PessoaJuridica;
 import com.elasbancam.services.ClienteService;
 import lombok.AllArgsConstructor;
+import org.joda.time.DateTime;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.joda.time.Days;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 @AllArgsConstructor
@@ -21,8 +27,12 @@ public class ClientesController {
 
     @PostMapping("/pf")
     public ResponseEntity<Object> post(@RequestBody @Valid PessoaFisica pessoaFisica){
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(pessoaFisica));
+        LocalDate dt_nascimento = pessoaFisica.getDt_nascimento();
+        Date date = new Date(System.currentTimeMillis());
+        int days = Days.daysBetween(new DateTime(dt_nascimento), new DateTime(date)).getDays();
+        if (days > 17)
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.save(pessoaFisica));
+        return ResponseEntity.badRequest().build();
     }
 
     @PostMapping("/pj")

@@ -27,68 +27,114 @@ public class ClienteService {
 
     @Transactional
     public PessoaFisica savePf(PessoaFisica pessoaFisica) {
-        
-        return _repositoryPessoaFisica.save(pessoaFisica);
+        PessoaFisica resposta = new PessoaFisica();
+        try {
+            resposta = _repositoryPessoaFisica.save(pessoaFisica);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return resposta;
     }
 
     @Transactional
     public PessoaJuridica savePj(PessoaJuridica pessoaJuridica) {
-        return _repositoryPessoaJuridica.save(pessoaJuridica);
+        PessoaJuridica resposta = new PessoaJuridica();
+        try {
+            resposta = _repositoryPessoaJuridica.save(pessoaJuridica);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return resposta;
     }
 
     public List<Object> getAll() {
         List<Object> object = new ArrayList<Object>();
-        var pf = _repositoryPessoaFisica.findAll();
-        var pj = _repositoryPessoaJuridica.findAll();
-        object.add(pf);
-        object.add(pj);
+        try {
+            var pf = _repositoryPessoaFisica.findAll();
+            var pj = _repositoryPessoaJuridica.findAll();
+            object.add(pf);
+            object.add(pj);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
         return object;
     }
 
     public Optional<PessoaFisica> getIdPf(Long idCliente) {
-        return _repositoryPessoaFisica.findById(idCliente);
-
+        Optional<PessoaFisica> resposta = Optional.of(new PessoaFisica());
+        try {
+            resposta = _repositoryPessoaFisica.findById(idCliente);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return resposta;
     }
 
     public Optional<PessoaJuridica> getIdPj(Long idCliente) {
-        return _repositoryPessoaJuridica.findById(idCliente);
-
+        Optional<PessoaJuridica> resposta = Optional.of(new PessoaJuridica());
+        try {
+            resposta = _repositoryPessoaJuridica.findById(idCliente);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return resposta;
     }
 
     public Object getIdPjOrPf(Long idCliente) {
-        var pessoaFisica = getIdPf(idCliente);
-        var pessoaJuridica = getIdPj(idCliente);
-        if (pessoaFisica.isPresent()) {
-            return pessoaFisica.get();
+        Object object = new Object();
+        try {
+            Optional<PessoaFisica> pessoaFisica = getIdPf(idCliente);
+            Optional<PessoaJuridica> pessoaJuridica = getIdPj(idCliente);
+            if (pessoaFisica.isPresent()) {
+                object = pessoaFisica.get();
+            }
+            if (pessoaJuridica.isPresent()) {
+                object = pessoaJuridica.get();
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        if (pessoaJuridica.isPresent()) {
-            return pessoaJuridica.get();
-        }
-        return null;
+        return object;
     }
 
     public PessoaFisica updatePf(PessoaFisica cliente) {
-        return _repositoryPessoaFisica.save(cliente);
+        PessoaFisica resposta = new PessoaFisica();
+        try {
+            resposta = _repositoryPessoaFisica.save(cliente);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return resposta;
     }
 
     public Pessoa updatePj(PessoaJuridica cliente) {
-        return _repositoryPessoaJuridica.save(cliente);
+        PessoaJuridica resposta = new PessoaJuridica();
+        try {
+            resposta = _repositoryPessoaJuridica.save(cliente);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return resposta;
     }
-
 
     @Transactional
     public void inactivePf(PessoaFisica pessoaFisica) {
-        pessoaFisica.setStatus(false);
-        pessoaFisica.setAlterado_em(LocalDateTime.now());
-        savePf(pessoaFisica);
+        try {
+            pessoaFisica.setStatus(false);
+            pessoaFisica.setAlterado_em(LocalDateTime.now());
+            savePf(pessoaFisica);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public void inactivePJ(PessoaJuridica pessoaJuridica) {
-        pessoaJuridica.setStatus(false);
-        pessoaJuridica.setAlterado_em(LocalDateTime.now());
-        savePj(pessoaJuridica);
-
+        try {
+            pessoaJuridica.setStatus(false);
+            pessoaJuridica.setAlterado_em(LocalDateTime.now());
+            savePj(pessoaJuridica);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
-
-
 }

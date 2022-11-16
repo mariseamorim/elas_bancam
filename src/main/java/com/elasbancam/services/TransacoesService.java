@@ -19,26 +19,57 @@ public class TransacoesService {
 
     @Transactional
     public Transacao create(Transacao transacao) {
-        contaService.updateSaldo(transacao);
-        return _repositoryTransacao.save(transacao);
+        Transacao resposta = new Transacao();
+        try {
+            List<Conta> contas = contaService.updateSaldo(transacao);
+            transacao.setConta_origem(contas.get(0));
+            transacao.setConta_destino(contas.get(1));
+            resposta =  _repositoryTransacao.save(transacao);
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return resposta;
     }
 
     public List<Transacao> getByType(TipoTransacao tipoTransacao){
-        return _repositoryTransacao.findByType(tipoTransacao.toString());
+        List<Transacao> resposta = new ArrayList<>();
+        try {
+            resposta = _repositoryTransacao.findByType(tipoTransacao.toString());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return resposta;
     }
 
     public List<Transacao> getByDate(LocalDate dataInicial, LocalDate dataFinal){
-        return _repositoryTransacao.findByDate(dataInicial, dataFinal.plusDays(1));
+        List<Transacao> resposta = new ArrayList<>();
+        try {
+            resposta = _repositoryTransacao.findByDate(dataInicial, dataFinal.plusDays(1));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return resposta;
     }
 
     public List<Transacao> getByAccount(String id){
-        Optional<Conta> contaExiste = contaService.getById(id);
-        //Validar id passado através do service de conta (CRIAR IF QUANDO TIVER A EXCEPTION)
-        return _repositoryTransacao.findByAccount(id);
+        List<Transacao> resposta = new ArrayList<>();
+        try {
+            Optional<Conta> contaExiste = contaService.getById(id);
+            //Validar id passado através do service de conta (CRIAR IF QUANDO TIVER A EXCEPTION)
+            resposta = _repositoryTransacao.findByAccount(id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return resposta;
     }
 
     public Optional<Transacao> getById(String id){
-        return _repositoryTransacao.findById(id);
+        Optional<Transacao> resposta = Optional.of(new Transacao());
+        try {
+            resposta = _repositoryTransacao.findById(id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return resposta;
     }
-
 }

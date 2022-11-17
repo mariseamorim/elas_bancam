@@ -1,5 +1,6 @@
 package com.elasbancam.services;
 
+import com.elasbancam.exceptions.NegocioException;
 import com.elasbancam.models.Pessoa;
 import com.elasbancam.models.PessoaFisica;
 import com.elasbancam.models.PessoaJuridica;
@@ -27,24 +28,29 @@ public class ClienteService {
 
     @Transactional
     public PessoaFisica savePf(PessoaFisica pessoaFisica) {
-        PessoaFisica resposta = new PessoaFisica();
         try {
-            resposta = _repositoryPessoaFisica.save(pessoaFisica);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            PessoaFisica pessoaCadastrada = _repositoryPessoaFisica.save(pessoaFisica);
+            if(pessoaCadastrada == null) {
+                throw new NegocioException("Não foi possível concluir o cadastro.");
+            }
+            return pessoaCadastrada;
+        } catch(NegocioException negocioException) {
+            throw new NegocioException(negocioException.getMessage());
         }
-        return resposta;
     }
 
     @Transactional
     public PessoaJuridica savePj(PessoaJuridica pessoaJuridica) {
         PessoaJuridica resposta = new PessoaJuridica();
         try {
-            resposta = _repositoryPessoaJuridica.save(pessoaJuridica);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            PessoaJuridica pessoaCadastrada = _repositoryPessoaJuridica.save(pessoaJuridica);
+            if(pessoaCadastrada == null) {
+                throw new NegocioException("Não foi possível concluir o cadastro.");
+            }
+            return pessoaCadastrada;
+        } catch(NegocioException negocioException) {
+            throw new NegocioException(negocioException.getMessage());
         }
-        return resposta;
     }
 
     public List<Object> getAll() {
@@ -54,30 +60,29 @@ public class ClienteService {
             var pj = _repositoryPessoaJuridica.findAll();
             object.add(pf);
             object.add(pj);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            if(object.isEmpty()){
+                throw new NegocioException("Não há nenhum cliente cadastrado.");
+            }
+            return object;
+        } catch(NegocioException negocioException) {
+            throw new NegocioException(negocioException.getMessage());
         }
-        return object;
     }
 
     public Optional<PessoaFisica> getIdPf(Long idCliente) {
-        Optional<PessoaFisica> resposta = Optional.of(new PessoaFisica());
         try {
-            resposta = _repositoryPessoaFisica.findById(idCliente);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return  _repositoryPessoaFisica.findById(idCliente);
+        } catch(NegocioException negocioException) {
+            throw new NegocioException(negocioException.getMessage());
         }
-        return resposta;
     }
 
     public Optional<PessoaJuridica> getIdPj(Long idCliente) {
-        Optional<PessoaJuridica> resposta = Optional.of(new PessoaJuridica());
         try {
-            resposta = _repositoryPessoaJuridica.findById(idCliente);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            return _repositoryPessoaJuridica.findById(idCliente);
+        } catch(NegocioException negocioException) {
+            throw new NegocioException(negocioException.getMessage());
         }
-        return resposta;
     }
 
     public Object getIdPjOrPf(Long idCliente) {
@@ -91,30 +96,43 @@ public class ClienteService {
             if (pessoaJuridica.isPresent()) {
                 object = pessoaJuridica.get();
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            if(object == null) {
+                throw new NegocioException("Cliente não encontrado (ID:  " + idCliente + ").");
+            }
+            return object;
+        } catch(NegocioException negocioException) {
+            throw new NegocioException(negocioException.getMessage());
         }
-        return object;
     }
 
     public PessoaFisica updatePf(PessoaFisica cliente) {
-        PessoaFisica resposta = new PessoaFisica();
         try {
-            resposta = _repositoryPessoaFisica.save(cliente);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            if(cliente == null) {
+                throw new NegocioException("Cliente não encontrado (ID:  " + cliente.getId() + ").");
+            }
+            PessoaFisica pessoaFisica = _repositoryPessoaFisica.save(cliente);
+            if(pessoaFisica == null){
+                throw new NegocioException("Não foi possível concluir a atualização do cliente.");
+            }
+            return pessoaFisica;
+        } catch(NegocioException negocioException) {
+            throw new NegocioException(negocioException.getMessage());
         }
-        return resposta;
     }
 
     public Pessoa updatePj(PessoaJuridica cliente) {
-        PessoaJuridica resposta = new PessoaJuridica();
         try {
-            resposta = _repositoryPessoaJuridica.save(cliente);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            if(cliente == null) {
+                throw new NegocioException("Cliente não encontrado (ID:  " + cliente.getId() + ").");
+            }
+            PessoaJuridica pessoaJuridica = _repositoryPessoaJuridica.save(cliente);
+            if(pessoaJuridica == null){
+                throw new NegocioException("Não foi possível concluir a atualização do cliente.");
+            }
+            return pessoaJuridica;
+        } catch(NegocioException negocioException) {
+            throw new NegocioException(negocioException.getMessage());
         }
-        return resposta;
     }
 
     @Transactional
@@ -122,9 +140,12 @@ public class ClienteService {
         try {
             pessoaFisica.setStatus(false);
             pessoaFisica.setAlterado_em(LocalDateTime.now());
-            savePf(pessoaFisica);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            PessoaFisica pessoa = savePf(pessoaFisica);
+            if (pessoa == null) {
+                throw new NegocioException("Não foi possível inativar o cliente (ID: " + pessoaFisica.getId() + ").");
+            }
+        } catch(NegocioException negocioException) {
+            throw new NegocioException(negocioException.getMessage());
         }
     }
 
@@ -132,9 +153,12 @@ public class ClienteService {
         try {
             pessoaJuridica.setStatus(false);
             pessoaJuridica.setAlterado_em(LocalDateTime.now());
-            savePj(pessoaJuridica);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            PessoaJuridica pessoa = savePj(pessoaJuridica);
+            if (pessoa == null) {
+                throw new NegocioException("Não foi possível inativar o cliente (ID: " + pessoaJuridica.getId() + ").");
+            }
+        } catch(NegocioException negocioException) {
+            throw new NegocioException(negocioException.getMessage());
         }
     }
 }

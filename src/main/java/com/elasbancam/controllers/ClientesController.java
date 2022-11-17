@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -40,52 +41,37 @@ public class ClientesController {
 
     @GetMapping("/todos")
     public ResponseEntity<List<Object>> getAll(){
-        var clientes = service.getAll();
-        return ResponseEntity.status(HttpStatus.OK).body(clientes);
-
+        return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getId(@PathVariable Long id){
-        Object cliente= service.getIdPjOrPf(id);
-        if(ObjectUtils.isEmpty(cliente)){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado.");
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(cliente);
+        return ResponseEntity.status(HttpStatus.OK).body(service.getIdPjOrPf(id));
     }
 
     @PutMapping("/pf")
     public ResponseEntity<Object> updatePf(@RequestBody PessoaFisicaUpdateDto pessoa){
-        var cliente = service.getIdPf(pessoa.getId());
-        if(!cliente.isPresent())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
+        Optional<PessoaFisica> cliente = service.getIdPf(pessoa.getId());
         clienteMapper.toEntityUpdatePf(pessoa, cliente.get());
         return ResponseEntity.status(HttpStatus.OK).body(service.updatePf(cliente.get()));
     }
     @PutMapping("/pj")
     public ResponseEntity<Object> updatePj(@RequestBody PessoaJuridicaUpdateDto pessoa ){
-        var cliente = service.getIdPj(pessoa.getId());
-        if(!cliente.isPresent())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
+        Optional<PessoaJuridica> cliente = service.getIdPj(pessoa.getId());
         clienteMapper.toEntityUpdatePj(pessoa, cliente.get());
         return ResponseEntity.status(HttpStatus.OK).body(service.updatePj(cliente.get()));
     }
 
     @PutMapping("delete/{id}")
     public ResponseEntity<Void> inactive(@PathVariable Long id ){
-        var clientePf = service.getIdPf(id);
-        var clientePj = service.getIdPj(id);
+        Optional<PessoaFisica> clientePf = service.getIdPf(id);
+        Optional<PessoaJuridica> clientePj = service.getIdPj(id);
 
-        if(!clientePf.isPresent() && !clientePj.isPresent())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         if(clientePf.isPresent()){
             service.inactivePf(clientePf.get());
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
         service.inactivePJ(clientePj.get());
-
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-
 }

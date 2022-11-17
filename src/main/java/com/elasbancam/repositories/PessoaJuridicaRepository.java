@@ -15,4 +15,10 @@ public interface PessoaJuridicaRepository extends JpaRepository<PessoaJuridica, 
 
     @Query(value = "SELECT * FROM pessoa_juridica  p WHERE p.id = ?1 and p.status = 1", nativeQuery = true)
     Optional<PessoaJuridica> findById(Long id);
+
+    @Query(value = "SELECT * FROM pessoa_juridica  p WHERE p.cnpj = ?1", nativeQuery = true)
+    Optional<PessoaJuridica> findByCNPJ(String CNPJ);
+
+    @Query(value = "SELECT * FROM pessoa_juridica  p WHERE p.inscricao_estadual = ?1", nativeQuery = true)
+    Optional<PessoaJuridica> findByInscricao(String inscricaoEstadual);
 }

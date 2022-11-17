@@ -48,9 +48,9 @@ public class ClientesController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> getId(@PathVariable Long id){
         Object cliente= service.getIdPjOrPf(id);
-        if(ObjectUtils.isEmpty(cliente)){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado.");
-        }
+//        if(ObjectUtils.isEmpty(cliente)){
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado.");
+//        }
 
         return ResponseEntity.status(HttpStatus.OK).body(cliente);
     }
@@ -58,16 +58,16 @@ public class ClientesController {
     @PutMapping("/pf")
     public ResponseEntity<Object> updatePf(@RequestBody PessoaFisicaUpdateDto pessoa){
         var cliente = service.getIdPf(pessoa.getId());
-        if(!cliente.isPresent())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
+//        if(!cliente.isPresent())
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
         clienteMapper.toEntityUpdatePf(pessoa, cliente.get());
         return ResponseEntity.status(HttpStatus.OK).body(service.updatePf(cliente.get()));
     }
     @PutMapping("/pj")
     public ResponseEntity<Object> updatePj(@RequestBody PessoaJuridicaUpdateDto pessoa ){
         var cliente = service.getIdPj(pessoa.getId());
-        if(!cliente.isPresent())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
+//        if(!cliente.isPresent())
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado");
         clienteMapper.toEntityUpdatePj(pessoa, cliente.get());
         return ResponseEntity.status(HttpStatus.OK).body(service.updatePj(cliente.get()));
     }
@@ -77,8 +77,8 @@ public class ClientesController {
         var clientePf = service.getIdPf(id);
         var clientePj = service.getIdPj(id);
 
-        if(!clientePf.isPresent() && !clientePj.isPresent())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+//        if(!clientePf.isPresent() && !clientePj.isPresent())
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         if(clientePf.isPresent()){
             service.inactivePf(clientePf.get());
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

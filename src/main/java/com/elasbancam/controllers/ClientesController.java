@@ -9,7 +9,6 @@ import com.elasbancam.models.PessoaFisica;
 import com.elasbancam.models.PessoaJuridica;
 import com.elasbancam.services.ClienteService;
 import lombok.AllArgsConstructor;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,15 +50,11 @@ public class ClientesController {
 
     @PutMapping("/pf")
     public ResponseEntity<Object> updatePf(@RequestBody PessoaFisicaUpdateDto pessoa){
-        Optional<PessoaFisica> cliente = service.getIdPf(pessoa.getId());
-        clienteMapper.toEntityUpdatePf(pessoa, cliente.get());
-        return ResponseEntity.status(HttpStatus.OK).body(service.updatePf(cliente.get()));
+        return ResponseEntity.status(HttpStatus.OK).body(service.updatePf(pessoa));
     }
     @PutMapping("/pj")
-    public ResponseEntity<Object> updatePj(@RequestBody PessoaJuridicaUpdateDto pessoa ){
-        Optional<PessoaJuridica> cliente = service.getIdPj(pessoa.getId());
-        clienteMapper.toEntityUpdatePj(pessoa, cliente.get());
-        return ResponseEntity.status(HttpStatus.OK).body(service.updatePj(cliente.get()));
+    public ResponseEntity<Object> updatePj(@RequestBody PessoaJuridicaUpdateDto pessoa){
+        return ResponseEntity.status(HttpStatus.OK).body(service.updatePj(pessoa));
     }
 
     @PutMapping("delete/{id}")

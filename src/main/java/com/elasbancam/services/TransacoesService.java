@@ -62,7 +62,7 @@ public class TransacoesService {
             contaService.getById(id);
             List<Transacao> transacoes = _repositoryTransacao.findByAccount(id);
             if(transacoes.isEmpty()){
-                throw new NegocioException("Não foi encontrada nenhuma transação para a conta informada (ID: " + id + ").");
+                throw new NegocioException("Nenhuma transação encontrada para a conta informada (ID: " + id + ").");
             }
 
             return transacoes;

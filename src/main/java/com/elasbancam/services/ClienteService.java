@@ -85,7 +85,7 @@ public class ClienteService {
             object.add(pf);
             object.add(pj);
             if(object.isEmpty()){
-                throw new NegocioException("Não há nenhum cliente cadastrado.");
+                throw new NegocioException("Ainda não há nenhum cliente cadastrado.");
             }
             return object;
         } catch(NegocioException negocioException) {
@@ -116,7 +116,7 @@ public class ClienteService {
             Optional<PessoaJuridica> pessoaJuridica = getIdPj(idCliente);
 
             if(pessoaFisica.isEmpty() && pessoaJuridica.isEmpty()){
-                throw new NegocioException("Cliente não encontrado (ID:  " + idCliente + ").");
+                throw new NegocioException("Cliente não encontrado ou inativo (ID:  " + idCliente + ").");
             }
 
             if (pessoaFisica.isPresent()) {
@@ -135,7 +135,7 @@ public class ClienteService {
         try {
             Optional<PessoaFisica> clienteExiste = getIdPf(pessoa.getId());
             if(clienteExiste.isEmpty()) {
-                throw new NegocioException("Cliente não encontrado (ID:  " + pessoa.getId() + ").");
+                throw new NegocioException("Cliente não encontrado ou inativo (ID:  " + pessoa.getId() + ").");
             }
             clienteMapper.toEntityUpdatePf(pessoa, clienteExiste.get());
 
@@ -153,7 +153,7 @@ public class ClienteService {
         try {
             Optional<PessoaJuridica> clienteExiste = getIdPj(pessoa.getId());
             if(clienteExiste.isEmpty()) {
-                throw new NegocioException("Cliente não encontrado (ID:  " + pessoa.getId() + ").");
+                throw new NegocioException("Cliente não encontrado ou inativo (ID:  " + pessoa.getId() + ").");
             }
             clienteMapper.toEntityUpdatePj(pessoa, clienteExiste.get());
 
@@ -171,7 +171,7 @@ public class ClienteService {
     public void inactivePf(PessoaFisica pessoaFisica) {
         try {
             if(pessoaFisica == null) {
-                throw new NegocioException("Cliente não encontrado (ID:  " + pessoaFisica.getId() + ").");
+                throw new NegocioException("Cliente não encontrado ou já inativo (ID:  " + pessoaFisica.getId() + ").");
             }
             pessoaFisica.setStatus(false);
             pessoaFisica.setAlterado_em(LocalDateTime.now());
@@ -187,7 +187,7 @@ public class ClienteService {
     public void inactivePJ(PessoaJuridica pessoaJuridica) {
         try {
             if(pessoaJuridica == null) {
-                throw new NegocioException("Cliente não encontrado (ID:  " + pessoaJuridica.getId() + ").");
+                throw new NegocioException("Cliente não encontrado ou já inativo (ID:  " + pessoaJuridica.getId() + ").");
             }
             pessoaJuridica.setStatus(false);
             pessoaJuridica.setAlterado_em(LocalDateTime.now());

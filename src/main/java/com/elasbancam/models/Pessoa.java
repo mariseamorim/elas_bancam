@@ -8,6 +8,9 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+// Classe mãe definida para aplicar o conceito de herança nos models de PessoaFisica e PessoaJuridica.
+// Getters e Setters não foram definidos globalmente na classe para que não seja possível alterar o id.
+
 @MappedSuperclass
 public abstract  class Pessoa {
     @Id

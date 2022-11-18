@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// Os métodos das camadas de service fazem validações de regras de negócio e lançam erros para que os
+// controllers os tratem.
 
 @AllArgsConstructor
 @Component
@@ -84,9 +86,6 @@ public class ClienteService {
         List<PessoaJuridica> pj = _repositoryPessoaJuridica.findAll();
         object.add(pf);
         object.add(pj);
-//        if (object.isEmpty()) {
-//            throw new NegocioException("Ainda não há nenhum cliente cadastrado.");
-//        }
         return object;
     }
 

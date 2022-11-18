@@ -6,9 +6,12 @@ import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+// A documentação feita pelo Swagger pode ser consultada pelo link a seguir, desde que o programa esteja
+// rodando: http://localhost:8080/swagger-ui/index.html#
+
 @SpringBootApplication
 @OpenAPIDefinition(
-		info = @Info(title = "Api de ElasBancam", version = "3.0.1", description = "API do  Projeto Integrador "),
+		info = @Info(title = "Api de ElasBancam", version = "1.0", description = "API do  Projeto Integrador ElasTech - ElasBancam"),
 		servers = {
 				@Server(url = "http://localhost:8080")
 

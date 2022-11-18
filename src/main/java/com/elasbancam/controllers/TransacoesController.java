@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -28,7 +27,7 @@ public class TransacoesController {
     private ContaService contaService;
 
     @PostMapping
-    public ResponseEntity<Transacao> create(@RequestBody @Valid TransacaoDto transacaoDto){
+    public ResponseEntity create(@RequestBody @Valid TransacaoDto transacaoDto){
         Transacao novaTransacao = new Transacao();
         try {
             Conta novaContaOrigem = new Conta();
@@ -42,62 +41,54 @@ public class TransacoesController {
             novaTransacao.setTipo_transacao(transacaoDto.getTipo_transacao());
             novaTransacao.setValor(transacaoDto.getValor());
             novaTransacao.setDescricao(transacaoDto.getDescricao());
+
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.create(novaTransacao));
         } catch (NegocioException e) {
-            ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(novaTransacao));
     }
 
     @GetMapping("/tipo/{tipoTransacao}")
-    public ResponseEntity<List<Transacao>> getByType(@PathVariable TipoTransacao tipoTransacao){
-        ResponseEntity<List<Transacao>> resposta = null;
+    public ResponseEntity getByType(@PathVariable TipoTransacao tipoTransacao){
         try {
-            resposta = ResponseEntity.status(HttpStatus.OK).body(service.getByType(tipoTransacao));
+            return ResponseEntity.status(HttpStatus.OK).body(service.getByType(tipoTransacao));
         } catch (NegocioException e) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-        return resposta;
     }
 
     @GetMapping("/periodo/{dataInicial}/{dataFinal}")
-    public ResponseEntity<List<Transacao>> getByDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataInicial, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataFinal) {
-        ResponseEntity<List<Transacao>> resposta = null;
+    public ResponseEntity getByDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataInicial, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataFinal) {
         try {
-            resposta = ResponseEntity.status(HttpStatus.OK).body(service.getByDate(dataInicial, dataFinal));
+            return ResponseEntity.status(HttpStatus.OK).body(service.getByDate(dataInicial, dataFinal));
         } catch (NegocioException e) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-        return resposta;
     }
 
     @GetMapping("/conta/{id}")
-    public ResponseEntity<Object> getByAccount(@PathVariable String id){
-        ResponseEntity<Object> resposta = null;
+    public ResponseEntity getByAccount(@PathVariable String id){
         try {
             Object conta= contaService.getById(id);
             if(ObjectUtils.isEmpty(conta)){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Conta não encontrada.");
             }
-            resposta = ResponseEntity.status(HttpStatus.OK).body(service.getByAccount(id));
+            return ResponseEntity.status(HttpStatus.OK).body(service.getByAccount(id));
         } catch (NegocioException e) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-        return resposta;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getById(@PathVariable String id){
-        ResponseEntity<Object> resposta = null;
+    public ResponseEntity getById(@PathVariable String id){
         try {
             Object transacao = service.getById(id);
             if(ObjectUtils.isEmpty(transacao)) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Transacao não encontrada.");
             }
-            resposta = ResponseEntity.status(HttpStatus.OK).body(service.getById(id));
+            return ResponseEntity.status(HttpStatus.OK).body(service.getById(id));
         } catch (NegocioException e) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-        return resposta;
     }
-
 }

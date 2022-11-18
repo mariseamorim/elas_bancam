@@ -27,7 +27,7 @@ public class ClientesController {
     private ClienteMapper clienteMapper;
 
     @PostMapping("/pf")
-    public ResponseEntity<Object> post(@RequestBody @Valid  PessoaFisicaDto pessoaFisicaDto){
+    public ResponseEntity post(@RequestBody @Valid  PessoaFisicaDto pessoaFisicaDto){
         PessoaFisica novoCliente = clienteMapper.toEntityPf(pessoaFisicaDto);
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(service.savePf(novoCliente));
@@ -37,7 +37,7 @@ public class ClientesController {
     }
 
    @PostMapping("/pj")
-    public  ResponseEntity<Object> post (@RequestBody @Valid PessoaJuridicaDto pessoaJuridicaDto){
+    public  ResponseEntity post (@RequestBody @Valid PessoaJuridicaDto pessoaJuridicaDto){
         PessoaJuridica novoCliente = clienteMapper.toEntityPj(pessoaJuridicaDto);
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(service.savePj(novoCliente));
@@ -47,21 +47,20 @@ public class ClientesController {
     }
 
     @GetMapping("/todos")
-    public ResponseEntity<List<Object>> getAll(){
-        List<Object> resposta = null;
+    public ResponseEntity getAll(){
         try {
-            resposta = service.getAll();
+            List<Object> resposta = service.getAll();
             if(resposta.isEmpty()){
                 throw new NegocioException("Ainda não há clientes cadastrados.");
             }
+            return ResponseEntity.status(HttpStatus.OK).body(resposta);
         } catch (NegocioException e) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-        return ResponseEntity.status(HttpStatus.OK).body(resposta);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getId(@PathVariable Long id){
+    public ResponseEntity getId(@PathVariable Long id){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.getIdPjOrPf(id));
         } catch (NegocioException e) {
@@ -70,7 +69,7 @@ public class ClientesController {
     }
 
     @PutMapping("/pf")
-    public ResponseEntity<Object> updatePf(@RequestBody PessoaFisicaUpdateDto pessoa){
+    public ResponseEntity updatePf(@RequestBody PessoaFisicaUpdateDto pessoa){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.updatePf(pessoa));
         } catch (NegocioException e) {
@@ -79,7 +78,7 @@ public class ClientesController {
     }
 
     @PutMapping("/pj")
-    public ResponseEntity<Object> updatePj(@RequestBody PessoaJuridicaUpdateDto pessoa){
+    public ResponseEntity updatePj(@RequestBody PessoaJuridicaUpdateDto pessoa){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.updatePj(pessoa));
         } catch (NegocioException e) {
@@ -87,20 +86,18 @@ public class ClientesController {
         }
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("delete/{id}")
-    public void inactive(@PathVariable Long id ){
+    public ResponseEntity inactive(@PathVariable Long id ){
         try {
             Optional<PessoaFisica> clientePf = service.getIdPf(id);
             Optional<PessoaJuridica> clientePj = service.getIdPj(id);
 
             if(clientePf.isPresent()){
-                service.inactivePf(clientePf.get());
-            } else if (clientePj.isPresent()){
-                service.inactivePJ(clientePj.get());
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.inactivePf(clientePf.get()));
             }
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.inactivePJ(clientePj.get()));
         } catch (NegocioException e) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 }

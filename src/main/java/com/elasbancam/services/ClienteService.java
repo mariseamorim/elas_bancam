@@ -148,7 +148,7 @@ public class ClienteService {
 
 
     @Transactional
-    public void inactivePf(PessoaFisica pessoaFisica) {
+    public PessoaFisica inactivePf(PessoaFisica pessoaFisica) {
         if (pessoaFisica == null) {
             throw new NegocioException("Cliente não encontrado ou já inativo.");
         }
@@ -156,13 +156,13 @@ public class ClienteService {
         pessoaFisica.setAlterado_em(LocalDateTime.now());
 
         try {
-            _repositoryPessoaFisica.save(pessoaFisica);
+            return _repositoryPessoaFisica.save(pessoaFisica);
         } catch (Exception e) {
             throw new NegocioException("Não foi possível inativar o cliente (ID: " + pessoaFisica.getId() + ").");
         }
     }
 
-    public void inactivePJ(PessoaJuridica pessoaJuridica) {
+    public PessoaJuridica inactivePJ(PessoaJuridica pessoaJuridica) {
         if (pessoaJuridica == null) {
             throw new NegocioException("Cliente não encontrado ou já inativo.");
         }
@@ -170,7 +170,7 @@ public class ClienteService {
         pessoaJuridica.setAlterado_em(LocalDateTime.now());
 
         try {
-            _repositoryPessoaJuridica.save(pessoaJuridica);
+            return  _repositoryPessoaJuridica.save(pessoaJuridica);
         } catch (Exception e) {
             throw new NegocioException("Não foi possível inativar o cliente (ID: " + pessoaJuridica.getId() + ").");
         }

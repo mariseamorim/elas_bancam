@@ -1,9 +1,8 @@
 package com.elasbancam.controllers;
 
+import com.elasbancam.controllers.mappers.TransacaoMapper;
 import com.elasbancam.dtos.input.TransacaoDto;
 import com.elasbancam.exceptions.NegocioException;
-import com.elasbancam.models.Conta;
-import com.elasbancam.models.Transacao;
 import com.elasbancam.enums.TipoTransacao;
 import com.elasbancam.services.ContaService;
 import com.elasbancam.services.TransacoesService;
@@ -29,26 +28,16 @@ public class TransacoesController {
     private TransacoesService service;
 
     private ContaService contaService;
+    private TransacaoMapper transacaoMapper;
 
     // Método escolhido para fazer o mapeamento de objetos manualmente
     // TO DO: refatorar o mapeamento
     @PostMapping
     public ResponseEntity create(@RequestBody @Valid TransacaoDto transacaoDto){
-        Transacao novaTransacao = new Transacao();
+
         try {
-            Conta novaContaOrigem = new Conta();
-            Conta novaContaDestino = new Conta();
-
-            novaContaOrigem.setId(transacaoDto.getConta_origem().getId());
-            novaContaDestino.setId(transacaoDto.getConta_destino().getId());
-
-            novaTransacao.setConta_origem(novaContaOrigem);
-            novaTransacao.setConta_destino(novaContaDestino);
-            novaTransacao.setTipo_transacao(transacaoDto.getTipo_transacao());
-            novaTransacao.setValor(transacaoDto.getValor());
-            novaTransacao.setDescricao(transacaoDto.getDescricao());
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(service.create(novaTransacao));
+           var transacao = transacaoMapper.toEntityTransacao(transacaoDto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.create(transacao));
         } catch (NegocioException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }

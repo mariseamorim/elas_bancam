@@ -12,10 +12,9 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 public class TransacaoDto {
-    @NotNull
+
     private ContaTransacaoDto conta_origem;
 
-    @NotNull
     private ContaTransacaoDto conta_destino;
 
     @Valid

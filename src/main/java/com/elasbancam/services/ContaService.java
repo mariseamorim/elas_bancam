@@ -17,37 +17,30 @@ import java.util.List;
 public class ContaService {
     private ContaRepository _repositoryConta;
 
-    public Conta getById(String id){
-        try {
-            return _repositoryConta.findById(id).orElseThrow(() -> new NegocioException("A conta informada não encontrada (ID: " + id + ")."));
-        } catch (NegocioException negocioException) {
-            throw new NegocioException(negocioException.getMessage());
-        }
+    public Conta getById(String id) {
+
+        return _repositoryConta.findById(id).orElseThrow(() -> new NegocioException("A conta informada não encontrada (ID: " + id + ")."));
+
     }
 
     @Transactional
     public List<Conta> updateSaldo(Transacao transacao) {
+        String idContaOrigem = transacao.getConta_origem().getId();
+        String idContaDestino = transacao.getConta_destino().getId();
+        BigDecimal valor = transacao.getValor();
 
-        try {
-            String idContaOrigem = transacao.getConta_origem().getId();
-            String idContaDestino = transacao.getConta_destino().getId();
-            BigDecimal valor = transacao.getValor();
+        Conta contaOrigem = getById(idContaOrigem);
+        Conta contaDestino = getById(idContaDestino);
 
-            Conta contaOrigem = getById(idContaOrigem);
-            Conta contaDestino = getById(idContaDestino);
-
-            if(contaOrigem.getSaldo().compareTo(valor) < 0) {
-                throw new NegocioException("Saldo insuficiente para realizar transação");
-            } else {
-                List<Conta> listaContas = new ArrayList<>();
-                contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(valor));
-                contaDestino.setSaldo(contaDestino.getSaldo().add(valor));
-                listaContas.add(contaOrigem);
-                listaContas.add(contaDestino);
-                return listaContas;
-            }
-        } catch (NegocioException negocioException) {
-            throw new NegocioException(negocioException.getMessage());
+        if (contaOrigem.getSaldo().compareTo(valor) < 0) {
+            throw new NegocioException("Saldo insuficiente para realizar transação");
+        } else {
+            List<Conta> listaContas = new ArrayList<>();
+            contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(valor));
+            contaDestino.setSaldo(contaDestino.getSaldo().add(valor));
+            listaContas.add(contaOrigem);
+            listaContas.add(contaDestino);
+            return listaContas;
         }
     }
 }

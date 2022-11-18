@@ -5,6 +5,7 @@ import com.elasbancam.dtos.input.PessoaFisicaUpdateDto;
 import com.elasbancam.dtos.input.PessoaJuridicaDto;
 import com.elasbancam.controllers.mappers.ClienteMapper;
 import com.elasbancam.dtos.input.PessoaJuridicaUpdateDto;
+import com.elasbancam.exceptions.NegocioException;
 import com.elasbancam.models.PessoaFisica;
 import com.elasbancam.models.PessoaJuridica;
 import com.elasbancam.services.ClienteService;
@@ -28,45 +29,78 @@ public class ClientesController {
     @PostMapping("/pf")
     public ResponseEntity<Object> post(@RequestBody @Valid  PessoaFisicaDto pessoaFisicaDto){
         PessoaFisica novoCliente = clienteMapper.toEntityPf(pessoaFisicaDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.savePf(novoCliente));
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.savePf(novoCliente));
+        } catch (NegocioException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
 
    @PostMapping("/pj")
     public  ResponseEntity<Object> post (@RequestBody @Valid PessoaJuridicaDto pessoaJuridicaDto){
         PessoaJuridica novoCliente = clienteMapper.toEntityPj(pessoaJuridicaDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.savePj(novoCliente));
-
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.savePj(novoCliente));
+        }catch (NegocioException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
 
     @GetMapping("/todos")
     public ResponseEntity<List<Object>> getAll(){
-        return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
+        List<Object> resposta = null;
+        try {
+            resposta = service.getAll();
+            if(resposta.isEmpty()){
+                throw new NegocioException("Ainda não há clientes cadastrados.");
+            }
+        } catch (NegocioException e) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(resposta);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getId(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(service.getIdPjOrPf(id));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.getIdPjOrPf(id));
+        } catch (NegocioException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @PutMapping("/pf")
     public ResponseEntity<Object> updatePf(@RequestBody PessoaFisicaUpdateDto pessoa){
-        return ResponseEntity.status(HttpStatus.OK).body(service.updatePf(pessoa));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.updatePf(pessoa));
+        } catch (NegocioException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
+
     @PutMapping("/pj")
     public ResponseEntity<Object> updatePj(@RequestBody PessoaJuridicaUpdateDto pessoa){
-        return ResponseEntity.status(HttpStatus.OK).body(service.updatePj(pessoa));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(service.updatePj(pessoa));
+        } catch (NegocioException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("delete/{id}")
-    public ResponseEntity<Void> inactive(@PathVariable Long id ){
-        Optional<PessoaFisica> clientePf = service.getIdPf(id);
-        Optional<PessoaJuridica> clientePj = service.getIdPj(id);
+    public void inactive(@PathVariable Long id ){
+        try {
+            Optional<PessoaFisica> clientePf = service.getIdPf(id);
+            Optional<PessoaJuridica> clientePj = service.getIdPj(id);
 
-        if(clientePf.isPresent()){
-            service.inactivePf(clientePf.get());
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+            if(clientePf.isPresent()){
+                service.inactivePf(clientePf.get());
+            } else if (clientePj.isPresent()){
+                service.inactivePJ(clientePj.get());
+            }
+        } catch (NegocioException e) {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
-        service.inactivePJ(clientePj.get());
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

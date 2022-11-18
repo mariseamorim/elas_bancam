@@ -1,5 +1,6 @@
 package com.elasbancam.models;
 
+import com.elasbancam.enums.Regiao;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -51,8 +52,9 @@ public class Endereco {
 
     @Getter
     @Setter
+    @Enumerated(EnumType.STRING)
     @Column(length = 2)
-    private String regiao;
+    private Regiao regiao;
 
     @Override
     public boolean equals(Object o) {

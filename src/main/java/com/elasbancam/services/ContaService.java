@@ -12,6 +12,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+// Os métodos das camadas de service fazem validações de regras de negócio e lançam erros para que os
+// controllers os tratem.
+
 @AllArgsConstructor
 @Service
 public class ContaService {

@@ -17,6 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDate;
 
+// Decidimos criar 3 buscas de transações para treinar o uso de diferentes tipos de variáveis:
+// por tipo, período e conta.
+// Foram definidas DTOs para receber os dados vindos da requisição.
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/transacoes")
@@ -26,6 +30,8 @@ public class TransacoesController {
 
     private ContaService contaService;
 
+    // Método escolhido para fazer o mapeamento de objetos manualmente
+    // TO DO: refatorar o mapeamento
     @PostMapping
     public ResponseEntity create(@RequestBody @Valid TransacaoDto transacaoDto){
         Transacao novaTransacao = new Transacao();

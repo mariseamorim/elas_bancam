@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+// Representa a tabela "pessoa_juridica"
 @Getter
 @Setter
 @Entity

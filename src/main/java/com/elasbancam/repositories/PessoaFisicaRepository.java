@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
+// Foi escolhido passar o query em linguagem nativa SQL, para treinarmos DQL (Data Query Language)
+
 @Repository
 public interface PessoaFisicaRepository extends JpaRepository<PessoaFisica, Long> {
     @Query(value = "SELECT * FROM pessoa_fisica p WHERE p.status = 1", nativeQuery = true)

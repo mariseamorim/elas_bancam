@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDate;
 import java.util.List;
 
+// Foi escolhido passar o query em linguagem nativa SQL, para treinarmos DQL (Data Query Language)
+
 public interface TransacaoRepository extends JpaRepository<Transacao, String> {
     @Query(value = "SELECT * FROM transacao t WHERE t.tipo_transacao = ?1", nativeQuery = true)
     List<Transacao> findByType(String tipoTransacao);

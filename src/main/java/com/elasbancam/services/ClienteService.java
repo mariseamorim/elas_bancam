@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+// Os métodos das camadas de service fazem validações de regras de negócio e lançam erros para que os
+// controllers os tratem.
 
 @AllArgsConstructor
 @Component

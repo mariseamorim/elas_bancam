@@ -34,7 +34,7 @@ public class PessoaFisicaUpdateDto {
     @NotNull
     private String celular;
 
-    private EndereDto endereco;
+    private EnderecoDto endereco;
 
     @NotBlank
     private String nome_mae;

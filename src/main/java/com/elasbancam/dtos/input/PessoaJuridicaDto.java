@@ -44,7 +44,7 @@ public class PessoaJuridicaDto {
     @NotNull
     private String celular;
 
-    private EndereDto endereco;
+    private EnderecoDto endereco;
 
     private ContaDto conta;
 }

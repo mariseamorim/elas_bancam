@@ -43,7 +43,7 @@ public class PessoaFisicaDto {
     @NotNull
     private String celular;
 
-    private EndereDto endereco;
+    private EnderecoDto endereco;
 
     private ContaDto conta;
 

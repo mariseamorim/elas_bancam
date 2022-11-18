@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Objects;
 
+// Representa a tabela "endereco"
 @Entity
 @Table(name = "endereco")
 public class Endereco {

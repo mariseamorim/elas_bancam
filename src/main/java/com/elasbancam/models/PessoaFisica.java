@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+// Representa a tabela "pessoa_fisica"
 @Getter
 @Setter
 @Entity

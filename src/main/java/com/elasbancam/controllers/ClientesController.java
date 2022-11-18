@@ -18,6 +18,10 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
+// Foram definidas DTOs para receber os dados vindos da requisição.
+// A inativação de cliente é feita através de soft delete, com a alteração do atributo "status" para false.
+// Toda busca por clientes é feita filtrado apenas aqueles que estão ativo ("status" = verdadeiro) no sistema.
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/cliente")

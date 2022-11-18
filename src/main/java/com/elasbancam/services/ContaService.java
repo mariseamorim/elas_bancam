@@ -1,5 +1,6 @@
 package com.elasbancam.services;
 
+import com.elasbancam.exceptions.NegocioException;
 import com.elasbancam.models.Conta;
 import com.elasbancam.models.Transacao;
 import com.elasbancam.repositories.ContaRepository;
@@ -10,43 +11,36 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
 public class ContaService {
     private ContaRepository _repositoryConta;
 
-    public Optional<Conta> getById(String id){
-        return _repositoryConta.findById(id);
+    public Conta getById(String id) {
+
+        return _repositoryConta.findById(id).orElseThrow(() -> new NegocioException("A conta informada não encontrada (ID: " + id + ")."));
+
     }
 
     @Transactional
     public List<Conta> updateSaldo(Transacao transacao) {
-        List<Conta> listaContas = new ArrayList<>();
-        try {
-            String idContaOrigem = transacao.getConta_origem().getId();
-            String idContaDestino = transacao.getConta_destino().getId();
-            BigDecimal valor = transacao.getValor();
+        String idContaOrigem = transacao.getConta_origem().getId();
+        String idContaDestino = transacao.getConta_destino().getId();
+        BigDecimal valor = transacao.getValor();
 
-            Optional<Conta> contaOrigem = getById(idContaOrigem);
-            Optional<Conta> contaDestino = getById(idContaDestino);
+        Conta contaOrigem = getById(idContaOrigem);
+        Conta contaDestino = getById(idContaDestino);
 
-            if(contaOrigem.isPresent() && contaDestino.isPresent()) {
-                Conta objetoContaOrigem = contaOrigem.get();
-                Conta objetoContaDestino = contaDestino.get();
-
-                if(objetoContaOrigem.getSaldo().compareTo(valor) >= 0) {
-                    objetoContaOrigem.setSaldo(objetoContaOrigem.getSaldo().subtract(valor));
-                    objetoContaDestino.setSaldo(objetoContaDestino.getSaldo().add(valor));
-                }
-
-                listaContas.add(contaOrigem.get());
-                listaContas.add(contaDestino.get());
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        if (contaOrigem.getSaldo().compareTo(valor) < 0) {
+            throw new NegocioException("Saldo insuficiente para realizar transação");
+        } else {
+            List<Conta> listaContas = new ArrayList<>();
+            contaOrigem.setSaldo(contaOrigem.getSaldo().subtract(valor));
+            contaDestino.setSaldo(contaDestino.getSaldo().add(valor));
+            listaContas.add(contaOrigem);
+            listaContas.add(contaDestino);
+            return listaContas;
         }
-        return listaContas;
     }
 }

@@ -39,7 +39,7 @@ public class TransacoesService {
 
 
     public List<Transacao> listarTransacoesPorTipo(TipoTransacao tipoTransacao) {
-        List<Transacao> transacoes = _repositoryTransacao.findByType(tipoTransacao.toString());
+        List<Transacao> transacoes = _repositoryTransacao.listarTransacoesPorTipo(tipoTransacao.toString());
         if (transacoes.isEmpty()) {
             throw new NegocioException("Nenhuma transação do tipo " + tipoTransacao + " encontrada.");
         }
@@ -48,7 +48,7 @@ public class TransacoesService {
 
 
     public List<Transacao> listarTransacoesPorPeriodo(LocalDate dataInicial, LocalDate dataFinal) {
-        List<Transacao> transacoes = _repositoryTransacao.findByDate(dataInicial, dataFinal.plusDays(1));
+        List<Transacao> transacoes = _repositoryTransacao.listarTransacoesPorPeriodo(dataInicial, dataFinal.plusDays(1));
         if (transacoes.isEmpty()) {
             throw new NegocioException("Nenhuma transação encontrada entre " + dataInicial + " e " + dataFinal);
         }
@@ -58,7 +58,7 @@ public class TransacoesService {
 
     public List<Transacao> listarTransacoesPorIdConta(String id) {
         contaService.buscarContaPorId(id);
-        List<Transacao> transacoes = _repositoryTransacao.findByAccount(id);
+        List<Transacao> transacoes = _repositoryTransacao.listarTransacoesPorConta(id);
         if (transacoes.isEmpty()) {
             throw new NegocioException("Nenhuma transação encontrada para a conta informada (ID: " + id + ").");
         }

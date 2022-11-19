@@ -31,7 +31,7 @@ public class Conta {
 
     @Getter
     @Setter
-    @Column(length = 20, nullable = false, updatable = false)
+    @Column(length = 20, unique = true, nullable = false, updatable = false)
     private int numero_conta;
 
     @Getter

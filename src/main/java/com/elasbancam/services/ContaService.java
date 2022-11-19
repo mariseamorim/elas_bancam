@@ -28,6 +28,10 @@ public class ContaService {
         return conta;
     }
 
+    public Conta buscarContaPorNumeroConta(int numeroConta) {
+        return _repositoryConta.buscarPorNumeroConta(numeroConta);
+    }
+
     @Transactional
     public List<Conta> atualizarSaldo(Transacao transacao) {
         String idContaOrigem = transacao.getConta_origem().getId();

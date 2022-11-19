@@ -25,6 +25,7 @@ public class Conta {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Getter
+    @Setter
     @Column(insertable = false, unique = true, updatable = false, nullable = false)
     private String id;
 

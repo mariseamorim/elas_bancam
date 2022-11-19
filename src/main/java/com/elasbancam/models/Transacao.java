@@ -2,7 +2,9 @@ package com.elasbancam.models;
 
 import com.elasbancam.enums.TipoTransacao;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -14,6 +16,8 @@ import java.util.Objects;
 
 // Representa a tabela "transacao"
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "transacao")
 public class Transacao {

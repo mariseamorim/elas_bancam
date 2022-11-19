@@ -1,8 +1,8 @@
 package com.elasbancam.services;
 
 import com.elasbancam.controllers.mappers.ClienteMapper;
-import com.elasbancam.dtos.input.PessoaFisicaUpdateDto;
-import com.elasbancam.dtos.input.PessoaJuridicaUpdateDto;
+import com.elasbancam.dtos.PessoaFisicaUpdateDto;
+import com.elasbancam.dtos.PessoaJuridicaUpdateDto;
 import com.elasbancam.exceptions.NegocioException;
 import com.elasbancam.models.Pessoa;
 import com.elasbancam.models.PessoaFisica;
@@ -35,7 +35,7 @@ public class ClienteService {
     private ClienteMapper clienteMapper;
 
     @Transactional
-    public PessoaFisica savePf(PessoaFisica pessoaFisica) {
+    public PessoaFisica cadastrarPessoaFisica(PessoaFisica pessoaFisica) {
         Optional<PessoaFisica> cpfJaCadastrado = _repositoryPessoaFisica.findByCPF(pessoaFisica.getCpf());
         if (cpfJaCadastrado.isPresent()) {
             throw new NegocioException("CPF já cadastrado no sistema.");
@@ -52,13 +52,13 @@ public class ClienteService {
 
         try {
             return _repositoryPessoaFisica.save(pessoaFisica);
-        } catch (Exception e) {
+        } catch (NegocioException e) {
             throw new NegocioException("Não foi possível concluir o cadastro.");
         }
     }
 
     @Transactional
-    public PessoaJuridica savePj(PessoaJuridica pessoaJuridica) {
+    public PessoaJuridica cadastrarPessoaJuridica(PessoaJuridica pessoaJuridica) {
         Optional<PessoaJuridica> cnpjJaCadastrado = _repositoryPessoaJuridica.findByCNPJ(pessoaJuridica.getCnpj());
         if (cnpjJaCadastrado.isPresent()) {
             throw new NegocioException("CNPJ já cadastrado no sistema.");
@@ -75,49 +75,62 @@ public class ClienteService {
 
         try {
             return _repositoryPessoaJuridica.save(pessoaJuridica);
-        } catch (Exception e) {
+        } catch (NegocioException e) {
             throw new NegocioException("Não foi possível concluir o cadastro.");
         }
     }
 
-    public List<Object> getAll() {
-        List<Object> object = new ArrayList<Object>();
+    public List<Object> listarTodosClientes() {
+        List<Object> listaDeClientes = new ArrayList<Object>();
         List<PessoaFisica> pf = _repositoryPessoaFisica.findAll();
         List<PessoaJuridica> pj = _repositoryPessoaJuridica.findAll();
-        object.add(pf);
-        object.add(pj);
-        return object;
+        listaDeClientes.add(pf);
+        listaDeClientes.add(pj);
+        return listaDeClientes;
     }
 
-    public Optional<PessoaFisica> getIdPf(Long idCliente) {
+
+    public Optional<PessoaFisica> listarPessoaFisicaPorId(Long idCliente) {
         return _repositoryPessoaFisica.findById(idCliente);
     }
 
-    public Optional<PessoaJuridica> getIdPj(Long idCliente) {
+    public Optional<PessoaJuridica> listarPessoaJuridicaPorId(Long idCliente) {
         return _repositoryPessoaJuridica.findById(idCliente);
     }
 
-    public Object getIdPjOrPf(Long idCliente) {
-        Object object = new Object();
+    public boolean verificarSeClienteExiste(Long id){
+        Optional<PessoaFisica> pf = listarPessoaFisicaPorId(id);
+        Optional<PessoaJuridica> pj = listarPessoaJuridicaPorId(id);
 
-        Optional<PessoaFisica> pessoaFisica = getIdPf(idCliente);
-        Optional<PessoaJuridica> pessoaJuridica = getIdPj(idCliente);
+        boolean clienteExiste = false;
+
+        if(pf.isPresent() || pj.isPresent()){
+            return clienteExiste = true;
+        }
+        return clienteExiste;
+    }
+
+    public Object listarClientePorId(Long idCliente) {
+        Object cliente = new Object();
+
+        Optional<PessoaFisica> pessoaFisica = listarPessoaFisicaPorId(idCliente);
+        Optional<PessoaJuridica> pessoaJuridica = listarPessoaJuridicaPorId(idCliente);
 
         if (pessoaFisica.isEmpty() && pessoaJuridica.isEmpty()) {
             throw new NegocioException("Cliente não encontrado ou inativo (ID:  " + idCliente + ").");
         }
 
         if (pessoaFisica.isPresent()) {
-            object = pessoaFisica.get();
+            cliente = pessoaFisica.get();
         } else {
-            object = pessoaJuridica.get();
+            cliente = pessoaJuridica.get();
         }
 
-        return object;
+        return cliente;
     }
 
-    public PessoaFisica updatePf(PessoaFisicaUpdateDto pessoa) {
-        Optional<PessoaFisica> clienteExiste = getIdPf(pessoa.getId());
+    public PessoaFisica atualizarPessoaFisica(PessoaFisicaUpdateDto pessoa) {
+        Optional<PessoaFisica> clienteExiste = listarPessoaFisicaPorId(pessoa.getId());
         if (clienteExiste.isEmpty()) {
             throw new NegocioException("Cliente não encontrado ou inativo (ID:  " + pessoa.getId() + ").");
         }
@@ -125,15 +138,15 @@ public class ClienteService {
 
         try {
             return _repositoryPessoaFisica.save(clienteExiste.get());
-        } catch (Exception e) {
+        } catch (NegocioException e) {
             throw new NegocioException("Não foi possível concluir a atualização do cliente.");
         }
     }
 
 
-    public Pessoa updatePj(PessoaJuridicaUpdateDto pessoa) {
+    public Pessoa atualizarPessoaJuridica(PessoaJuridicaUpdateDto pessoa) {
 
-        Optional<PessoaJuridica> clienteExiste = getIdPj(pessoa.getId());
+        Optional<PessoaJuridica> clienteExiste = listarPessoaJuridicaPorId(pessoa.getId());
         if (clienteExiste.isEmpty()) {
             throw new NegocioException("Cliente não encontrado ou inativo (ID:  " + pessoa.getId() + ").");
         }
@@ -141,37 +154,29 @@ public class ClienteService {
 
         try {
             return _repositoryPessoaJuridica.save(clienteExiste.get());
-        } catch (Exception e) {
+        } catch (NegocioException e) {
             throw new NegocioException("Não foi possível concluir a atualização do cliente.");
         }
     }
 
 
     @Transactional
-    public PessoaFisica inactivePf(PessoaFisica pessoaFisica) {
-        if (pessoaFisica == null) {
-            throw new NegocioException("Cliente não encontrado ou já inativo.");
-        }
-        pessoaFisica.setStatus(false);
-        pessoaFisica.setAlterado_em(LocalDateTime.now());
-
+    public PessoaFisica inativarPessoaFisica(PessoaFisica pessoaFisica) {
         try {
+            pessoaFisica.setStatus(false);
+            pessoaFisica.setAlterado_em(LocalDateTime.now());
             return _repositoryPessoaFisica.save(pessoaFisica);
-        } catch (Exception e) {
+        } catch (NegocioException e) {
             throw new NegocioException("Não foi possível inativar o cliente (ID: " + pessoaFisica.getId() + ").");
         }
     }
 
-    public PessoaJuridica inactivePJ(PessoaJuridica pessoaJuridica) {
-        if (pessoaJuridica == null) {
-            throw new NegocioException("Cliente não encontrado ou já inativo.");
-        }
-        pessoaJuridica.setStatus(false);
-        pessoaJuridica.setAlterado_em(LocalDateTime.now());
-
+    public PessoaJuridica inativarPessoaJuridica(PessoaJuridica pessoaJuridica) {
         try {
+            pessoaJuridica.setStatus(false);
+            pessoaJuridica.setAlterado_em(LocalDateTime.now());
             return  _repositoryPessoaJuridica.save(pessoaJuridica);
-        } catch (Exception e) {
+        } catch (NegocioException e) {
             throw new NegocioException("Não foi possível inativar o cliente (ID: " + pessoaJuridica.getId() + ").");
         }
     }

@@ -1,6 +1,8 @@
 package com.elasbancam.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,6 +13,8 @@ import java.util.Objects;
 // Classe mãe definida para aplicar o conceito de herança nos models de PessoaFisica e PessoaJuridica.
 // Getters e Setters não foram definidos globalmente na classe para que não seja possível alterar o id.
 
+@AllArgsConstructor
+@NoArgsConstructor
 @MappedSuperclass
 public abstract  class Pessoa {
     @Id

@@ -23,12 +23,12 @@ public class TransacoesService {
     private ContaService contaService;
 
     @Transactional
-    public Transacao create(Transacao transacao) {
+    public Transacao efetuarTransacao(Transacao transacao) {
         if (transacao.getValor().compareTo(BigDecimal.valueOf(0)) <= 0) {
             throw new NegocioException("Valor da transação inválido.");
         }
 
-        List<Conta> contas = contaService.updateSaldo(transacao);
+        List<Conta> contas = contaService.atualizarSaldo(transacao);
         if (contas.isEmpty()) {
             throw new NegocioException("Não foi possível concluir a transação.");
         }
@@ -38,7 +38,7 @@ public class TransacoesService {
     }
 
 
-    public List<Transacao> getByType(TipoTransacao tipoTransacao) {
+    public List<Transacao> listarTransacoesPorTipo(TipoTransacao tipoTransacao) {
         List<Transacao> transacoes = _repositoryTransacao.findByType(tipoTransacao.toString());
         if (transacoes.isEmpty()) {
             throw new NegocioException("Nenhuma transação do tipo " + tipoTransacao + " encontrada.");
@@ -47,7 +47,7 @@ public class TransacoesService {
     }
 
 
-    public List<Transacao> getByDate(LocalDate dataInicial, LocalDate dataFinal) {
+    public List<Transacao> listarTransacoesPorPeriodo(LocalDate dataInicial, LocalDate dataFinal) {
         List<Transacao> transacoes = _repositoryTransacao.findByDate(dataInicial, dataFinal.plusDays(1));
         if (transacoes.isEmpty()) {
             throw new NegocioException("Nenhuma transação encontrada entre " + dataInicial + " e " + dataFinal);
@@ -56,8 +56,8 @@ public class TransacoesService {
     }
 
 
-    public List<Transacao> getByAccount(String id) {
-        contaService.getById(id);
+    public List<Transacao> listarTransacoesPorIdConta(String id) {
+        contaService.buscarContaPorId(id);
         List<Transacao> transacoes = _repositoryTransacao.findByAccount(id);
         if (transacoes.isEmpty()) {
             throw new NegocioException("Nenhuma transação encontrada para a conta informada (ID: " + id + ").");
@@ -67,7 +67,7 @@ public class TransacoesService {
     }
 
 
-    public Transacao getById(String id) {
+    public Transacao buscarTransacaoPorId(String id) {
         return _repositoryTransacao.findById(id).orElseThrow(() -> new NegocioException("Transação não encontrada (ID:  " + id + ")."));
     }
 }

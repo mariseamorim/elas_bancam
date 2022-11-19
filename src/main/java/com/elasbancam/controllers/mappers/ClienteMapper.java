@@ -3,10 +3,10 @@ package com.elasbancam.controllers.mappers;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.elasbancam.dtos.input.PessoaFisicaDto;
-import com.elasbancam.dtos.input.PessoaFisicaUpdateDto;
-import com.elasbancam.dtos.input.PessoaJuridicaDto;
-import com.elasbancam.dtos.input.PessoaJuridicaUpdateDto;
+import com.elasbancam.dtos.PessoaFisicaDto;
+import com.elasbancam.dtos.PessoaFisicaUpdateDto;
+import com.elasbancam.dtos.PessoaJuridicaDto;
+import com.elasbancam.dtos.PessoaJuridicaUpdateDto;
 import com.elasbancam.models.PessoaFisica;
 import com.elasbancam.models.PessoaJuridica;
 import lombok.AllArgsConstructor;

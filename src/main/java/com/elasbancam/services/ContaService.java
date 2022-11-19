@@ -21,7 +21,11 @@ public class ContaService {
     private ContaRepository _repositoryConta;
 
     public Conta buscarContaPorId(String id) {
-        return _repositoryConta.findById(id).orElseThrow(() -> new NegocioException("A conta informada não encontrada (ID: " + id + ")."));
+        Conta conta = _repositoryConta.buscarPorId(id);
+        if(conta == null) {
+            throw new NegocioException("A conta informada não encontrada ou está inativa (ID: " + id + ").");
+        }
+        return conta;
     }
 
     @Transactional
@@ -43,5 +47,17 @@ public class ContaService {
             listaContas.add(contaDestino);
             return listaContas;
         }
+    }
+
+    public Conta inativarConta(String id) {
+        Conta conta = buscarContaPorId(id);
+
+        try {
+            conta.setStatus(false);
+            return _repositoryConta.save(conta);
+        } catch (NegocioException e) {
+            throw new NegocioException("Não foi possível inativar o cliente (ID: " + id + ").");
+        }
+
     }
 }

@@ -1,5 +1,5 @@
 <div align="center">
-<img style="display: block;margin: 0 auto;" src="/imagem/logo.png" target="_blank"></h2>
+<img style="display: block;margin: 0 auto;" src="imagem/logo.png" target="_blank"/>
 </div>
 
 # Projeto Integrador Programa ElaTech
@@ -22,10 +22,6 @@ Para que todos os métodos criados fossem criados respeitando as nossas regras d
 
 # Endpoints desenvolvidos
 
-**Swagger**
-
-![Swagger](/imagem/swagger.png)
-
 Endpoints
 | Verbo | Endpoint | Parâmetro | Body |
 |--------|--------------------|-----------------|-----------------|
@@ -36,41 +32,92 @@ Endpoints
 | PUT | /cliente/delete | {id} | N/A |
 | GET | /clientes | {id} | N/A |
 | GET | /clientes/todos | N/A | N/A |
-
 | POST | /transacoes | N/A | Schema Transacao|
 | GET | /transacoes | id | N/A |
 | GET | /transacoes/tipo | {tipoTransacao} | N/A |
 | GET | /transacoes/periodo | {dataInicial}/{dataFinal} | N/A |
 | GET | /transacoes/conta | id | N/A |
 
-Schemas
+
+**Schemas**
+
 PessoaFisica:
+
 ![PessoaFisica](/imagem/PessoaFisicaDto.png)
 
+PessoaFisicaUpdate:
+
+![PessoaFisicaUpdate](/imagem/PessoaFisicaUpdateDto.png)
+
+PessoaJuridica:
+
+![PessoaJuridica](/imagem/PessoaJuridicaDto.png)
+
+PessoaJuridicaUpdate:
+
+![PessoaJuridicaUpdate](/imagem/PessoaJuridicaUpdateDto.png)
+
+Transacao:
+
+![Transacao](/imagem/TransacaoDto.png)
+
+# Organização de pastas
+
+![Estrutura de pastas](/imagem/Estrutura.png)
+
+Estruturamos o nosso código definindo responsabilidades para cada package:
+- **Config**: configurações necessárias para dependências 
+- **Controllers**: métodos que tratam requisições da API e chamam ações dos services
+- **DTOs**: modelos de schemas a serem seguidos ao fazer requisições na API  
+- **Enums**: listas de valores aceitáveis em diferentes atributos do projeto
+- **Exceptions**: arquivo de exceção que trata os erros do sistema
+- **Models**: classes que representam as entidades do sistema, com atributos, construtores e getters e setters
+- **Repositories**: interfaces que fazem o acesso direto ao banco de dados com queries padrão ou personalizadas
+- **Services**: métodos que fazem as validações das regras de negócios e fazem requisições ligadas ao banco de dados para os repositories
 
 
-# Stack utilizada
+# Ferramentas utilizadas
 
 - Java 19 com module path
 - Spring Boot 2.7.5
 - Swagger
-- JUnit 5 com AssertJ e Mockito
 - Maven
-- MySql
+- MySQL
+- IntelliJ
 
-# Gerenciador de projetos Utilizado
+*Para o gerenciamento do projeto, usamos o [Trello](https://trello.com/b/4cEiFZlD/gest%C3%A3o-de-projetos)*
 
-- [Trello](https://trello.com/)
-  ![Quadro Trello](/imagem/trello.png)
+![Quadro Trello](/imagem/trello.png)
+
 
 # Rodando localmente
 
----TO DO
+Para instalar o projeto na sua máquina, siga os passos abaixo:
+
+1. Clone o repositório na sua máquina e o abra na sua IDE:
+```
+   https://github.com/mariseamorim/elas_bancam.git
+```
+
+2. Aguarde a instalação de todas as dependências.
+
+3. Insira as informações do banco de dados que você quer utilizar no arquivo *src/main/resources/application.properties*:
+```
+    spring.datasource.username = Usuário
+    spring.datasource.password = Senha
+```
+
+4. Na sua IDE, selecione a opção de rodar o programa (através do arquivo *ElasbancamApplication*). Com esse comando, será feita a compilação de arquivos, o servidor será ligado e o banco de dados criado, através das dependências Spring Dev Tools e JPA, respectivamente.
+
+5. Alimente o banco de dados criado (cujo nome é elas_bancam) com o script SQL contido no arquivo *src/main/java/resources/db/elas_bancam_dml.sql*.
+
+6. É possível consultar a documentação através do [Swagger](http://localhost:8080/swagger-ui/index.html#/) (atenção: caso mude a porta onde o projeto está rodando, mude essa informação também na url do Swagger).
+
+Com o servidor rodando e as tabelas criada e alimentada, acesse plataformas como Postman ou Insomnia para fazer testes manuais e acessar dados da base de dados.
 
 # Autoras
 
 - [Ana Flavia](https://github.com/anaflxvia)
-- [Camila Belota](https://github.com/camilabelota)
 - [Chrislanne Oliveira](https://github.com/Chrislanneo)
 - [Laise France](https://github.com/LaiFrance)
 - [Laura Neves](https://github.com/lmtfn)

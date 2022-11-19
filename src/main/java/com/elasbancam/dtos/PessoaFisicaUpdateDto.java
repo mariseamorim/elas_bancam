@@ -1,7 +1,7 @@
 package com.elasbancam.dtos;
 
 import com.elasbancam.enums.Genero;
-import com.elasbancam.validation.ValueOfEnum;
+import com.elasbancam.exceptions.validation.ValueOfEnum;
 import lombok.Getter;
 import lombok.Setter;
 

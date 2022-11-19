@@ -1,4 +1,4 @@
-package com.elasbancam.validation;
+package com.elasbancam.exceptions.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

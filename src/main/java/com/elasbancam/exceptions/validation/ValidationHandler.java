@@ -1,4 +1,4 @@
-package com.elasbancam.validation;
+package com.elasbancam.exceptions.validation;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

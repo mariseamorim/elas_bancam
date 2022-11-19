@@ -32,6 +32,8 @@ public class ClienteService {
 
     private PessoaJuridicaRepository _repositoryPessoaJuridica;
 
+    private ContaService contaService;
+
     private ClienteMapper clienteMapper;
 
     @Transactional
@@ -165,6 +167,7 @@ public class ClienteService {
         try {
             pessoaFisica.setStatus(false);
             pessoaFisica.setAlterado_em(LocalDateTime.now());
+            contaService.inativarConta(pessoaFisica.getConta().getId());
             return _repositoryPessoaFisica.save(pessoaFisica);
         } catch (NegocioException e) {
             throw new NegocioException("Não foi possível inativar o cliente (ID: " + pessoaFisica.getId() + ").");
@@ -175,6 +178,7 @@ public class ClienteService {
         try {
             pessoaJuridica.setStatus(false);
             pessoaJuridica.setAlterado_em(LocalDateTime.now());
+            contaService.inativarConta(pessoaJuridica.getConta().getId());
             return  _repositoryPessoaJuridica.save(pessoaJuridica);
         } catch (NegocioException e) {
             throw new NegocioException("Não foi possível inativar o cliente (ID: " + pessoaJuridica.getId() + ").");

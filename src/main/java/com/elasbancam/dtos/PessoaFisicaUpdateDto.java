@@ -17,28 +17,22 @@ public class PessoaFisicaUpdateDto {
     private Long id;
 
     @Past
-    @NotNull
     private LocalDate dt_nascimento;
 
     @Valid
-    @NotBlank
     private String nome;
 
     @Valid
-    @NotBlank
     @Email
     private String email;
 
-    @NotNull
     private String telefone;
 
-    @NotNull
     private String celular;
 
     @Valid
     private EnderecoDto endereco;
 
-    @NotBlank
     private String nome_mae;
 
     @ValueOfEnum(enumClass = Genero.class, message = "Valor inválido para genero, valores possiveis: MASCULINO, FEMININO, NAOBINARIO; ")

@@ -12,14 +12,14 @@ import java.util.Optional;
 @Repository
 public interface PessoaJuridicaRepository extends JpaRepository<PessoaJuridica, Long> {
     @Query(value = "SELECT * FROM pessoa_juridica p WHERE p.status = 1", nativeQuery = true)
-    List<PessoaJuridica> findAll();
+    List<PessoaJuridica> listarTodosPJ();
 
     @Query(value = "SELECT * FROM pessoa_juridica  p WHERE p.id = ?1 and p.status = 1", nativeQuery = true)
-    Optional<PessoaJuridica> findById(Long id);
+    Optional<PessoaJuridica> buscarPjPorId(Long id);
 
     @Query(value = "SELECT * FROM pessoa_juridica  p WHERE p.cnpj = ?1", nativeQuery = true)
-    Optional<PessoaJuridica> findByCNPJ(String CNPJ);
+    Optional<PessoaJuridica> buscarPjPorCNPJ(String CNPJ);
 
     @Query(value = "SELECT * FROM pessoa_juridica  p WHERE p.inscricao_estadual = ?1", nativeQuery = true)
-    Optional<PessoaJuridica> findByInscricao(String inscricaoEstadual);
+    Optional<PessoaJuridica> buscarPjPorInscricao(String inscricaoEstadual);
 }

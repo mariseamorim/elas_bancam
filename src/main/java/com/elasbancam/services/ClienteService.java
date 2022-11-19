@@ -4,6 +4,7 @@ import com.elasbancam.controllers.mappers.ClienteMapper;
 import com.elasbancam.dtos.PessoaFisicaUpdateDto;
 import com.elasbancam.dtos.PessoaJuridicaUpdateDto;
 import com.elasbancam.exceptions.NegocioException;
+import com.elasbancam.models.Conta;
 import com.elasbancam.models.Pessoa;
 import com.elasbancam.models.PessoaFisica;
 import com.elasbancam.models.PessoaJuridica;
@@ -38,14 +39,19 @@ public class ClienteService {
 
     @Transactional
     public PessoaFisica cadastrarPessoaFisica(PessoaFisica pessoaFisica) {
-        Optional<PessoaFisica> cpfJaCadastrado = _repositoryPessoaFisica.findByCPF(pessoaFisica.getCpf());
+        Optional<PessoaFisica> cpfJaCadastrado = _repositoryPessoaFisica.buscarPfPorCPF(pessoaFisica.getCpf());
         if (cpfJaCadastrado.isPresent()) {
             throw new NegocioException("CPF já cadastrado no sistema.");
         }
 
-        Optional<PessoaFisica> rgJaCadastrado = _repositoryPessoaFisica.findByRG(pessoaFisica.getRg());
+        Optional<PessoaFisica> rgJaCadastrado = _repositoryPessoaFisica.buscarPfPorRG(pessoaFisica.getRg());
         if (rgJaCadastrado.isPresent()) {
             throw new NegocioException("RG já cadastrado no sistema.");
+        }
+
+        Conta numeroContaJaCadastrado = contaService.buscarContaPorNumeroConta(pessoaFisica.getConta().getNumero_conta());
+        if (numeroContaJaCadastrado == null) {
+            throw new NegocioException("Número de conta já cadastrado no sistema e não pode ser usado.");
         }
 
         if (pessoaFisica.getConta().getSaldo().compareTo(BigDecimal.valueOf(0)) < 0) {
@@ -61,14 +67,19 @@ public class ClienteService {
 
     @Transactional
     public PessoaJuridica cadastrarPessoaJuridica(PessoaJuridica pessoaJuridica) {
-        Optional<PessoaJuridica> cnpjJaCadastrado = _repositoryPessoaJuridica.findByCNPJ(pessoaJuridica.getCnpj());
+        Optional<PessoaJuridica> cnpjJaCadastrado = _repositoryPessoaJuridica.buscarPjPorCNPJ(pessoaJuridica.getCnpj());
         if (cnpjJaCadastrado.isPresent()) {
             throw new NegocioException("CNPJ já cadastrado no sistema.");
         }
 
-        Optional<PessoaJuridica> inscricaoEstadualJaCadastrada = _repositoryPessoaJuridica.findByInscricao(pessoaJuridica.getInscricao_estadual());
+        Optional<PessoaJuridica> inscricaoEstadualJaCadastrada = _repositoryPessoaJuridica.buscarPjPorInscricao(pessoaJuridica.getInscricao_estadual());
         if (inscricaoEstadualJaCadastrada.isPresent()) {
             throw new NegocioException("Inscrição Estadual já cadastrada no sistema.");
+        }
+
+        Conta numeroContaJaCadastrado = contaService.buscarContaPorNumeroConta(pessoaJuridica.getConta().getNumero_conta());
+        if (numeroContaJaCadastrado == null) {
+            throw new NegocioException("Número de conta já cadastrado no sistema e não pode ser usado.");
         }
 
         if (pessoaJuridica.getConta().getSaldo().compareTo(BigDecimal.valueOf(0)) < 0) {
@@ -83,9 +94,9 @@ public class ClienteService {
     }
 
     public List<Object> listarTodosClientes() {
-        List<Object> listaDeClientes = new ArrayList<Object>();
-        List<PessoaFisica> pf = _repositoryPessoaFisica.findAll();
-        List<PessoaJuridica> pj = _repositoryPessoaJuridica.findAll();
+        List<Object> listaDeClientes = new ArrayList<>();
+        List<PessoaFisica> pf = _repositoryPessoaFisica.listarTodosPF();
+        List<PessoaJuridica> pj = _repositoryPessoaJuridica.listarTodosPJ();
         listaDeClientes.add(pf);
         listaDeClientes.add(pj);
         return listaDeClientes;
@@ -93,23 +104,21 @@ public class ClienteService {
 
 
     public Optional<PessoaFisica> listarPessoaFisicaPorId(Long idCliente) {
-        return _repositoryPessoaFisica.findById(idCliente);
+        return _repositoryPessoaFisica.buscarPfPorId(idCliente);
     }
 
     public Optional<PessoaJuridica> listarPessoaJuridicaPorId(Long idCliente) {
-        return _repositoryPessoaJuridica.findById(idCliente);
+        return _repositoryPessoaJuridica.buscarPjPorId(idCliente);
     }
 
     public boolean verificarSeClienteExiste(Long id){
         Optional<PessoaFisica> pf = listarPessoaFisicaPorId(id);
         Optional<PessoaJuridica> pj = listarPessoaJuridicaPorId(id);
 
-        boolean clienteExiste = false;
-
         if(pf.isPresent() || pj.isPresent()){
-            return clienteExiste = true;
+            return true;
         }
-        return clienteExiste;
+        return false;
     }
 
     public Object listarClientePorId(Long idCliente) {
@@ -147,7 +156,6 @@ public class ClienteService {
 
 
     public Pessoa atualizarPessoaJuridica(PessoaJuridicaUpdateDto pessoa) {
-
         Optional<PessoaJuridica> clienteExiste = listarPessoaJuridicaPorId(pessoa.getId());
         if (clienteExiste.isEmpty()) {
             throw new NegocioException("Cliente não encontrado ou inativo (ID:  " + pessoa.getId() + ").");

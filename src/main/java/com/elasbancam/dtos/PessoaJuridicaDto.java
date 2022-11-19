@@ -1,4 +1,4 @@
-package com.elasbancam.dtos.input;
+package com.elasbancam.dtos;
 
 import lombok.Getter;
 import lombok.Setter;

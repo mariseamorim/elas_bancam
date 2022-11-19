@@ -1,4 +1,4 @@
-package com.elasbancam.dtos.input;
+package com.elasbancam.dtos;
 
 import com.elasbancam.enums.TipoOperacao;
 import lombok.Getter;

@@ -1,10 +1,10 @@
 package com.elasbancam.controllers;
 
-import com.elasbancam.dtos.input.PessoaFisicaDto;
-import com.elasbancam.dtos.input.PessoaFisicaUpdateDto;
-import com.elasbancam.dtos.input.PessoaJuridicaDto;
+import com.elasbancam.dtos.PessoaFisicaDto;
+import com.elasbancam.dtos.PessoaFisicaUpdateDto;
+import com.elasbancam.dtos.PessoaJuridicaDto;
 import com.elasbancam.controllers.mappers.ClienteMapper;
-import com.elasbancam.dtos.input.PessoaJuridicaUpdateDto;
+import com.elasbancam.dtos.PessoaJuridicaUpdateDto;
 import com.elasbancam.exceptions.NegocioException;
 import com.elasbancam.models.PessoaFisica;
 import com.elasbancam.models.PessoaJuridica;
@@ -31,75 +31,80 @@ public class ClientesController {
     private ClienteMapper clienteMapper;
 
     @PostMapping("/pf")
-    public ResponseEntity post(@RequestBody @Valid  PessoaFisicaDto pessoaFisicaDto){
+    public ResponseEntity cadastrarPessoaFisica(@RequestBody @Valid  PessoaFisicaDto pessoaFisicaDto){
         PessoaFisica novoCliente = clienteMapper.toEntityPf(pessoaFisicaDto);
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(service.savePf(novoCliente));
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrarPessoaFisica(novoCliente));
         } catch (NegocioException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
 
    @PostMapping("/pj")
-    public  ResponseEntity post (@RequestBody @Valid PessoaJuridicaDto pessoaJuridicaDto){
+    public  ResponseEntity cadastrarPessoaJuridica (@RequestBody @Valid PessoaJuridicaDto pessoaJuridicaDto){
         PessoaJuridica novoCliente = clienteMapper.toEntityPj(pessoaJuridicaDto);
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(service.savePj(novoCliente));
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.cadastrarPessoaJuridica(novoCliente));
         }catch (NegocioException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
 
     @GetMapping("/todos")
-    public ResponseEntity getAll(){
+    public ResponseEntity listarTodosClientes(){
         try {
-            List<Object> resposta = service.getAll();
-            if(resposta.isEmpty()){
+            List<Object> listaDeClientes = service.listarTodosClientes();
+            if(listaDeClientes.isEmpty()){
                 throw new NegocioException("Ainda não há clientes cadastrados.");
             }
-            return ResponseEntity.status(HttpStatus.OK).body(resposta);
+            return ResponseEntity.status(HttpStatus.OK).body(listaDeClientes);
         } catch (NegocioException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getId(@PathVariable Long id){
+    public ResponseEntity listarClientePorId(@PathVariable Long id){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(service.getIdPjOrPf(id));
+            return ResponseEntity.status(HttpStatus.OK).body(service.listarClientePorId(id));
         } catch (NegocioException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @PutMapping("/pf")
-    public ResponseEntity updatePf(@RequestBody PessoaFisicaUpdateDto pessoa){
+    public ResponseEntity atualizarPessoaFisica(@RequestBody PessoaFisicaUpdateDto pessoa){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(service.updatePf(pessoa));
+            return ResponseEntity.status(HttpStatus.OK).body(service.atualizarPessoaFisica(pessoa));
         } catch (NegocioException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @PutMapping("/pj")
-    public ResponseEntity updatePj(@RequestBody PessoaJuridicaUpdateDto pessoa){
+    public ResponseEntity atualizarPessoaJuridica(@RequestBody PessoaJuridicaUpdateDto pessoa){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(service.updatePj(pessoa));
+            return ResponseEntity.status(HttpStatus.OK).body(service.atualizarPessoaJuridica(pessoa));
         } catch (NegocioException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @PutMapping("delete/{id}")
-    public ResponseEntity inactive(@PathVariable Long id ){
+    public ResponseEntity inativarCliente(@PathVariable Long id ){
         try {
-            Optional<PessoaFisica> clientePf = service.getIdPf(id);
-            Optional<PessoaJuridica> clientePj = service.getIdPj(id);
-
-            if(clientePf.isPresent()){
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.inactivePf(clientePf.get()));
+            if(!service.verificarSeClienteExiste(id)) {
+                throw new NegocioException("Cliente não encontrado ou inativo (ID: " + id + ").");
             }
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.inactivePJ(clientePj.get()));
+
+            Optional<PessoaFisica> clientePf = service.listarPessoaFisicaPorId(id);
+            Optional<PessoaJuridica> clientePj = service.listarPessoaJuridicaPorId(id);
+
+            if (clientePf.isPresent()){
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.inativarPessoaFisica(clientePf.get()));
+            }
+
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(service.inativarPessoaJuridica(clientePj.get()));
         } catch (NegocioException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }

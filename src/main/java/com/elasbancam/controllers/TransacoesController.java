@@ -1,9 +1,10 @@
 package com.elasbancam.controllers;
 
 import com.elasbancam.controllers.mappers.TransacaoMapper;
-import com.elasbancam.dtos.input.TransacaoDto;
+import com.elasbancam.dtos.TransacaoDto;
 import com.elasbancam.exceptions.NegocioException;
 import com.elasbancam.enums.TipoTransacao;
+import com.elasbancam.models.Transacao;
 import com.elasbancam.services.ContaService;
 import com.elasbancam.services.TransacoesService;
 import lombok.AllArgsConstructor;
@@ -33,55 +34,54 @@ public class TransacoesController {
     // Método escolhido para fazer o mapeamento de objetos manualmente
     // TO DO: refatorar o mapeamento
     @PostMapping
-    public ResponseEntity create(@RequestBody @Valid TransacaoDto transacaoDto){
-
+    public ResponseEntity efetuarTransacao(@RequestBody @Valid TransacaoDto transacaoDto){
         try {
-           var transacao = transacaoMapper.toEntityTransacao(transacaoDto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(service.create(transacao));
+            Transacao transacao = transacaoMapper.toEntityTransacao(transacaoDto);
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.efetuarTransacao(transacao));
         } catch (NegocioException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
 
     @GetMapping("/tipo/{tipoTransacao}")
-    public ResponseEntity getByType(@PathVariable TipoTransacao tipoTransacao){
+    public ResponseEntity listarTransacoesPorTipo(@PathVariable TipoTransacao tipoTransacao){
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(service.getByType(tipoTransacao));
+            return ResponseEntity.status(HttpStatus.OK).body(service.listarTransacoesPorTipo(tipoTransacao));
         } catch (NegocioException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @GetMapping("/periodo/{dataInicial}/{dataFinal}")
-    public ResponseEntity getByDate(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataInicial, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataFinal) {
+    public ResponseEntity listarTransacoesPorPeriodo(@PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataInicial, @PathVariable @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate dataFinal) {
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(service.getByDate(dataInicial, dataFinal));
+            return ResponseEntity.status(HttpStatus.OK).body(service.listarTransacoesPorPeriodo(dataInicial, dataFinal));
         } catch (NegocioException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @GetMapping("/conta/{id}")
-    public ResponseEntity getByAccount(@PathVariable String id){
+    public ResponseEntity listarTransacoesPorIdConta(@PathVariable String id){
         try {
-            Object conta= contaService.getById(id);
+            Object conta= contaService.buscarContaPorId(id);
             if(ObjectUtils.isEmpty(conta)){
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Conta não encontrada.");
             }
-            return ResponseEntity.status(HttpStatus.OK).body(service.getByAccount(id));
+            return ResponseEntity.status(HttpStatus.OK).body(service.listarTransacoesPorIdConta(id));
         } catch (NegocioException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getById(@PathVariable String id){
+    public ResponseEntity buscarTransacaoPorId(@PathVariable String id){
         try {
-            Object transacao = service.getById(id);
+            Object transacao = service.buscarTransacaoPorId(id);
             if(ObjectUtils.isEmpty(transacao)) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Transacao não encontrada.");
             }
-            return ResponseEntity.status(HttpStatus.OK).body(service.getById(id));
+            return ResponseEntity.status(HttpStatus.OK).body(transacao);
         } catch (NegocioException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }

@@ -20,20 +20,18 @@ import java.util.List;
 public class ContaService {
     private ContaRepository _repositoryConta;
 
-    public Conta getById(String id) {
-
+    public Conta buscarContaPorId(String id) {
         return _repositoryConta.findById(id).orElseThrow(() -> new NegocioException("A conta informada não encontrada (ID: " + id + ")."));
-
     }
 
     @Transactional
-    public List<Conta> updateSaldo(Transacao transacao) {
+    public List<Conta> atualizarSaldo(Transacao transacao) {
         String idContaOrigem = transacao.getConta_origem().getId();
         String idContaDestino = transacao.getConta_destino().getId();
         BigDecimal valor = transacao.getValor();
 
-        Conta contaOrigem = getById(idContaOrigem);
-        Conta contaDestino = getById(idContaDestino);
+        Conta contaOrigem = buscarContaPorId(idContaOrigem);
+        Conta contaDestino = buscarContaPorId(idContaDestino);
 
         if (contaOrigem.getSaldo().compareTo(valor) < 0) {
             throw new NegocioException("Saldo insuficiente para realizar transação");

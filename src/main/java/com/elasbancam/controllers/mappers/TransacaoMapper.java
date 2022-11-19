@@ -1,6 +1,6 @@
 package com.elasbancam.controllers.mappers;
 
-import com.elasbancam.dtos.input.TransacaoDto;
+import com.elasbancam.dtos.TransacaoDto;
 import com.elasbancam.models.Transacao;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;

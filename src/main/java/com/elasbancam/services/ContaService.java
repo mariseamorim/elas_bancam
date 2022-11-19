@@ -20,20 +20,22 @@ import java.util.List;
 public class ContaService {
     private ContaRepository _repositoryConta;
 
-    public Conta getById(String id) {
-
-        return _repositoryConta.findById(id).orElseThrow(() -> new NegocioException("A conta informada não encontrada (ID: " + id + ")."));
-
+    public Conta buscarContaPorId(String id) {
+        Conta conta = _repositoryConta.buscarPorId(id);
+        if(conta == null) {
+            throw new NegocioException("A conta informada não encontrada ou está inativa (ID: " + id + ").");
+        }
+        return conta;
     }
 
     @Transactional
-    public List<Conta> updateSaldo(Transacao transacao) {
+    public List<Conta> atualizarSaldo(Transacao transacao) {
         String idContaOrigem = transacao.getConta_origem().getId();
         String idContaDestino = transacao.getConta_destino().getId();
         BigDecimal valor = transacao.getValor();
 
-        Conta contaOrigem = getById(idContaOrigem);
-        Conta contaDestino = getById(idContaDestino);
+        Conta contaOrigem = buscarContaPorId(idContaOrigem);
+        Conta contaDestino = buscarContaPorId(idContaDestino);
 
         if (contaOrigem.getSaldo().compareTo(valor) < 0) {
             throw new NegocioException("Saldo insuficiente para realizar transação");
@@ -45,5 +47,17 @@ public class ContaService {
             listaContas.add(contaDestino);
             return listaContas;
         }
+    }
+
+    public Conta inativarConta(String id) {
+        Conta conta = buscarContaPorId(id);
+
+        try {
+            conta.setStatus(false);
+            return _repositoryConta.save(conta);
+        } catch (NegocioException e) {
+            throw new NegocioException("Não foi possível inativar o cliente (ID: " + id + ").");
+        }
+
     }
 }

@@ -1,7 +1,9 @@
 package com.elasbancam.models;
 
 import com.elasbancam.enums.Genero;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +12,8 @@ import java.time.LocalDate;
 // Representa a tabela "pessoa_fisica"
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "pessoa_fisica")
 public class PessoaFisica extends Pessoa{

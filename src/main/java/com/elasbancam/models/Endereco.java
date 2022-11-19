@@ -1,13 +1,17 @@
 package com.elasbancam.models;
 
 import com.elasbancam.enums.Regiao;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 // Representa a tabela "endereco"
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "endereco")
 public class Endereco {

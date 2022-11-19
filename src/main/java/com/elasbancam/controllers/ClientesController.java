@@ -73,7 +73,7 @@ public class ClientesController {
     }
 
     @PutMapping("/pf")
-    public ResponseEntity atualizarPessoaFisica(@RequestBody PessoaFisicaUpdateDto pessoa){
+    public ResponseEntity atualizarPessoaFisica(@RequestBody @Valid PessoaFisicaUpdateDto pessoa){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.atualizarPessoaFisica(pessoa));
         } catch (NegocioException e) {
@@ -82,7 +82,7 @@ public class ClientesController {
     }
 
     @PutMapping("/pj")
-    public ResponseEntity atualizarPessoaJuridica(@RequestBody PessoaJuridicaUpdateDto pessoa){
+    public ResponseEntity atualizarPessoaJuridica(@RequestBody @Valid PessoaJuridicaUpdateDto pessoa){
         try {
             return ResponseEntity.status(HttpStatus.OK).body(service.atualizarPessoaJuridica(pessoa));
         } catch (NegocioException e) {

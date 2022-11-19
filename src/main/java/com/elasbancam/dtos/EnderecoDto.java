@@ -1,11 +1,13 @@
 package com.elasbancam.dtos;
 
 import com.elasbancam.enums.Regiao;
+import com.elasbancam.validation.ValueOfEnum;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -13,7 +15,7 @@ import javax.validation.constraints.Size;
 public class EnderecoDto {
     @Valid
     @NotBlank
-    @Size(max = 7)
+    @Size(max = 8)
     private String cep;
 
     @Valid
@@ -21,7 +23,7 @@ public class EnderecoDto {
     private String rua;
 
     @Valid
-    @NotBlank
+    @NotNull
     private int numero;
 
     @Valid
@@ -44,5 +46,6 @@ public class EnderecoDto {
     @Valid
     @NotBlank
     @Size(max = 2)
-    private Regiao regiao;
+    @ValueOfEnum(enumClass = Regiao.class, message = "Valor inválido para regiao valores possiveis:  N, NE, SE, S, CO ")
+    private String regiao;
 }

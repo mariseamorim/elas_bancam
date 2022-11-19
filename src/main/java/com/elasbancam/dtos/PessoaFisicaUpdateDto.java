@@ -1,6 +1,7 @@
 package com.elasbancam.dtos;
 
 import com.elasbancam.enums.Genero;
+import com.elasbancam.validation.ValueOfEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,10 +35,12 @@ public class PessoaFisicaUpdateDto {
     @NotNull
     private String celular;
 
+    @Valid
     private EnderecoDto endereco;
 
     @NotBlank
     private String nome_mae;
 
-    private Genero genero;
+    @ValueOfEnum(enumClass = Genero.class, message = "Valor inválido para genero, valores possiveis: MASCULINO, FEMININO, NAOBINARIO; ")
+    private String genero;
 }

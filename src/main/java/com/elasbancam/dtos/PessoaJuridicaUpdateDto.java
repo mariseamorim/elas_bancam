@@ -2,6 +2,7 @@ package com.elasbancam.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -11,6 +12,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
+@Validated
 public class PessoaJuridicaUpdateDto {
     @Valid
     @NotNull
@@ -33,17 +35,17 @@ public class PessoaJuridicaUpdateDto {
 
     @Valid
     @NotBlank
-    @NotNull
     @Email
     private String email;
 
     @Valid
-    @NotNull
+    @NotBlank
     private String telefone;
 
     @Valid
-    @NotNull
+    @NotBlank
     private String celular;
 
+    @Valid
     private EnderecoDto endereco;
 }

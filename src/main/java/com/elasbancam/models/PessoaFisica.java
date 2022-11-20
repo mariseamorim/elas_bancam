@@ -1,13 +1,11 @@
 package com.elasbancam.models;
 
 import com.elasbancam.enums.Genero;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 // Representa a tabela "pessoa_fisica"
 @Getter
@@ -32,4 +30,16 @@ public class PessoaFisica extends Pessoa{
     @Column(length = 20, nullable = false)
     @Enumerated(EnumType.STRING)
     private Genero genero;
+
+    public PessoaFisica(Long id, String nome, String email, String telefone, String celular, Endereco endereco, Conta conta, LocalDateTime criado_em, LocalDateTime alterado_em, boolean status, String cpf, String rg, LocalDate dt_nascimento, String nome_mae, Genero genero) {
+        super(id, nome, email, telefone, celular, endereco, conta, criado_em, alterado_em, status);
+        this.cpf = cpf;
+        this.rg = rg;
+        this.dt_nascimento = dt_nascimento;
+        this.nome_mae = nome_mae;
+        this.genero = genero;
+    }
+
+
+
 }

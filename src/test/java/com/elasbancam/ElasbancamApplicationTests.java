@@ -5,9 +5,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class ElasbancamApplicationTests {
-
 	@Test
-	void contextLoads() {
+	void main() {
+		ElasbancamApplication.main(new String[]{});
 	}
 
 }

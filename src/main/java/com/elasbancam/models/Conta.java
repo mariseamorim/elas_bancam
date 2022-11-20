@@ -67,6 +67,15 @@ public class Conta {
     @OneToMany(mappedBy = "conta_destino")
     private List<Transacao> transacoesContaDestino;
 
+    public Conta(String id, int numero_conta, int agencia, TipoOperacao operacao, BigDecimal saldo, boolean status) {
+        this.id = id;
+        this.numero_conta = numero_conta;
+        this.agencia = agencia;
+        this.operacao = operacao;
+        this.saldo = saldo;
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

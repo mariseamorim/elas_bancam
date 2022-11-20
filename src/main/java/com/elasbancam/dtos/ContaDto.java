@@ -1,6 +1,7 @@
 package com.elasbancam.dtos;
 
 import com.elasbancam.enums.TipoOperacao;
+import com.elasbancam.exceptions.validation.ValueOfEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,14 +13,18 @@ import java.math.BigDecimal;
 @Setter
 public class ContaDto {
     @Valid
-    @Size(max = 20)
+    @Max(value = Integer.MAX_VALUE)
     private int numero_conta;
 
     @Valid
-    @Size(max = 10)
+    @NotNull
+    @Max(value = Integer.MAX_VALUE)
     private int agencia;
 
-    private TipoOperacao operacao;
+    @Valid
+    @NotBlank
+    @ValueOfEnum(enumClass = TipoOperacao.class, message = "Valor inválido para operacao,valores possiveis: CONTAPOUPANCA, CONTACORRENTEPF, CONTACORRENTEPJ ")
+    private String operacao;
 
     @Valid
     private BigDecimal saldo;

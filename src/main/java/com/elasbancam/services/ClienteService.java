@@ -50,7 +50,7 @@ public class ClienteService {
         }
 
         Conta numeroContaJaCadastrado = contaService.buscarContaPorNumeroConta(pessoaFisica.getConta().getNumero_conta());
-        if (numeroContaJaCadastrado == null) {
+        if (numeroContaJaCadastrado != null) {
             throw new NegocioException("Número de conta já cadastrado no sistema e não pode ser usado.");
         }
 
@@ -78,7 +78,7 @@ public class ClienteService {
         }
 
         Conta numeroContaJaCadastrado = contaService.buscarContaPorNumeroConta(pessoaJuridica.getConta().getNumero_conta());
-        if (numeroContaJaCadastrado == null) {
+        if (numeroContaJaCadastrado != null) {
             throw new NegocioException("Número de conta já cadastrado no sistema e não pode ser usado.");
         }
 

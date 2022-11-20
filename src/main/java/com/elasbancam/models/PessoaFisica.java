@@ -31,6 +31,7 @@ public class PessoaFisica extends Pessoa{
     @Enumerated(EnumType.STRING)
     private Genero genero;
 
+
     public PessoaFisica(Long id, String nome, String email, String telefone, String celular, Endereco endereco, Conta conta, LocalDateTime criado_em, LocalDateTime alterado_em, boolean status, String cpf, String rg, LocalDate dt_nascimento, String nome_mae, Genero genero) {
         super(id, nome, email, telefone, celular, endereco, conta, criado_em, alterado_em, status);
         this.cpf = cpf;

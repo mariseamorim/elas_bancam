@@ -69,7 +69,7 @@ public abstract  class Pessoa {
     @Getter
     @Setter
     @Column(nullable = false)
-    private boolean status = true;
+    private boolean status;
 
     @Override
     public boolean equals(Object o) {

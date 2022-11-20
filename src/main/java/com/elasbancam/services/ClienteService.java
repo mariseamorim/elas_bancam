@@ -155,7 +155,7 @@ public class ClienteService {
     }
 
 
-    public Pessoa atualizarPessoaJuridica(PessoaJuridicaUpdateDto pessoa) {
+    public PessoaJuridica atualizarPessoaJuridica(PessoaJuridicaUpdateDto pessoa) {
         Optional<PessoaJuridica> clienteExiste = listarPessoaJuridicaPorId(pessoa.getId());
         if (clienteExiste.isEmpty()) {
             throw new NegocioException("Cliente não encontrado ou inativo (ID:  " + pessoa.getId() + ").");

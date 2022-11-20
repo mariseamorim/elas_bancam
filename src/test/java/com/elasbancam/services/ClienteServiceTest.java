@@ -76,11 +76,10 @@ class ClienteServiceTest {
     private PessoaJuridicaRepository _repositoryPessoaJuridica;
 
     @Mock
-    private ContaService contaService;
+    private  ContaService contaService;
 
     @Mock
     private ClienteMapper clienteMapper;
-
     private PessoaFisica pessoaFisica;
     private Optional<PessoaFisica> optionalPessoaFisica;
     private PessoaFisicaUpdateDto pessoaFisicaUpdateDto;
@@ -148,12 +147,12 @@ class ClienteServiceTest {
     }
 
     @Test
-    void quandolistarTodosClientesRenoarUmaListaDeClientes() {
+    void quandolistarTodosClientesRetornarUmaListaDeClientes() {
         when(_repositoryPessoaFisica.listarTodosPF()).thenReturn(List.of(pessoaFisica));
         when(_repositoryPessoaJuridica.listarTodosPJ()).thenReturn(List.of(pessoaJuridica));
 
         List<Object> resposta = clienteService.listarTodosClientes();
-        System.out.println(resposta);
+
         assertNotNull(resposta);
         assertEquals(2, resposta.size());
     }
@@ -233,7 +232,7 @@ class ClienteServiceTest {
 
         try {
             pessoaFisica.setCpf(CPF);
-            PessoaFisica resposta = clienteService.atualizarPessoaFisica(pessoaFisicaUpdateDto);
+            clienteService.atualizarPessoaFisica(pessoaFisicaUpdateDto);
 
         } catch (NegocioException ex) {
             assertEquals(NegocioException.class, ex.getClass());
@@ -266,7 +265,7 @@ class ClienteServiceTest {
         var resposta = clienteService.inativarPessoaFisica(pessoaFisica);
 
         assertNotNull(resposta);
-        assertEquals(resposta.isStatus(), false);
+        assertFalse(resposta.isStatus());
     }
 
     @Test
@@ -276,7 +275,7 @@ class ClienteServiceTest {
         var resposta = clienteService.inativarPessoaJuridica(pessoaJuridica);
 
         assertNotNull(resposta);
-        assertEquals(resposta.isStatus(), false);
+        assertFalse(resposta.isStatus());
     }
 
     private void startCliente() {

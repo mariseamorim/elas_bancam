@@ -47,7 +47,7 @@ class ContaServiceTest {
     }
 
     @Test
-    void quandoBuscarContaPorIdEntaoRetornaUmaInstanciaConta() {
+    void quandoBuscarContaPorIdRetornaInstanciaConta() {
         when(_repositoryConta.buscarPorId(anyString())).thenReturn(contaPF);
 
         Conta resposta = contaService.buscarContaPorId(IDPF);
@@ -60,9 +60,9 @@ class ContaServiceTest {
     }
 
     @Test
-    void quandoBuscarContaPorIdEntaoRetornaExeception() {
+    void quandoBuscarContaPorIdRetornaExeception() {
         try{
-            Conta resposta = contaService.buscarContaPorId(IDPF);
+             contaService.buscarContaPorId(IDPF);
         }catch (NegocioException ex){
             assertEquals(NegocioException.class, ex.getClass());
             assertEquals("A conta informada não encontrada ou está inativa (ID: " + IDPF + ").", ex.getMessage());
@@ -72,7 +72,7 @@ class ContaServiceTest {
     }
 
     @Test
-    void buscarContaPorNumeroConta() {
+    void quandoBuscarContaPorNumeroContaRetornaSucesso() {
         when(_repositoryConta.buscarPorNumeroConta(anyInt())).thenReturn(contaPF);
 
         Conta resposta = contaService.buscarContaPorNumeroConta(NUMERO_CONTAPF);
@@ -85,11 +85,11 @@ class ContaServiceTest {
     }
 
     @Test
-    void quandoAtualizarSaldoContaReturnException() {
+    void quandoAtualizarSaldoContaRetornaException() {
        when(_repositoryConta.buscarPorId(anyString())).thenReturn(contaPF);
         try{
             transacao.setValor(BigDecimal.valueOf(80000L));
-            var resposta = contaService.atualizarSaldo(transacao);
+            contaService.atualizarSaldo(transacao);
         }
         catch (NegocioException ex){
             assertEquals(NegocioException.class, ex.getClass());
@@ -98,7 +98,7 @@ class ContaServiceTest {
     }
 
     @Test
-    void deveAtualizarSaldoConta() {
+    void quandoAtualizarSaldoContaRetornaSucesso() {
         when(_repositoryConta.buscarPorId(anyString())).thenReturn(contaPF);
 
         var resposta = contaService.atualizarSaldo(transacao);
@@ -108,10 +108,10 @@ class ContaServiceTest {
     }
 
     @Test
-    void inativarConta() {
+    void quandoInativarContaRetornaStatusFalse() {
         when(_repositoryConta.buscarPorId(anyString())).thenReturn(contaPF);
-        var resposta = contaService.inativarConta(IDPJ);
-        assertEquals(contaPF.isStatus(), false);
+         contaService.inativarConta(IDPJ);
+        assertFalse(contaPF.isStatus());
     }
 
     public void starContas(){

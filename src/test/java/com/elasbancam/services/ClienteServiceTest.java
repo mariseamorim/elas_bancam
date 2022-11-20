@@ -3,7 +3,6 @@ package com.elasbancam.services;
 import com.elasbancam.controllers.mappers.ClienteMapper;
 import com.elasbancam.dtos.EnderecoDto;
 import com.elasbancam.dtos.PessoaFisicaUpdateDto;
-import com.elasbancam.dtos.PessoaJuridicaDto;
 import com.elasbancam.dtos.PessoaJuridicaUpdateDto;
 import com.elasbancam.enums.Genero;
 import com.elasbancam.enums.Regiao;
@@ -28,7 +27,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -195,7 +194,21 @@ class ClienteServiceTest {
     }
 
     @Test
-    void verificarSeClienteExiste() {
+    void quandoVerificarSeClienteExisteReturnTrue() {
+        when(_repositoryPessoaJuridica.buscarPjPorId(IDPJ)).thenReturn(optionalPessoaJuridica);
+
+        boolean reposta = clienteService.verificarSeClienteExiste(IDPJ);
+
+        assertTrue(reposta);
+
+    }
+
+    @Test
+    void quandoVerificarSeClienteExisteReturnFalse() {
+        boolean reposta = clienteService.verificarSeClienteExiste(IDPJ);
+
+        assertFalse(reposta);
+
     }
 
     @Test
@@ -236,7 +249,6 @@ class ClienteServiceTest {
 
         PessoaJuridica resposta = clienteService.atualizarPessoaJuridica(pessoaJuridicaUpdateDto);
 
-
         assertNotNull(resposta);
         assertEquals(PessoaJuridica.class, resposta.getClass());
         assertEquals(IDPJ, resposta.getId());
@@ -248,11 +260,23 @@ class ClienteServiceTest {
 
 
     @Test
-    void inativarPessoaFisica() {
+    void quandoInativarPessoaFisicaDeveAtualizarStatusParaFalse() {
+        when(_repositoryPessoaFisica.save(any())).thenReturn(pessoaFisica);
+
+        var resposta = clienteService.inativarPessoaFisica(pessoaFisica);
+
+        assertNotNull(resposta);
+        assertEquals(resposta.isStatus(), false);
     }
 
     @Test
     void inativarPessoaJuridica() {
+        when(_repositoryPessoaJuridica.save(any())).thenReturn(pessoaJuridica);
+
+        var resposta = clienteService.inativarPessoaJuridica(pessoaJuridica);
+
+        assertNotNull(resposta);
+        assertEquals(resposta.isStatus(), false);
     }
 
     private void startCliente() {

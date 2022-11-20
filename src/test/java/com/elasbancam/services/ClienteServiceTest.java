@@ -4,6 +4,7 @@ import com.elasbancam.controllers.mappers.ClienteMapper;
 import com.elasbancam.enums.Genero;
 import com.elasbancam.enums.Regiao;
 import com.elasbancam.enums.TipoOperacao;
+import com.elasbancam.exceptions.NegocioException;
 import com.elasbancam.models.Conta;
 import com.elasbancam.models.Endereco;
 import com.elasbancam.models.PessoaFisica;
@@ -19,11 +20,13 @@ import org.mockito.MockitoAnnotations;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 class ClienteServiceTest {
     public static final String IDCONTAPF = "fbc24f8d-d2f2-4d69-aa3d-255103bc67ed";
@@ -48,7 +51,6 @@ class ClienteServiceTest {
     public static final String CPF = "07142993815";
     public static final String RG = "454568";
     public static final String NOME_MAE = "Tereza da Silva";
-
     public static final Genero GENERO = Genero.FEMININO;
     public static final LocalDate DT_NASCIMENTO = LocalDate.parse("2002-11-15");
     public static final long IDPF = 1L;
@@ -70,7 +72,7 @@ class ClienteServiceTest {
     @Mock
     private PessoaJuridicaRepository _repositoryPessoaJuridica;
 
-    @InjectMocks
+    @Mock
     private ContaService contaService;
 
     @Mock
@@ -89,15 +91,42 @@ class ClienteServiceTest {
     }
 
     @Test
-    void cadastrarPessoaFisica() {
+    void quandoCadastrarPessoaFisicaRetornaSucesso() {
+        when(_repositoryPessoaFisica.save(any())).thenReturn(pessoaFisica);
+
+        PessoaFisica resposta = clienteService.cadastrarPessoaFisica(pessoaFisica);
+
+        assertNotNull(resposta);
+        assertEquals(PessoaFisica.class, resposta.getClass());
+        assertEquals(IDPF, resposta.getId());
+        assertEquals(NOME, resposta.getNome());
+        assertEquals(EMAIL, resposta.getEmail());
+        assertEquals(CPF, resposta.getCpf());
     }
 
     @Test
-    void cadastrarPessoaJuridica() {
+    void quandoCadastrarcadastrarPessoaJuridicaRetornaSucesso() {
+        when(_repositoryPessoaJuridica.save(any())).thenReturn(pessoaJuridica);
+
+        PessoaJuridica resposta = clienteService.cadastrarPessoaJuridica(pessoaJuridica);
+
+        assertNotNull(resposta);
+        assertEquals(PessoaJuridica.class, resposta.getClass());
+        assertEquals(IDPJ, resposta.getId());
+        assertEquals(NOMEPJ, resposta.getNome());
+        assertEquals(EMAIL, resposta.getEmail());
+        assertEquals(CNPJ, resposta.getCnpj());
     }
 
     @Test
-    void listarTodosClientes() {
+    void quandolistarTodosClientesRenoarUmaListaDeClientes() {
+        when(_repositoryPessoaFisica.listarTodosPF()).thenReturn(List.of(pessoaFisica));
+        when(_repositoryPessoaJuridica.listarTodosPJ()).thenReturn(List.of(pessoaJuridica));
+
+        List<Object>  resposta = clienteService.listarTodosClientes();
+        System.out.println(resposta);
+        assertNotNull(resposta);
+        assertEquals(2, resposta.size());
     }
 
     @Test
@@ -123,6 +152,16 @@ class ClienteServiceTest {
         assertEquals(IDPJ, resposta.get().getId());
         assertEquals(NOMEPJ, resposta.get().getNome());
         assertEquals(CNPJ, resposta.get().getCnpj());
+    }
+
+    @Test
+    void quandoBuscarClientePorIdEntaoRetornaException() {
+        try{
+            clienteService.listarClientePorId(IDPF);
+        } catch (Exception ex) {
+            assertEquals(NegocioException.class, ex.getClass());
+            assertEquals("Cliente não encontrado ou inativo (ID:  " + IDPF + ").", ex.getMessage());
+        }
     }
 
     @Test

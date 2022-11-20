@@ -103,9 +103,20 @@ class ClienteServiceTest {
         assertEquals(EMAIL, resposta.getEmail());
         assertEquals(CPF, resposta.getCpf());
     }
+    @Test
+    void quandoCadastrarPessoaFisicaComMesmoCpfRetornaExeception() {
+        when(_repositoryPessoaFisica.buscarPfPorCPF(anyString())).thenReturn(optionalPessoaFisica);
+
+        try{
+            clienteService.cadastrarPessoaFisica(pessoaFisica);
+        }catch (NegocioException ex){
+            assertEquals(NegocioException.class, ex.getClass());
+            assertEquals("CPF já cadastrado no sistema.", ex.getMessage());
+        }
+    }
 
     @Test
-    void quandoCadastrarcadastrarPessoaJuridicaRetornaSucesso() {
+    void quandoCadastrarPessoaJuridicaRetornaSucesso() {
         when(_repositoryPessoaJuridica.save(any())).thenReturn(pessoaJuridica);
 
         PessoaJuridica resposta = clienteService.cadastrarPessoaJuridica(pessoaJuridica);
@@ -116,6 +127,18 @@ class ClienteServiceTest {
         assertEquals(NOMEPJ, resposta.getNome());
         assertEquals(EMAIL, resposta.getEmail());
         assertEquals(CNPJ, resposta.getCnpj());
+    }
+
+    @Test
+    void quandoCadastrarPessoaJuridicaComMesmoCnpjRetornaExeception() {
+        when(_repositoryPessoaJuridica.buscarPjPorCNPJ(anyString())).thenReturn(optionalPessoaJuridica);
+
+        try{
+            clienteService.cadastrarPessoaJuridica(pessoaJuridica);
+        }catch (NegocioException ex){
+            assertEquals(NegocioException.class, ex.getClass());
+            assertEquals("CNPJ já cadastrado no sistema.", ex.getMessage());
+        }
     }
 
     @Test
@@ -158,7 +181,7 @@ class ClienteServiceTest {
     void quandoBuscarClientePorIdEntaoRetornaException() {
         try{
             clienteService.listarClientePorId(IDPF);
-        } catch (Exception ex) {
+        } catch (NegocioException ex) {
             assertEquals(NegocioException.class, ex.getClass());
             assertEquals("Cliente não encontrado ou inativo (ID:  " + IDPF + ").", ex.getMessage());
         }
@@ -166,10 +189,6 @@ class ClienteServiceTest {
 
     @Test
     void verificarSeClienteExiste() {
-    }
-
-    @Test
-    void listarClientePorId() {
     }
 
     @Test

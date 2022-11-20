@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 public class EnderecoDto {
     @Valid
     @NotBlank
-    @Size(max = 8)
+    @Size(max = 10)
     private String cep;
 
     @Valid

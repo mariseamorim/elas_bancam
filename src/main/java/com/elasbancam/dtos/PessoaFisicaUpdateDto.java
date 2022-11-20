@@ -2,7 +2,9 @@ package com.elasbancam.dtos;
 
 import com.elasbancam.enums.Genero;
 import com.elasbancam.exceptions.validation.ValueOfEnum;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.Valid;
@@ -11,6 +13,8 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class PessoaFisicaUpdateDto {
     @Valid
     @NotNull

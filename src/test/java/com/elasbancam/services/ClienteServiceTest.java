@@ -1,6 +1,10 @@
 package com.elasbancam.services;
 
 import com.elasbancam.controllers.mappers.ClienteMapper;
+import com.elasbancam.dtos.EnderecoDto;
+import com.elasbancam.dtos.PessoaFisicaUpdateDto;
+import com.elasbancam.dtos.PessoaJuridicaDto;
+import com.elasbancam.dtos.PessoaJuridicaUpdateDto;
 import com.elasbancam.enums.Genero;
 import com.elasbancam.enums.Regiao;
 import com.elasbancam.enums.TipoOperacao;
@@ -45,7 +49,7 @@ class ClienteServiceTest {
     public static final String UF = "SC";
     public static final Regiao REGIAO = Regiao.S;
     public static final String NOME = "Maria Tereza";
-    public static final String EMAIL = "maria@teste.com";
+    public static final String EMAIL = "teste@teste.com";
     public static final String TELEFONE = "4732248989";
     public static final String CELULAR = "47997320224";
     public static final String CPF = "07142993815";
@@ -80,9 +84,11 @@ class ClienteServiceTest {
 
     private PessoaFisica pessoaFisica;
     private Optional<PessoaFisica> optionalPessoaFisica;
-
+    private PessoaFisicaUpdateDto pessoaFisicaUpdateDto;
     private PessoaJuridica pessoaJuridica;
     private Optional<PessoaJuridica> optionalPessoaJuridica;
+
+    private PessoaJuridicaUpdateDto pessoaJuridicaUpdateDto;
 
     @BeforeEach
     void setUp() {
@@ -103,13 +109,14 @@ class ClienteServiceTest {
         assertEquals(EMAIL, resposta.getEmail());
         assertEquals(CPF, resposta.getCpf());
     }
+
     @Test
     void quandoCadastrarPessoaFisicaComMesmoCpfRetornaExeception() {
         when(_repositoryPessoaFisica.buscarPfPorCPF(anyString())).thenReturn(optionalPessoaFisica);
 
-        try{
+        try {
             clienteService.cadastrarPessoaFisica(pessoaFisica);
-        }catch (NegocioException ex){
+        } catch (NegocioException ex) {
             assertEquals(NegocioException.class, ex.getClass());
             assertEquals("CPF já cadastrado no sistema.", ex.getMessage());
         }
@@ -133,9 +140,9 @@ class ClienteServiceTest {
     void quandoCadastrarPessoaJuridicaComMesmoCnpjRetornaExeception() {
         when(_repositoryPessoaJuridica.buscarPjPorCNPJ(anyString())).thenReturn(optionalPessoaJuridica);
 
-        try{
+        try {
             clienteService.cadastrarPessoaJuridica(pessoaJuridica);
-        }catch (NegocioException ex){
+        } catch (NegocioException ex) {
             assertEquals(NegocioException.class, ex.getClass());
             assertEquals("CNPJ já cadastrado no sistema.", ex.getMessage());
         }
@@ -146,7 +153,7 @@ class ClienteServiceTest {
         when(_repositoryPessoaFisica.listarTodosPF()).thenReturn(List.of(pessoaFisica));
         when(_repositoryPessoaJuridica.listarTodosPJ()).thenReturn(List.of(pessoaJuridica));
 
-        List<Object>  resposta = clienteService.listarTodosClientes();
+        List<Object> resposta = clienteService.listarTodosClientes();
         System.out.println(resposta);
         assertNotNull(resposta);
         assertEquals(2, resposta.size());
@@ -179,7 +186,7 @@ class ClienteServiceTest {
 
     @Test
     void quandoBuscarClientePorIdEntaoRetornaException() {
-        try{
+        try {
             clienteService.listarClientePorId(IDPF);
         } catch (NegocioException ex) {
             assertEquals(NegocioException.class, ex.getClass());
@@ -192,12 +199,53 @@ class ClienteServiceTest {
     }
 
     @Test
-    void atualizarPessoaFisica() {
+    void quandoAtualizarPessoaFisicaRetornaSucesso() {
+        when(_repositoryPessoaFisica.save(any())).thenReturn(pessoaFisica);
+        when(clienteService.listarPessoaFisicaPorId(IDPF)).thenReturn(optionalPessoaFisica);
+
+        PessoaFisica resposta = clienteService.atualizarPessoaFisica(pessoaFisicaUpdateDto);
+
+        assertNotNull(resposta);
+        assertEquals(PessoaFisica.class, resposta.getClass());
+        assertEquals(IDPF, resposta.getId());
+        assertEquals(NOME, resposta.getNome());
+        assertEquals(EMAIL, resposta.getEmail());
+        assertEquals(CPF, resposta.getCpf());
+
     }
 
     @Test
-    void atualizarPessoaJuridica() {
+    void quandoAtualizarPessoaFisicaRetornaExeception() {
+        when(_repositoryPessoaFisica.buscarPfPorCPF(CPF)).thenReturn(optionalPessoaFisica);
+
+        try {
+            pessoaFisica.setCpf(CPF);
+            PessoaFisica resposta = clienteService.atualizarPessoaFisica(pessoaFisicaUpdateDto);
+
+        } catch (NegocioException ex) {
+            assertEquals(NegocioException.class, ex.getClass());
+            assertEquals("Cliente não encontrado ou inativo (ID:  " + IDPF + ").", ex.getMessage());
+        }
+
     }
+
+    @Test
+    void quandoAtualizarPessoaJuridicaRetornaSucesso() {
+        when(_repositoryPessoaJuridica.save(any())).thenReturn(pessoaJuridica);
+        when(clienteService.listarPessoaJuridicaPorId(IDPJ)).thenReturn(optionalPessoaJuridica);
+
+        PessoaJuridica resposta = clienteService.atualizarPessoaJuridica(pessoaJuridicaUpdateDto);
+
+
+        assertNotNull(resposta);
+        assertEquals(PessoaJuridica.class, resposta.getClass());
+        assertEquals(IDPJ, resposta.getId());
+        assertEquals(NOMEPJ, resposta.getNome());
+        assertEquals(EMAIL, resposta.getEmail());
+        assertEquals(CNPJ, resposta.getCnpj());
+
+    }
+
 
     @Test
     void inativarPessoaFisica() {
@@ -211,13 +259,17 @@ class ClienteServiceTest {
         Conta contapf = new Conta(IDCONTAPF, NUMERO_CONTAPF, AGENCIA, TIPO_OPERACAOPF, SALDO, STATUS);
         Conta contapj = new Conta("8954dc61-740a-4ae5-a477-b0e3b110dae4", NUMERO_CONTAPJ, AGENCIA, TIPO_OPERACAOPJ, SALDO, STATUS);
         Endereco endereco = new Endereco(IDENDERECO, CEP, RUA, NUMERO, COMPLEMENTO, BAIRRO, CIDADE, UF, REGIAO);
+        EnderecoDto enderecoDto = new EnderecoDto(CEP, RUA, NUMERO, COMPLEMENTO, BAIRRO, CIDADE, UF, REGIAO.toString());
         pessoaFisica = new PessoaFisica(IDPF, NOME, EMAIL, TELEFONE, CELULAR, endereco, contapf, CRIADO_EM, ALTERADO_EM, STATUS, CPF, RG, DT_NASCIMENTO, NOME_MAE, GENERO);
 
         optionalPessoaFisica = Optional.of(new PessoaFisica(IDPF, NOME, EMAIL, TELEFONE, CELULAR, endereco, contapf, CRIADO_EM, ALTERADO_EM, STATUS, CPF, RG, DT_NASCIMENTO, NOME_MAE, GENERO));
 
-        pessoaJuridica = new PessoaJuridica(IDPJ, NOMEPJ, EMAIL, TELEFONE,CELULAR,endereco,contapj,CRIADO_EM,ALTERADO_EM,STATUS,NOMEPJ, INSCRICAO_ESTADUAL, CNPJ,NOME);
+        pessoaFisicaUpdateDto = new PessoaFisicaUpdateDto(IDPF, DT_NASCIMENTO, NOME, EMAIL, TELEFONE, CELULAR, enderecoDto, NOME_MAE, "FEMININO");
+        pessoaJuridica = new PessoaJuridica(IDPJ, NOMEPJ, EMAIL, TELEFONE, CELULAR, endereco, contapj, CRIADO_EM, ALTERADO_EM, STATUS, NOMEPJ, INSCRICAO_ESTADUAL, CNPJ, NOME);
 
-        optionalPessoaJuridica = Optional.of(new PessoaJuridica(IDPJ, NOMEPJ, EMAIL, TELEFONE,CELULAR,endereco,contapj,CRIADO_EM,ALTERADO_EM,STATUS,NOMEPJ, INSCRICAO_ESTADUAL, CNPJ,NOME));
+        optionalPessoaJuridica = Optional.of(new PessoaJuridica(IDPJ, NOMEPJ, EMAIL, TELEFONE, CELULAR, endereco, contapj, CRIADO_EM, ALTERADO_EM, STATUS, NOMEPJ, INSCRICAO_ESTADUAL, CNPJ, NOME));
+
+        pessoaJuridicaUpdateDto = new PessoaJuridicaUpdateDto(IDPJ, NOMEPJ, NOME, NOMEPJ, EMAIL, TELEFONE, CELULAR, enderecoDto);
 
     }
 }

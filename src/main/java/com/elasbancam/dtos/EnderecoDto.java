@@ -2,7 +2,9 @@ package com.elasbancam.dtos;
 
 import com.elasbancam.enums.Regiao;
 import com.elasbancam.exceptions.validation.ValueOfEnum;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.Valid;
@@ -12,6 +14,8 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class EnderecoDto {
     @Valid
     @NotBlank

@@ -1,0 +1,2583 @@
+{
+	"info": {
+		"_postman_id": "8e66f622-3a80-40be-9a63-4920eed69293",
+		"name": "Elas Bancam",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21580193"
+	},
+	"item": [
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Cadastrar Cliente PF",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"Laura Neves\",\r\n  \"email\": \"laura@neves.com\",\r\n  \"telefone\": \"(31) XXXXX-XXXX\",\r\n  \"celular\": \"(31) XXXXX-XXXX\",\r\n  \"endereco\": {\r\n    \"cep\": \"30000-000\",\r\n    \"rua\": \"Rua X\",\r\n    \"numero\": 123,\r\n    \"complemento\": \"ap. 1\",\r\n    \"bairro\": \"XXX\",\r\n    \"cidade\": \"BH\",\r\n    \"uf\": \"MG\",\r\n    \"regiao\": \"SE\"\r\n    },\r\n  \"cpf\": \"100.fsgs093-00\",\r\n  \"rg\": \"MG 1.dsg-30000\",\r\n  \"dt_nascimento\": \"1989-12-07\",\r\n  \"nome_mae\": \"Marta\",\r\n  \"genero\": \"FEMININO\",\r\n  \"conta\": {\r\n      \"numero_conta\": 12345,\r\n      \"agencia\": 1234,\r\n      \"operacao\": \"CONTACORRENTEPF\",\r\n      \"saldo\": 10\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cliente/pf",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"pf"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sucesso-Saldo positivo",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Laura Neves\",\r\n  \"email\": \"laura@gmail.com\",\r\n  \"telefone\": \"(31) 99999-8888\",\r\n  \"celular\": \"(31) 3333-2222\",\r\n  \"endereco\": {\r\n    \"cep\": \"30.000-000\",\r\n    \"rua\": \"Rua X\",\r\n    \"numero\": 123,\r\n    \"complemento\": \"ap. 1\",\r\n    \"bairro\": \"XXX\",\r\n    \"cidade\": \"BH\",\r\n    \"uf\": \"MG\",\r\n    \"regiao\": \"SE\"\r\n    },\r\n  \"cpf\": \"100.000.000-12\",\r\n  \"rg\": \"MG 10.000-001\",\r\n  \"dt_nascimento\": \"1989-12-07\",\r\n  \"nome_mae\": \"Marta\",\r\n  \"genero\": \"FEMININO\",\r\n  \"conta\": {\r\n      \"numero_conta\": 25049,\r\n      \"agencia\": 123,\r\n      \"operacao\": \"CONTACORRENTEPF\",\r\n      \"saldo\": 190\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pf",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pf"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 13:56:30 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"nome\": \"Laura Neves\",\n    \"email\": \"laura@gmail.com\",\n    \"telefone\": \"(31) 99999-8888\",\n    \"celular\": \"(31) 3333-2222\",\n    \"endereco\": {\n        \"id\": 102,\n        \"cep\": \"30.000-000\",\n        \"rua\": \"Rua X\",\n        \"numero\": 123,\n        \"complemento\": \"ap. 1\",\n        \"bairro\": \"XXX\",\n        \"cidade\": \"BH\",\n        \"uf\": \"MG\",\n        \"regiao\": \"SE\"\n    },\n    \"conta\": {\n        \"id\": \"6101a5ea-bbd2-41c0-8485-c005f3e22b1e\",\n        \"numero_conta\": 25049,\n        \"agencia\": 123,\n        \"operacao\": \"CONTACORRENTEPF\",\n        \"saldo\": 190,\n        \"status\": true\n    },\n    \"criado_em\": \"2022-11-20T10:56:30.7167427\",\n    \"alterado_em\": \"2022-11-20T10:56:30.7167427\",\n    \"status\": true,\n    \"cpf\": \"100.000.000-12\",\n    \"rg\": \"MG 10.000-001\",\n    \"dt_nascimento\": \"1989-12-07\",\n    \"nome_mae\": \"Marta\",\n    \"genero\": \"FEMININO\"\n}"
+						},
+						{
+							"name": "Sucesso-Saldo 0",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Laura Neves\",\r\n  \"email\": \"laura@gmail.com\",\r\n  \"telefone\": \"(31) 99999-8888\",\r\n  \"celular\": \"(31) 3333-2222\",\r\n  \"endereco\": {\r\n    \"cep\": \"30.000-000\",\r\n    \"rua\": \"Rua X\",\r\n    \"numero\": 123,\r\n    \"complemento\": \"ap. 1\",\r\n    \"bairro\": \"XXX\",\r\n    \"cidade\": \"BH\",\r\n    \"uf\": \"MG\",\r\n    \"regiao\": \"SE\"\r\n    },\r\n  \"cpf\": \"100.000.000-14\",\r\n  \"rg\": \"4822123292\",\r\n  \"dt_nascimento\": \"1989-12-07\",\r\n  \"nome_mae\": \"Marta\",\r\n  \"genero\": \"FEMININO\",\r\n  \"conta\": {\r\n      \"numero_conta\": 25050,\r\n      \"agencia\": 123,\r\n      \"operacao\": \"CONTACORRENTEPF\",\r\n      \"saldo\": 0\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pf",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pf"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:01:57 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 2,\n    \"nome\": \"Laura Neves\",\n    \"email\": \"laura@gmail.com\",\n    \"telefone\": \"(31) 99999-8888\",\n    \"celular\": \"(31) 3333-2222\",\n    \"endereco\": {\n        \"id\": 103,\n        \"cep\": \"30.000-000\",\n        \"rua\": \"Rua X\",\n        \"numero\": 123,\n        \"complemento\": \"ap. 1\",\n        \"bairro\": \"XXX\",\n        \"cidade\": \"BH\",\n        \"uf\": \"MG\",\n        \"regiao\": \"SE\"\n    },\n    \"conta\": {\n        \"id\": \"44ae71d7-30d4-4cd5-903b-8ebedbff3d33\",\n        \"numero_conta\": 25050,\n        \"agencia\": 123,\n        \"operacao\": \"CONTACORRENTEPF\",\n        \"saldo\": 0,\n        \"status\": true\n    },\n    \"criado_em\": \"2022-11-20T11:01:57.8954869\",\n    \"alterado_em\": \"2022-11-20T11:01:57.8954869\",\n    \"status\": true,\n    \"cpf\": \"100.000.000-14\",\n    \"rg\": \"4822123292\",\n    \"dt_nascimento\": \"1989-12-07\",\n    \"nome_mae\": \"Marta\",\n    \"genero\": \"FEMININO\"\n}"
+						},
+						{
+							"name": "Erro-CPF já cadastrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Laura Neves\",\r\n  \"email\": \"laura@gmail.com\",\r\n  \"telefone\": \"(31) 99999-8888\",\r\n  \"celular\": \"(31) 3333-2222\",\r\n  \"endereco\": {\r\n    \"cep\": \"30.000-000\",\r\n    \"rua\": \"Rua X\",\r\n    \"numero\": 123,\r\n    \"complemento\": \"ap. 1\",\r\n    \"bairro\": \"XXX\",\r\n    \"cidade\": \"BH\",\r\n    \"uf\": \"MG\",\r\n    \"regiao\": \"SE\"\r\n    },\r\n  \"cpf\": \"87985390961\",\r\n  \"rg\": \"MG 10.000-002\",\r\n  \"dt_nascimento\": \"1989-12-07\",\r\n  \"nome_mae\": \"Marta\",\r\n  \"genero\": \"FEMININO\",\r\n  \"conta\": {\r\n      \"numero_conta\": 25049,\r\n      \"agencia\": 123,\r\n      \"operacao\": \"CONTACORRENTEPF\",\r\n      \"saldo\": 190\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pf",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pf"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "30"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 13:58:28 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "CPF já cadastrado no sistema."
+						},
+						{
+							"name": "Erro-RG já cadastrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Laura Neves\",\r\n  \"email\": \"laura@gmail.com\",\r\n  \"telefone\": \"(31) 99999-8888\",\r\n  \"celular\": \"(31) 3333-2222\",\r\n  \"endereco\": {\r\n    \"cep\": \"30.000-000\",\r\n    \"rua\": \"Rua X\",\r\n    \"numero\": 123,\r\n    \"complemento\": \"ap. 1\",\r\n    \"bairro\": \"XXX\",\r\n    \"cidade\": \"BH\",\r\n    \"uf\": \"MG\",\r\n    \"regiao\": \"SE\"\r\n    },\r\n  \"cpf\": \"100.000.000-13\",\r\n  \"rg\": \"482212329\",\r\n  \"dt_nascimento\": \"1989-12-07\",\r\n  \"nome_mae\": \"Marta\",\r\n  \"genero\": \"FEMININO\",\r\n  \"conta\": {\r\n      \"numero_conta\": 25049,\r\n      \"agencia\": 123,\r\n      \"operacao\": \"CONTACORRENTEPF\",\r\n      \"saldo\": 190\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pf",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pf"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "29"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 13:59:22 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "RG já cadastrado no sistema."
+						},
+						{
+							"name": "Erro-Nº conta já cadastrada",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Laura Neves\",\r\n  \"email\": \"laura@gmail.com\",\r\n  \"telefone\": \"(31) 99999-8888\",\r\n  \"celular\": \"(31) 3333-2222\",\r\n  \"endereco\": {\r\n    \"cep\": \"30.000-000\",\r\n    \"rua\": \"Rua X\",\r\n    \"numero\": 123,\r\n    \"complemento\": \"ap. 1\",\r\n    \"bairro\": \"XXX\",\r\n    \"cidade\": \"BH\",\r\n    \"uf\": \"MG\",\r\n    \"regiao\": \"SE\"\r\n    },\r\n  \"cpf\": \"100.000.000-16\",\r\n  \"rg\": \"4822123219\",\r\n  \"dt_nascimento\": \"1989-12-07\",\r\n  \"nome_mae\": \"Marta\",\r\n  \"genero\": \"FEMININO\",\r\n  \"conta\": {\r\n      \"numero_conta\": 25040,\r\n      \"agencia\": 123,\r\n      \"operacao\": \"CONTACORRENTEPF\",\r\n      \"saldo\": 1000\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pf",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pf"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:03:50 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Número de conta já cadastrado no sistema e não pode ser usado."
+						},
+						{
+							"name": "Erro-Saldo menor que 0",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Laura Neves\",\r\n  \"email\": \"laura@gmail.com\",\r\n  \"telefone\": \"(31) 99999-8888\",\r\n  \"celular\": \"(31) 3333-2222\",\r\n  \"endereco\": {\r\n    \"cep\": \"30.000-000\",\r\n    \"rua\": \"Rua X\",\r\n    \"numero\": 123,\r\n    \"complemento\": \"ap. 1\",\r\n    \"bairro\": \"XXX\",\r\n    \"cidade\": \"BH\",\r\n    \"uf\": \"MG\",\r\n    \"regiao\": \"SE\"\r\n    },\r\n  \"cpf\": \"100.000.000-15\",\r\n  \"rg\": \"4822123299\",\r\n  \"dt_nascimento\": \"1989-12-07\",\r\n  \"nome_mae\": \"Marta\",\r\n  \"genero\": \"FEMININO\",\r\n  \"conta\": {\r\n      \"numero_conta\": 25057,\r\n      \"agencia\": 123,\r\n      \"operacao\": \"CONTACORRENTEPF\",\r\n      \"saldo\": -10\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pf",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pf"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "45"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:02:44 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Saldo inicial deve ser maior ou igual a zero."
+						},
+						{
+							"name": "Erro-Região inválida",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Laura Neves\",\r\n  \"email\": \"laura@gmail.com\",\r\n  \"telefone\": \"(31) 99999-8888\",\r\n  \"celular\": \"(31) 3333-2222\",\r\n  \"endereco\": {\r\n    \"cep\": \"30.000-000\",\r\n    \"rua\": \"Rua X\",\r\n    \"numero\": 123,\r\n    \"complemento\": \"ap. 1\",\r\n    \"bairro\": \"XXX\",\r\n    \"cidade\": \"BH\",\r\n    \"uf\": \"MG\",\r\n    \"regiao\": \"P\"\r\n    },\r\n  \"cpf\": \"100.000.000-16\",\r\n  \"rg\": \"4822123219\",\r\n  \"dt_nascimento\": \"1989-12-07\",\r\n  \"nome_mae\": \"Marta\",\r\n  \"genero\": \"FEMININO\",\r\n  \"conta\": {\r\n      \"numero_conta\": 25040,\r\n      \"agencia\": 123,\r\n      \"operacao\": \"CONTACORRENTEPF\",\r\n      \"saldo\": 1000\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pf",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pf"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:28:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"endereco.regiao\": \"Valor inválido para regiao valores possiveis:  N, NE, SE, S, CO \"\n}"
+						},
+						{
+							"name": "Erro-Gênero inválido",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Laura Neves\",\r\n  \"email\": \"laura@gmail.com\",\r\n  \"telefone\": \"(31) 99999-8888\",\r\n  \"celular\": \"(31) 3333-2222\",\r\n  \"endereco\": {\r\n    \"cep\": \"30.000-000\",\r\n    \"rua\": \"Rua X\",\r\n    \"numero\": 123,\r\n    \"complemento\": \"ap. 1\",\r\n    \"bairro\": \"XXX\",\r\n    \"cidade\": \"BH\",\r\n    \"uf\": \"MG\",\r\n    \"regiao\": \"SE\"\r\n    },\r\n  \"cpf\": \"100.000.000-16\",\r\n  \"rg\": \"4822123219\",\r\n  \"dt_nascimento\": \"1989-12-07\",\r\n  \"nome_mae\": \"Marta\",\r\n  \"genero\": \"feminino\",\r\n  \"conta\": {\r\n      \"numero_conta\": 25040,\r\n      \"agencia\": 123,\r\n      \"operacao\": \"CONTACORRENTEPF\",\r\n      \"saldo\": 1000\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pf",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pf"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:29:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"genero\": \"Valor inválido para genero, valores possiveis: MASCULINO, FEMININO, NAOBINARIO; \"\n}"
+						},
+						{
+							"name": "Erro-Operação inválida",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Laura Neves\",\r\n  \"email\": \"laura@gmail.com\",\r\n  \"telefone\": \"(31) 99999-8888\",\r\n  \"celular\": \"(31) 3333-2222\",\r\n  \"endereco\": {\r\n    \"cep\": \"30.000-000\",\r\n    \"rua\": \"Rua X\",\r\n    \"numero\": 123,\r\n    \"complemento\": \"ap. 1\",\r\n    \"bairro\": \"XXX\",\r\n    \"cidade\": \"BH\",\r\n    \"uf\": \"MG\",\r\n    \"regiao\": \"SE\"\r\n    },\r\n  \"cpf\": \"100.000.000-16\",\r\n  \"rg\": \"4822123219\",\r\n  \"dt_nascimento\": \"1989-12-07\",\r\n  \"nome_mae\": \"Marta\",\r\n  \"genero\": \"FEMININO\",\r\n  \"conta\": {\r\n      \"numero_conta\": 25040,\r\n      \"agencia\": 123,\r\n      \"operacao\": \"conta\",\r\n      \"saldo\": 1000\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pf",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pf"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:30:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"conta.operacao\": \"Valor inválido para operacao,valores possiveis: CONTAPOUPANCA, CONTACORRENTEPF, CONTACORRENTEPJ \"\n}"
+						}
+					]
+				},
+				{
+					"name": "Cadastrar Cliente PJ",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nome\": \"string\",\r\n  \"email\": \"string@gmail.com\",\r\n  \"telefone\": \"string\",\r\n  \"celular\": \"string\",\r\n  \"endereco\": {\r\n    \"cep\": \"string\",\r\n    \"rua\": \"string\",\r\n    \"numero\": 0,\r\n    \"complemento\": \"string\",\r\n    \"bairro\": \"string\",\r\n    \"cidade\": \"string\",\r\n    \"uf\": \"RJ\",\r\n    \"regiao\": \"SE\"\r\n  },\r\n  \"conta\": {\r\n    \"numero_conta\": 1,\r\n    \"agencia\": 38749873,\r\n    \"operacao\": \"CONTACORRENTEPJ\",\r\n    \"saldo\": 9000\r\n  },\r\n  \"nome_fantasia\": \"string\",\r\n  \"inscricao_estadual\": \"vgfdsmring\",\r\n  \"cnpj\": \"stsfrgsfvng\",\r\n  \"nome_contato\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cliente/pj",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"pj"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sucesso-Saldo positivo",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Elas Bancam\",\r\n  \"email\": \"elas@bancam.com\",\r\n  \"telefone\": \"(11) 3222-1111\",\r\n  \"celular\": \"(11) 99999-7777\",\r\n  \"endereco\": {\r\n    \"cep\": \"20.200-020\",\r\n    \"rua\": \"Rua Z\",\r\n    \"numero\": 987,\r\n    \"complemento\": \"10 andar\",\r\n    \"bairro\": \"Higienópolis\",\r\n    \"cidade\": \"São Paulo\",\r\n    \"uf\": \"SP\",\r\n    \"regiao\": \"SE\"\r\n  },\r\n  \"conta\": {\r\n    \"numero_conta\": 25048,\r\n    \"agencia\": 123,\r\n    \"operacao\": \"CONTACORRENTEPJ\",\r\n    \"saldo\": 9000\r\n  },\r\n  \"nome_fantasia\": \"Elas Bancam\",\r\n  \"inscricao_estadual\": \"7649262641\",\r\n  \"cnpj\": \"111111000101\",\r\n  \"nome_contato\": \"Laura\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pj",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pj"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:10:02 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 3,\n    \"nome\": \"Elas Bancam\",\n    \"email\": \"elas@bancam.com\",\n    \"telefone\": \"(11) 3222-1111\",\n    \"celular\": \"(11) 99999-7777\",\n    \"endereco\": {\n        \"id\": 104,\n        \"cep\": \"20.200-020\",\n        \"rua\": \"Rua Z\",\n        \"numero\": 987,\n        \"complemento\": \"10 andar\",\n        \"bairro\": \"Higienópolis\",\n        \"cidade\": \"São Paulo\",\n        \"uf\": \"SP\",\n        \"regiao\": \"SE\"\n    },\n    \"conta\": {\n        \"id\": \"49dc9ba0-d70a-4a6e-97c3-ab63dc6ba902\",\n        \"numero_conta\": 25048,\n        \"agencia\": 123,\n        \"operacao\": \"CONTACORRENTEPJ\",\n        \"saldo\": 9000,\n        \"status\": true\n    },\n    \"criado_em\": \"2022-11-20T11:10:02.1593391\",\n    \"alterado_em\": \"2022-11-20T11:10:02.1553398\",\n    \"status\": true,\n    \"nome_fantasia\": \"Elas Bancam\",\n    \"inscricao_estadual\": \"7649262641\",\n    \"cnpj\": \"111111000101\",\n    \"nome_contato\": \"Laura\"\n}"
+						},
+						{
+							"name": "Sucesso-Saldo 0",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Elas Bancam\",\r\n  \"email\": \"elas@bancam.com\",\r\n  \"telefone\": \"(11) 3222-1111\",\r\n  \"celular\": \"(11) 99999-7777\",\r\n  \"endereco\": {\r\n    \"cep\": \"20.200-020\",\r\n    \"rua\": \"Rua Z\",\r\n    \"numero\": 987,\r\n    \"complemento\": \"10 andar\",\r\n    \"bairro\": \"Higienópolis\",\r\n    \"cidade\": \"São Paulo\",\r\n    \"uf\": \"SP\",\r\n    \"regiao\": \"SE\"\r\n  },\r\n  \"conta\": {\r\n    \"numero_conta\": 25055,\r\n    \"agencia\": 123,\r\n    \"operacao\": \"CONTACORRENTEPJ\",\r\n    \"saldo\": 0\r\n  },\r\n  \"nome_fantasia\": \"Elas Bancam\",\r\n  \"inscricao_estadual\": \"7649262642\",\r\n  \"cnpj\": \"111111000102\",\r\n  \"nome_contato\": \"Laura\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pj",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pj"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:10:51 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 4,\n    \"nome\": \"Elas Bancam\",\n    \"email\": \"elas@bancam.com\",\n    \"telefone\": \"(11) 3222-1111\",\n    \"celular\": \"(11) 99999-7777\",\n    \"endereco\": {\n        \"id\": 105,\n        \"cep\": \"20.200-020\",\n        \"rua\": \"Rua Z\",\n        \"numero\": 987,\n        \"complemento\": \"10 andar\",\n        \"bairro\": \"Higienópolis\",\n        \"cidade\": \"São Paulo\",\n        \"uf\": \"SP\",\n        \"regiao\": \"SE\"\n    },\n    \"conta\": {\n        \"id\": \"0cb134c6-5918-4b44-8102-921f2179875c\",\n        \"numero_conta\": 25055,\n        \"agencia\": 123,\n        \"operacao\": \"CONTACORRENTEPJ\",\n        \"saldo\": 0,\n        \"status\": true\n    },\n    \"criado_em\": \"2022-11-20T11:10:51.7012224\",\n    \"alterado_em\": \"2022-11-20T11:10:51.7012224\",\n    \"status\": true,\n    \"nome_fantasia\": \"Elas Bancam\",\n    \"inscricao_estadual\": \"7649262642\",\n    \"cnpj\": \"111111000102\",\n    \"nome_contato\": \"Laura\"\n}"
+						},
+						{
+							"name": "Erro-CNPJ já cadastrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Elas Bancam\",\r\n  \"email\": \"elas@bancam.com\",\r\n  \"telefone\": \"(11) 3222-1111\",\r\n  \"celular\": \"(11) 99999-7777\",\r\n  \"endereco\": {\r\n    \"cep\": \"20.200-020\",\r\n    \"rua\": \"Rua Z\",\r\n    \"numero\": 987,\r\n    \"complemento\": \"10 andar\",\r\n    \"bairro\": \"Higienópolis\",\r\n    \"cidade\": \"São Paulo\",\r\n    \"uf\": \"SP\",\r\n    \"regiao\": \"SE\"\r\n  },\r\n  \"conta\": {\r\n    \"numero_conta\": 25057,\r\n    \"agencia\": 123,\r\n    \"operacao\": \"CONTACORRENTEPJ\",\r\n    \"saldo\": 0\r\n  },\r\n  \"nome_fantasia\": \"Elas Bancam\",\r\n  \"inscricao_estadual\": \"7649262643\",\r\n  \"cnpj\": \"111111000102\",\r\n  \"nome_contato\": \"Laura\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pj",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pj"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "31"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:11:38 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "CNPJ já cadastrado no sistema."
+						},
+						{
+							"name": "Erro-Insc. Estadual já cadastrada",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Elas Bancam\",\r\n  \"email\": \"elas@bancam.com\",\r\n  \"telefone\": \"(11) 3222-1111\",\r\n  \"celular\": \"(11) 99999-7777\",\r\n  \"endereco\": {\r\n    \"cep\": \"20.200-020\",\r\n    \"rua\": \"Rua Z\",\r\n    \"numero\": 987,\r\n    \"complemento\": \"10 andar\",\r\n    \"bairro\": \"Higienópolis\",\r\n    \"cidade\": \"São Paulo\",\r\n    \"uf\": \"SP\",\r\n    \"regiao\": \"SE\"\r\n  },\r\n  \"conta\": {\r\n    \"numero_conta\": 25057,\r\n    \"agencia\": 123,\r\n    \"operacao\": \"CONTACORRENTEPJ\",\r\n    \"saldo\": 0\r\n  },\r\n  \"nome_fantasia\": \"Elas Bancam\",\r\n  \"inscricao_estadual\": \"7649262642\",\r\n  \"cnpj\": \"111111000103\",\r\n  \"nome_contato\": \"Laura\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pj",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pj"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "47"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:12:09 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Inscrição Estadual já cadastrada no sistema."
+						},
+						{
+							"name": "Erro-Nº conta já cadastrado",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Elas Bancam\",\r\n  \"email\": \"elas@bancam.com\",\r\n  \"telefone\": \"(11) 3222-1111\",\r\n  \"celular\": \"(11) 99999-7777\",\r\n  \"endereco\": {\r\n    \"cep\": \"20.200-020\",\r\n    \"rua\": \"Rua Z\",\r\n    \"numero\": 987,\r\n    \"complemento\": \"10 andar\",\r\n    \"bairro\": \"Higienópolis\",\r\n    \"cidade\": \"São Paulo\",\r\n    \"uf\": \"SP\",\r\n    \"regiao\": \"SE\"\r\n  },\r\n  \"conta\": {\r\n    \"numero_conta\": 25041,\r\n    \"agencia\": 123,\r\n    \"operacao\": \"CONTACORRENTEPJ\",\r\n    \"saldo\": 9000\r\n  },\r\n  \"nome_fantasia\": \"Elas Bancam\",\r\n  \"inscricao_estadual\": \"7649262642\",\r\n  \"cnpj\": \"111111000100\",\r\n  \"nome_contato\": \"Laura\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pj",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pj"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "65"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:09:09 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Número de conta já cadastrado no sistema e não pode ser usado."
+						},
+						{
+							"name": "Erro-Saldo menor que 0",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Elas Bancam\",\r\n  \"email\": \"elas@bancam.com\",\r\n  \"telefone\": \"(11) 3222-1111\",\r\n  \"celular\": \"(11) 99999-7777\",\r\n  \"endereco\": {\r\n    \"cep\": \"20.200-020\",\r\n    \"rua\": \"Rua Z\",\r\n    \"numero\": 987,\r\n    \"complemento\": \"10 andar\",\r\n    \"bairro\": \"Higienópolis\",\r\n    \"cidade\": \"São Paulo\",\r\n    \"uf\": \"SP\",\r\n    \"regiao\": \"SE\"\r\n  },\r\n  \"conta\": {\r\n    \"numero_conta\": 25054,\r\n    \"agencia\": 123,\r\n    \"operacao\": \"CONTACORRENTEPJ\",\r\n    \"saldo\": -900\r\n  },\r\n  \"nome_fantasia\": \"Elas Bancam\",\r\n  \"inscricao_estadual\": \"7649262644\",\r\n  \"cnpj\": \"111111000104\",\r\n  \"nome_contato\": \"Laura\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pj",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pj"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "45"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:13:40 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Saldo inicial deve ser maior ou igual a zero."
+						},
+						{
+							"name": "Erro-Região inválida",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Elas Bancam\",\r\n  \"email\": \"elas@bancam.com\",\r\n  \"telefone\": \"(11) 3222-1111\",\r\n  \"celular\": \"(11) 99999-7777\",\r\n  \"endereco\": {\r\n    \"cep\": \"20.200-020\",\r\n    \"rua\": \"Rua Z\",\r\n    \"numero\": 987,\r\n    \"complemento\": \"10 andar\",\r\n    \"bairro\": \"Higienópolis\",\r\n    \"cidade\": \"São Paulo\",\r\n    \"uf\": \"SP\",\r\n    \"regiao\": \"M\"\r\n  },\r\n  \"conta\": {\r\n    \"numero_conta\": 25054,\r\n    \"agencia\": 123,\r\n    \"operacao\": \"CONTACORRENTEPJ\",\r\n    \"saldo\": -900\r\n  },\r\n  \"nome_fantasia\": \"Elas Bancam\",\r\n  \"inscricao_estadual\": \"7649262644\",\r\n  \"cnpj\": \"111111000104\",\r\n  \"nome_contato\": \"Laura\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pj",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pj"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:27:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"endereco.regiao\": \"Valor inválido para regiao valores possiveis:  N, NE, SE, S, CO \"\n}"
+						},
+						{
+							"name": "Erro-Operação inválida",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nome\": \"Elas Bancam\",\r\n  \"email\": \"elas@bancam.com\",\r\n  \"telefone\": \"(11) 3222-1111\",\r\n  \"celular\": \"(11) 99999-7777\",\r\n  \"endereco\": {\r\n    \"cep\": \"20.200-020\",\r\n    \"rua\": \"Rua Z\",\r\n    \"numero\": 987,\r\n    \"complemento\": \"10 andar\",\r\n    \"bairro\": \"Higienópolis\",\r\n    \"cidade\": \"São Paulo\",\r\n    \"uf\": \"SP\",\r\n    \"regiao\": \"SE\"\r\n  },\r\n  \"conta\": {\r\n    \"numero_conta\": 25054,\r\n    \"agencia\": 123,\r\n    \"operacao\": \"conta\",\r\n    \"saldo\": -900\r\n  },\r\n  \"nome_fantasia\": \"Elas Bancam\",\r\n  \"inscricao_estadual\": \"7649262644\",\r\n  \"cnpj\": \"111111000104\",\r\n  \"nome_contato\": \"Laura\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pj",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pj"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:31:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"conta.operacao\": \"Valor inválido para operacao,valores possiveis: CONTAPOUPANCA, CONTACORRENTEPF, CONTACORRENTEPJ \"\n}"
+						}
+					]
+				},
+				{
+					"name": "Listar Todos os Clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/cliente/todos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"todos"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/cliente/todos",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"todos"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:16:14 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    [\n        {\n            \"id\": 100,\n            \"nome\": \"Tatiane Sandra Agatha Caldeira\",\n            \"email\": \"tatiane-caldeira88@mourafiorito.com\",\n            \"telefone\": \"8737827184\",\n            \"celular\": \"87985390961\",\n            \"endereco\": {\n                \"id\": 100,\n                \"cep\": \"89224150\",\n                \"rua\": \"Rua Cegonhas\",\n                \"numero\": 323,\n                \"complemento\": \"apt303\",\n                \"bairro\": \"Iririu\",\n                \"cidade\": \"Joinville\",\n                \"uf\": \"SC\",\n                \"regiao\": \"S\"\n            },\n            \"conta\": {\n                \"id\": \"f0c4999f-a2d4-48c0-a78f-efb3a1ded4a5\",\n                \"numero_conta\": 25041,\n                \"agencia\": 123,\n                \"operacao\": \"CONTACORRENTEPF\",\n                \"saldo\": 5000,\n                \"status\": true\n            },\n            \"criado_em\": \"2022-11-20T11:15:51\",\n            \"alterado_em\": \"2022-11-20T11:15:51\",\n            \"status\": true,\n            \"cpf\": \"87985390961\",\n            \"rg\": \"56320060\",\n            \"dt_nascimento\": \"1981-09-15\",\n            \"nome_mae\": \"Alana Rita\",\n            \"genero\": \"FEMININO\"\n        },\n        {\n            \"id\": 101,\n            \"nome\": \"Bryan Arthur Almeida\",\n            \"email\": \"bryan_almeida@hellokitty.com\",\n            \"telefone\": \"6326574436\",\n            \"celular\": \"63989426684\",\n            \"endereco\": {\n                \"id\": 101,\n                \"cep\": \"13453732\",\n                \"rua\": \"Rua Cesarino Scagnolato\",\n                \"numero\": 549,\n                \"complemento\": \"\",\n                \"bairro\": \"Jardim das Orquídeas\",\n                \"cidade\": \"Santa Bárbara D'Oeste\",\n                \"uf\": \"SP\",\n                \"regiao\": \"SE\"\n            },\n            \"conta\": {\n                \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\",\n                \"numero_conta\": 25043,\n                \"agencia\": 123,\n                \"operacao\": \"CONTAPOUPANCA\",\n                \"saldo\": 2000,\n                \"status\": true\n            },\n            \"criado_em\": \"2022-11-20T11:15:51\",\n            \"alterado_em\": \"2022-11-20T11:15:51\",\n            \"status\": true,\n            \"cpf\": \"24176339225\",\n            \"rg\": \"482212329\",\n            \"dt_nascimento\": \"1980-10-15\",\n            \"nome_mae\": \"Allana Simone\",\n            \"genero\": \"MASCULINO\"\n        }\n    ],\n    [\n        {\n            \"id\": 99,\n            \"nome\": \"Nelson e Cláudio Contábil Ltda\",\n            \"email\": \"almoxarifado@nelsoncontabilltda.com.br\",\n            \"telefone\": \"1126675385\",\n            \"celular\": \"6525283206\",\n            \"endereco\": {\n                \"id\": 99,\n                \"cep\": \"12941490\",\n                \"rua\": \"Rua Itaú\",\n                \"numero\": 239,\n                \"complemento\": \"lj01\",\n                \"bairro\": \"Cidade Satélite\",\n                \"cidade\": \"Atibaia\",\n                \"uf\": \"SP\",\n                \"regiao\": \"SE\"\n            },\n            \"conta\": {\n                \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\",\n                \"numero_conta\": 25040,\n                \"agencia\": 123,\n                \"operacao\": \"CONTACORRENTEPJ\",\n                \"saldo\": 10999,\n                \"status\": true\n            },\n            \"criado_em\": \"2022-11-20T11:15:51\",\n            \"alterado_em\": \"2022-11-20T11:15:51\",\n            \"status\": true,\n            \"nome_fantasia\": \"Nelson e Cláudio Contábil Ltda\",\n            \"inscricao_estadual\": \"708272103721\",\n            \"cnpj\": \"34213050000179\",\n            \"nome_contato\": \"Claudio\"\n        }\n    ]\n]"
+						},
+						{
+							"name": "Nenhum cliente cadastrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/cliente/todos",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"todos"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:15:30 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    [],\n    []\n]"
+						}
+					]
+				},
+				{
+					"name": "Listar Cliente por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/cliente/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sucesso-Cliente PJ",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/cliente/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "99"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:17:19 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 99,\n    \"nome\": \"Nelson e Cláudio Contábil Ltda\",\n    \"email\": \"almoxarifado@nelsoncontabilltda.com.br\",\n    \"telefone\": \"1126675385\",\n    \"celular\": \"6525283206\",\n    \"endereco\": {\n        \"id\": 99,\n        \"cep\": \"12941490\",\n        \"rua\": \"Rua Itaú\",\n        \"numero\": 239,\n        \"complemento\": \"lj01\",\n        \"bairro\": \"Cidade Satélite\",\n        \"cidade\": \"Atibaia\",\n        \"uf\": \"SP\",\n        \"regiao\": \"SE\"\n    },\n    \"conta\": {\n        \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\",\n        \"numero_conta\": 25040,\n        \"agencia\": 123,\n        \"operacao\": \"CONTACORRENTEPJ\",\n        \"saldo\": 10999,\n        \"status\": true\n    },\n    \"criado_em\": \"2022-11-20T11:15:51\",\n    \"alterado_em\": \"2022-11-20T11:15:51\",\n    \"status\": true,\n    \"nome_fantasia\": \"Nelson e Cláudio Contábil Ltda\",\n    \"inscricao_estadual\": \"708272103721\",\n    \"cnpj\": \"34213050000179\",\n    \"nome_contato\": \"Claudio\"\n}"
+						},
+						{
+							"name": "Sucesso-ClientePF",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/cliente/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "100"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:18:00 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 100,\n    \"nome\": \"Tatiane Sandra Agatha Caldeira\",\n    \"email\": \"tatiane-caldeira88@mourafiorito.com\",\n    \"telefone\": \"8737827184\",\n    \"celular\": \"87985390961\",\n    \"endereco\": {\n        \"id\": 100,\n        \"cep\": \"89224150\",\n        \"rua\": \"Rua Cegonhas\",\n        \"numero\": 323,\n        \"complemento\": \"apt303\",\n        \"bairro\": \"Iririu\",\n        \"cidade\": \"Joinville\",\n        \"uf\": \"SC\",\n        \"regiao\": \"S\"\n    },\n    \"conta\": {\n        \"id\": \"f0c4999f-a2d4-48c0-a78f-efb3a1ded4a5\",\n        \"numero_conta\": 25041,\n        \"agencia\": 123,\n        \"operacao\": \"CONTACORRENTEPF\",\n        \"saldo\": 5000,\n        \"status\": true\n    },\n    \"criado_em\": \"2022-11-20T11:15:51\",\n    \"alterado_em\": \"2022-11-20T11:15:51\",\n    \"status\": true,\n    \"cpf\": \"87985390961\",\n    \"rg\": \"56320060\",\n    \"dt_nascimento\": \"1981-09-15\",\n    \"nome_mae\": \"Alana Rita\",\n    \"genero\": \"FEMININO\"\n}"
+						},
+						{
+							"name": "Erro-ID não encontrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/cliente/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1000"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "47"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:18:38 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Cliente não encontrado ou inativo (ID:  1000)."
+						}
+					]
+				},
+				{
+					"name": "Atualizar Cliente PF",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1,\r\n  \"dt_nascimento\": \"2022-11-16\",\r\n  \"nome\": \"string\",\r\n  \"email\": \"string\",\r\n  \"telefone\": \"string\",\r\n  \"celular\": \"string\",\r\n  \"endereco\": {\r\n    \"cep\": \"string\",\r\n    \"rua\": \"string\",\r\n    \"numero\": 0,\r\n    \"complemento\": \"string\",\r\n    \"bairro\": \"string\",\r\n    \"cidade\": \"string\",\r\n    \"uf\": \"MG\",\r\n    \"regiao\": \"SE\"\r\n  },\r\n  \"nome_mae\": \"string\",\r\n  \"genero\": \"MASCULINO\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cliente/pf",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"pf"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 100,\r\n  \"dt_nascimento\": \"2000-01-01\",\r\n  \"nome\": \"Tatiane Sandra Agatha Caldeira\",\r\n  \"email\": \"tatiane-caldeira88@mourafiorito.com\",\r\n  \"telefone\": \"8737827184\",\r\n  \"celular\": \"87985390961\",\r\n  \"endereco\": {\r\n    \"cep\": \"89224150\",\r\n    \"rua\": \"Rua Cegonhas\",\r\n    \"numero\": 3213,\r\n    \"complemento\": \"apt303\",\r\n    \"bairro\": \"Iririu\",\r\n    \"cidade\": \"Joinville\",\r\n    \"uf\": \"SC\",\r\n    \"regiao\": \"S\"\r\n  },\r\n  \"nome_mae\": \"Alana Rita\",\r\n  \"genero\": \"FEMININO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pf",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pf"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:23:00 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 100,\n    \"nome\": \"Tatiane Sandra Agatha Caldeira\",\n    \"email\": \"tatiane-caldeira88@mourafiorito.com\",\n    \"telefone\": \"8737827184\",\n    \"celular\": \"87985390961\",\n    \"endereco\": {\n        \"id\": 100,\n        \"cep\": \"89224150\",\n        \"rua\": \"Rua Cegonhas\",\n        \"numero\": 3213,\n        \"complemento\": \"apt303\",\n        \"bairro\": \"Iririu\",\n        \"cidade\": \"Joinville\",\n        \"uf\": \"SC\",\n        \"regiao\": \"S\"\n    },\n    \"conta\": {\n        \"id\": \"f0c4999f-a2d4-48c0-a78f-efb3a1ded4a5\",\n        \"numero_conta\": 25041,\n        \"agencia\": 123,\n        \"operacao\": \"CONTACORRENTEPF\",\n        \"saldo\": 5000,\n        \"status\": true\n    },\n    \"criado_em\": \"2022-11-20T11:15:51\",\n    \"alterado_em\": \"2022-11-20T11:15:51\",\n    \"status\": true,\n    \"cpf\": \"87985390961\",\n    \"rg\": \"56320060\",\n    \"dt_nascimento\": \"2000-01-01\",\n    \"nome_mae\": \"Alana Rita\",\n    \"genero\": \"FEMININO\"\n}"
+						},
+						{
+							"name": "Erro-ID não encontrado",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 1000,\r\n  \"dt_nascimento\": \"2000-01-01\",\r\n  \"nome\": \"Tatiane Sandra Agatha Caldeira\",\r\n  \"email\": \"tatiane-caldeira88@mourafiorito.com\",\r\n  \"telefone\": \"8737827184\",\r\n  \"celular\": \"87985390961\",\r\n  \"endereco\": {\r\n    \"cep\": \"89224150\",\r\n    \"rua\": \"Rua Cegonhas\",\r\n    \"numero\": 3213,\r\n    \"complemento\": \"apt303\",\r\n    \"bairro\": \"Iririu\",\r\n    \"cidade\": \"Joinville\",\r\n    \"uf\": \"SC\",\r\n    \"regiao\": \"S\"\r\n  },\r\n  \"nome_mae\": \"Alana Rita\",\r\n  \"genero\": \"FEMININO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pf",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pf"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "47"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:23:59 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Cliente não encontrado ou inativo (ID:  1000)."
+						},
+						{
+							"name": "Erro-Região e Gênero inválidos",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 1000,\r\n  \"dt_nascimento\": \"2000-01-01\",\r\n  \"nome\": \"Tatiane Sandra Agatha Caldeira\",\r\n  \"email\": \"tatiane-caldeira88@mourafiorito.com\",\r\n  \"telefone\": \"8737827184\",\r\n  \"celular\": \"87985390961\",\r\n  \"endereco\": {\r\n    \"cep\": \"89224150\",\r\n    \"rua\": \"Rua Cegonhas\",\r\n    \"numero\": 3213,\r\n    \"complemento\": \"apt303\",\r\n    \"bairro\": \"Iririu\",\r\n    \"cidade\": \"Joinville\",\r\n    \"uf\": \"SC\",\r\n    \"regiao\": \"M\"\r\n  },\r\n  \"nome_mae\": \"Alana Rita\",\r\n  \"genero\": \"F\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pf",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pf"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:32:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"genero\": \"Valor inválido para genero, valores possiveis: MASCULINO, FEMININO, NAOBINARIO; \",\n    \"endereco.regiao\": \"Valor inválido para regiao valores possiveis:  N, NE, SE, S, CO \"\n}"
+						}
+					]
+				},
+				{
+					"name": "Atualizar Cliente PJ",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 2,\r\n  \"nome_fantasia\": \"string\",\r\n  \"nome_contato\": \"string\",\r\n  \"nome\": \"string\",\r\n  \"email\": \"string\",\r\n  \"telefone\": \"string\",\r\n  \"celular\": \"string\",\r\n  \"endereco\": {\r\n    \"cep\": \"string\",\r\n    \"rua\": \"string\",\r\n    \"numero\": 0,\r\n    \"complemento\": \"string\",\r\n    \"bairro\": \"string\",\r\n    \"cidade\": \"string\",\r\n    \"uf\": \"st\",\r\n    \"regiao\": \"S\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/cliente/pj",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"pj"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 99,\r\n  \"nome_fantasia\": \"Nelson e Cláudio Contábil Ltda\",\r\n  \"nome_contato\": \"Claudio\",\r\n  \"nome\": \"Nelson e Cláudio Contábil Ltda\",\r\n  \"email\": \"almoxarifado@nelsoncontabilltda.com.br\",\r\n  \"telefone\": \"1126675385\",\r\n  \"celular\": \"6525283206\",\r\n  \"endereco\": {\r\n    \"cep\": \"12941490\",\r\n    \"rua\": \"Rua Itaú\",\r\n    \"numero\": 239,\r\n    \"complemento\": \"lj01\",\r\n    \"bairro\": \"Cidade Satélite\",\r\n    \"cidade\": \"Atibaia\",\r\n    \"uf\": \"SP\",\r\n    \"regiao\": \"SE\"\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pj",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pj"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:26:59 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 99,\n    \"nome\": \"Nelson e Cláudio Contábil Ltda\",\n    \"email\": \"almoxarifado@nelsoncontabilltda.com.br\",\n    \"telefone\": \"1126675385\",\n    \"celular\": \"6525283206\",\n    \"endereco\": {\n        \"id\": 99,\n        \"cep\": \"12941490\",\n        \"rua\": \"Rua Itaú\",\n        \"numero\": 239,\n        \"complemento\": \"lj01\",\n        \"bairro\": \"Cidade Satélite\",\n        \"cidade\": \"Atibaia\",\n        \"uf\": \"SP\",\n        \"regiao\": \"SE\"\n    },\n    \"conta\": {\n        \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\",\n        \"numero_conta\": 25040,\n        \"agencia\": 123,\n        \"operacao\": \"CONTACORRENTEPJ\",\n        \"saldo\": 10999,\n        \"status\": true\n    },\n    \"criado_em\": \"2022-11-20T11:15:51\",\n    \"alterado_em\": \"2022-11-20T11:15:51\",\n    \"status\": true,\n    \"nome_fantasia\": \"Nelson e Cláudio Contábil Ltda\",\n    \"inscricao_estadual\": \"708272103721\",\n    \"cnpj\": \"34213050000179\",\n    \"nome_contato\": \"Claudio\"\n}"
+						},
+						{
+							"name": "Erro-ID não encontrado",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 9900,\r\n  \"nome_fantasia\": \"Nelson e Cláudio Contábil Ltda\",\r\n  \"nome_contato\": \"Claudio\",\r\n  \"nome\": \"Nelson e Cláudio Contábil Ltda\",\r\n  \"email\": \"almoxarifado@nelsoncontabilltda.com.br\",\r\n  \"telefone\": \"1126675385\",\r\n  \"celular\": \"6525283206\",\r\n  \"endereco\": {\r\n    \"cep\": \"12941490\",\r\n    \"rua\": \"Rua Itaú\",\r\n    \"numero\": 239,\r\n    \"complemento\": \"lj01\",\r\n    \"bairro\": \"Cidade Satélite\",\r\n    \"cidade\": \"Atibaia\",\r\n    \"uf\": \"SP\",\r\n    \"regiao\": \"SE\"\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pj",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pj"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "47"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:27:15 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Cliente não encontrado ou inativo (ID:  9900)."
+						},
+						{
+							"name": "Erro-Região inválida",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 99,\r\n  \"nome_fantasia\": \"Nelson e Cláudio Contábil Ltda\",\r\n  \"nome_contato\": \"Claudio\",\r\n  \"nome\": \"Nelson e Cláudio Contábil Ltda\",\r\n  \"email\": \"almoxarifado@nelsoncontabilltda.com.br\",\r\n  \"telefone\": \"1126675385\",\r\n  \"celular\": \"6525283206\",\r\n  \"endereco\": {\r\n    \"cep\": \"12941490\",\r\n    \"rua\": \"Rua Itaú\",\r\n    \"numero\": 239,\r\n    \"complemento\": \"lj01\",\r\n    \"bairro\": \"Cidade Satélite\",\r\n    \"cidade\": \"Atibaia\",\r\n    \"uf\": \"SP\",\r\n    \"regiao\": \"V\"\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/cliente/pj",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"pj"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:33:50 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"endereco.regiao\": \"Valor inválido para regiao valores possiveis:  N, NE, SE, S, CO \"\n}"
+						}
+					]
+				},
+				{
+					"name": "Deletar Cliente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/cliente/delete/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cliente",
+								"delete",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "22"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/cliente/delete/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"delete",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "100"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:35:26 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "Erro-ID não encontrado",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/cliente/delete/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"cliente",
+										"delete",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "43"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:34:54 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Cliente não encontrado ou inativo (ID: 1)."
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Transações",
+			"item": [
+				{
+					"name": "Cadastrar Transação",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"conta_origem\": {\r\n    \"id\": \"44a97be4-7324-4774-88fd-de5d52e43dc9\"\r\n  },\r\n  \"conta_destino\": {\r\n    \"id\": \"49eb565c-80ee-4f7b-b144-7a4154497d94\"\r\n  },\r\n  \"tipo_transacao\": \"TED\",\r\n  \"valor\": 10,\r\n  \"descricao\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/transacoes",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"transacoes"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"conta_origem\": {\r\n    \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\"\r\n  },\r\n  \"conta_destino\": {\r\n    \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\"\r\n  },\r\n  \"tipo_transacao\": \"TED\",\r\n  \"valor\": 10,\r\n  \"descricao\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/transacoes",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"transacoes"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:39:28 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"29b8dde8-36cb-423d-b246-463cf90f74ed\",\n    \"conta_origem\": {\n        \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\",\n        \"numero_conta\": 25043,\n        \"agencia\": 123,\n        \"operacao\": \"CONTAPOUPANCA\",\n        \"saldo\": 1980,\n        \"status\": true\n    },\n    \"conta_destino\": {\n        \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\",\n        \"numero_conta\": 25040,\n        \"agencia\": 123,\n        \"operacao\": \"CONTACORRENTEPJ\",\n        \"saldo\": 11019,\n        \"status\": true\n    },\n    \"tipo_transacao\": \"TED\",\n    \"data\": \"2022-11-20T11:39:28.7438199\",\n    \"valor\": 10,\n    \"descricao\": \"\"\n}"
+						},
+						{
+							"name": "Erro-Tipo inválido",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"conta_origem\": {\r\n    \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\"\r\n  },\r\n  \"conta_destino\": {\r\n    \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\"\r\n  },\r\n  \"tipo_transacao\": \"ksdg\",\r\n  \"valor\": 10,\r\n  \"descricao\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/transacoes",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"transacoes"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:39:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"tipo_transacao\": \"Valor inválido para tipo_transacao, valores possiveis: TED, DOC, PIX\"\n}"
+						},
+						{
+							"name": "Erro-Conta não encontrada ou inativa",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"conta_origem\": {\r\n    \"id\": \"lsfijslfjsj\"\r\n  },\r\n  \"conta_destino\": {\r\n    \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\"\r\n  },\r\n  \"tipo_transacao\": \"PIX\",\r\n  \"valor\": 10,\r\n  \"descricao\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/transacoes",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"transacoes"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "69"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:40:26 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "A conta informada não encontrada ou está inativa (ID: lsfijslfjsj)."
+						},
+						{
+							"name": "Erro-Saldo insuficiente",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"conta_origem\": {\r\n    \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\"\r\n  },\r\n  \"conta_destino\": {\r\n    \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\"\r\n  },\r\n  \"tipo_transacao\": \"PIX\",\r\n  \"valor\": 100000,\r\n  \"descricao\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/transacoes",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"transacoes"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:41:57 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Saldo insuficiente para realizar transação"
+						},
+						{
+							"name": "Erro-Valor inválido",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"conta_origem\": {\r\n    \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\"\r\n  },\r\n  \"conta_destino\": {\r\n    \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\"\r\n  },\r\n  \"tipo_transacao\": \"PIX\",\r\n  \"valor\": 0,\r\n  \"descricao\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/transacoes",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"transacoes"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "31"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:42:19 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Valor da transação inválido."
+						}
+					]
+				},
+				{
+					"name": "Listar Transações por Tipo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/transacoes/tipo/:tipo",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"transacoes",
+								"tipo",
+								":tipo"
+							],
+							"variable": [
+								{
+									"key": "tipo",
+									"value": "TED"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/transacoes/tipo/:tipo",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"transacoes",
+										"tipo",
+										":tipo"
+									],
+									"variable": [
+										{
+											"key": "tipo",
+											"value": "TED"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:43:00 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"29b8dde8-36cb-423d-b246-463cf90f74ed\",\n        \"conta_origem\": {\n            \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\",\n            \"numero_conta\": 25043,\n            \"agencia\": 123,\n            \"operacao\": \"CONTAPOUPANCA\",\n            \"saldo\": 1980,\n            \"status\": true\n        },\n        \"conta_destino\": {\n            \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\",\n            \"numero_conta\": 25040,\n            \"agencia\": 123,\n            \"operacao\": \"CONTACORRENTEPJ\",\n            \"saldo\": 11019,\n            \"status\": true\n        },\n        \"tipo_transacao\": \"TED\",\n        \"data\": \"2022-11-20T11:39:28.74382\",\n        \"valor\": 10,\n        \"descricao\": \"\"\n    },\n    {\n        \"id\": \"92e78014-0eb0-4e0e-ae26-48738861e7ff\",\n        \"conta_origem\": {\n            \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\",\n            \"numero_conta\": 25043,\n            \"agencia\": 123,\n            \"operacao\": \"CONTAPOUPANCA\",\n            \"saldo\": 1980,\n            \"status\": true\n        },\n        \"conta_destino\": {\n            \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\",\n            \"numero_conta\": 25040,\n            \"agencia\": 123,\n            \"operacao\": \"CONTACORRENTEPJ\",\n            \"saldo\": 11019,\n            \"status\": true\n        },\n        \"tipo_transacao\": \"TED\",\n        \"data\": \"2022-11-20T11:39:20.007052\",\n        \"valor\": 10,\n        \"descricao\": \"string\"\n    }\n]"
+						},
+						{
+							"name": "Erro-Tipo inválido",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/transacoes/tipo/:tipo",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"transacoes",
+										"tipo",
+										":tipo"
+									],
+									"variable": [
+										{
+											"key": "tipo",
+											"value": "hkgjh"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Length",
+									"value": "0"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:43:31 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Listar Transações por Período",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/transacoes/periodo/:dataInicial/:dataFinal",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"transacoes",
+								"periodo",
+								":dataInicial",
+								":dataFinal"
+							],
+							"variable": [
+								{
+									"key": "dataInicial",
+									"value": "2022-11-10"
+								},
+								{
+									"key": "dataFinal",
+									"value": "2022-11-20"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/transacoes/periodo/:dataInicial/:dataFinal",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"transacoes",
+										"periodo",
+										":dataInicial",
+										":dataFinal"
+									],
+									"variable": [
+										{
+											"key": "dataInicial",
+											"value": "2022-11-10"
+										},
+										{
+											"key": "dataFinal",
+											"value": "2022-11-20"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:49:19 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"29b8dde8-36cb-423d-b246-463cf90f74ed\",\n        \"conta_origem\": {\n            \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\",\n            \"numero_conta\": 25043,\n            \"agencia\": 123,\n            \"operacao\": \"CONTAPOUPANCA\",\n            \"saldo\": 1980,\n            \"status\": true\n        },\n        \"conta_destino\": {\n            \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\",\n            \"numero_conta\": 25040,\n            \"agencia\": 123,\n            \"operacao\": \"CONTACORRENTEPJ\",\n            \"saldo\": 11019,\n            \"status\": true\n        },\n        \"tipo_transacao\": \"TED\",\n        \"data\": \"2022-11-20T11:39:28.74382\",\n        \"valor\": 10,\n        \"descricao\": \"\"\n    },\n    {\n        \"id\": \"92e78014-0eb0-4e0e-ae26-48738861e7ff\",\n        \"conta_origem\": {\n            \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\",\n            \"numero_conta\": 25043,\n            \"agencia\": 123,\n            \"operacao\": \"CONTAPOUPANCA\",\n            \"saldo\": 1980,\n            \"status\": true\n        },\n        \"conta_destino\": {\n            \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\",\n            \"numero_conta\": 25040,\n            \"agencia\": 123,\n            \"operacao\": \"CONTACORRENTEPJ\",\n            \"saldo\": 11019,\n            \"status\": true\n        },\n        \"tipo_transacao\": \"TED\",\n        \"data\": \"2022-11-20T11:39:20.007052\",\n        \"valor\": 10,\n        \"descricao\": \"string\"\n    },\n    {\n        \"id\": \"cc17c138-33f3-481a-adb6-22436dbb2473\",\n        \"conta_origem\": {\n            \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\",\n            \"numero_conta\": 25040,\n            \"agencia\": 123,\n            \"operacao\": \"CONTACORRENTEPJ\",\n            \"saldo\": 11019,\n            \"status\": true\n        },\n        \"conta_destino\": {\n            \"id\": \"f0c4999f-a2d4-48c0-a78f-efb3a1ded4a5\",\n            \"numero_conta\": 25041,\n            \"agencia\": 123,\n            \"operacao\": \"CONTACORRENTEPF\",\n            \"saldo\": 5000,\n            \"status\": false\n        },\n        \"tipo_transacao\": \"PIX\",\n        \"data\": \"2022-11-20T11:15:51\",\n        \"valor\": 1999.5,\n        \"descricao\": \"pagamento de pedido\"\n    },\n    {\n        \"id\": \"ff137a77-e363-471d-a03a-225e1f9252e7\",\n        \"conta_origem\": {\n            \"id\": \"f0c4999f-a2d4-48c0-a78f-efb3a1ded4a5\",\n            \"numero_conta\": 25041,\n            \"agencia\": 123,\n            \"operacao\": \"CONTACORRENTEPF\",\n            \"saldo\": 5000,\n            \"status\": false\n        },\n        \"conta_destino\": {\n            \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\",\n            \"numero_conta\": 25043,\n            \"agencia\": 123,\n            \"operacao\": \"CONTAPOUPANCA\",\n            \"saldo\": 1980,\n            \"status\": true\n        },\n        \"tipo_transacao\": \"PIX\",\n        \"data\": \"2022-11-20T11:15:51\",\n        \"valor\": 59.5,\n        \"descricao\": \"pagamento de compra\"\n    }\n]"
+						},
+						{
+							"name": "Sem transação no período",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/transacoes/periodo/:dataInicial/:dataFinal",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"transacoes",
+										"periodo",
+										":dataInicial",
+										":dataFinal"
+									],
+									"variable": [
+										{
+											"key": "dataInicial",
+											"value": "2022-12-10"
+										},
+										{
+											"key": "dataFinal",
+											"value": "2022-12-20"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "60"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:47:43 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Nenhuma transação encontrada entre 2022-12-10 e 2022-12-20"
+						}
+					]
+				},
+				{
+					"name": "Listar Transações por Conta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/transacoes/conta/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"transacoes",
+								"conta",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "57fb0f11-e26e-41d1-afaa-d96b23bce60f"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/transacoes/conta/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"transacoes",
+										"conta",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "d4130b7b-42a1-4608-83fe-d80a9846f86f"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:50:12 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"id\": \"29b8dde8-36cb-423d-b246-463cf90f74ed\",\n        \"conta_origem\": {\n            \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\",\n            \"numero_conta\": 25043,\n            \"agencia\": 123,\n            \"operacao\": \"CONTAPOUPANCA\",\n            \"saldo\": 1980,\n            \"status\": true\n        },\n        \"conta_destino\": {\n            \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\",\n            \"numero_conta\": 25040,\n            \"agencia\": 123,\n            \"operacao\": \"CONTACORRENTEPJ\",\n            \"saldo\": 11019,\n            \"status\": true\n        },\n        \"tipo_transacao\": \"TED\",\n        \"data\": \"2022-11-20T11:39:28.74382\",\n        \"valor\": 10,\n        \"descricao\": \"\"\n    },\n    {\n        \"id\": \"92e78014-0eb0-4e0e-ae26-48738861e7ff\",\n        \"conta_origem\": {\n            \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\",\n            \"numero_conta\": 25043,\n            \"agencia\": 123,\n            \"operacao\": \"CONTAPOUPANCA\",\n            \"saldo\": 1980,\n            \"status\": true\n        },\n        \"conta_destino\": {\n            \"id\": \"875e4a2e-c44c-420c-8368-99d21842706a\",\n            \"numero_conta\": 25040,\n            \"agencia\": 123,\n            \"operacao\": \"CONTACORRENTEPJ\",\n            \"saldo\": 11019,\n            \"status\": true\n        },\n        \"tipo_transacao\": \"TED\",\n        \"data\": \"2022-11-20T11:39:20.007052\",\n        \"valor\": 10,\n        \"descricao\": \"string\"\n    },\n    {\n        \"id\": \"ff137a77-e363-471d-a03a-225e1f9252e7\",\n        \"conta_origem\": {\n            \"id\": \"f0c4999f-a2d4-48c0-a78f-efb3a1ded4a5\",\n            \"numero_conta\": 25041,\n            \"agencia\": 123,\n            \"operacao\": \"CONTACORRENTEPF\",\n            \"saldo\": 5000,\n            \"status\": false\n        },\n        \"conta_destino\": {\n            \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\",\n            \"numero_conta\": 25043,\n            \"agencia\": 123,\n            \"operacao\": \"CONTAPOUPANCA\",\n            \"saldo\": 1980,\n            \"status\": true\n        },\n        \"tipo_transacao\": \"PIX\",\n        \"data\": \"2022-11-20T11:15:51\",\n        \"valor\": 59.5,\n        \"descricao\": \"pagamento de compra\"\n    }\n]"
+						},
+						{
+							"name": "Erro-Conta não encontrada ou inativa",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/transacoes/conta/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"transacoes",
+										"conta",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "ljsahsjhshfkjs"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "72"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:50:38 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "A conta informada não encontrada ou está inativa (ID: ljsahsjhshfkjs)."
+						}
+					]
+				},
+				{
+					"name": "Listar Transação por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/transacoes/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"transacoes",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "713539c1-5c87-4d96-bf39-4a7a337ef332"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sucesso",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/transacoes/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"transacoes",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "ff137a77-e363-471d-a03a-225e1f9252e7"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:53:21 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"ff137a77-e363-471d-a03a-225e1f9252e7\",\n    \"conta_origem\": {\n        \"id\": \"f0c4999f-a2d4-48c0-a78f-efb3a1ded4a5\",\n        \"numero_conta\": 25041,\n        \"agencia\": 123,\n        \"operacao\": \"CONTACORRENTEPF\",\n        \"saldo\": 5000,\n        \"status\": false\n    },\n    \"conta_destino\": {\n        \"id\": \"d4130b7b-42a1-4608-83fe-d80a9846f86f\",\n        \"numero_conta\": 25043,\n        \"agencia\": 123,\n        \"operacao\": \"CONTAPOUPANCA\",\n        \"saldo\": 1980,\n        \"status\": true\n    },\n    \"tipo_transacao\": \"PIX\",\n    \"data\": \"2022-11-20T11:15:51\",\n    \"valor\": 59.5,\n    \"descricao\": \"pagamento de compra\"\n}"
+						},
+						{
+							"name": "Erro-ID não encontrado",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/transacoes/:id",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"transacoes",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "jahdkjhahka"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain;charset=UTF-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "47"
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 20 Nov 2022 14:52:11 GMT"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=60"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "Transação não encontrada (ID:  jahdkjhahka)."
+						}
+					]
+				}
+			]
+		}
+	]
+}

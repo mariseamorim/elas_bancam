@@ -21,8 +21,15 @@ Para garantir o cumprimento das regras de negócio, definimos algumas premissas:
 - Todas as buscas por clientes devem retornar apenas aqueles que estão ativos no sistema
 
 
-# Endpoints desenvolvidos
+# Tabelas e Endpoints desenvolvidos
 
+Elaboramos a seguinte estrutura de tabelas:
+
+![Tabelas](/imagem/diagrama-bd-elas-bancam.png)
+
+
+
+Com os seguintes endpoints para acessá-las:
 | Verbo | Endpoint | Parâmetro | Body |
 |--------|--------------------|-----------------|-----------------|
 | POST | /cliente/pj | N/A | Schema PessoaJuridica |
@@ -95,7 +102,7 @@ Obs.: usamos nas nossas máquinas o MySQL e nomeamos o BD de *elas_bancam*
 
 5. No seu programa de Bancos de Dados, alimente o BD criado usando o script SQL contido no arquivo *src/main/java/resources/db/elas_bancam_dml.sql*.
 
-Com o servidor rodando e as tabelas criadas e alimentadas, é possível consultar a documentação através do [Swagger](http://localhost:8080/swagger-ui/index.html#/)* e acessar plataformas como Postman ou Insomnia para fazer testes manuais e acessar dados da base de dados. Também .
+Com o servidor rodando e as tabelas criadas e alimentadas, é possível consultar a documentação através do [Swagger](http://localhost:8080/swagger-ui/index.html#/)* e acessar plataformas como Postman ou Insomnia para fazer testes manuais e acessar informações da base de dados. Caso queira usar a coleção de testes de requisições e todas as respostas possíveis para elas feita pelo Postman, faça a importação do arquivo *src/main/resources/utils/Elas Bancam.postman_collection* na sua plataforma de API.
 
 **Atenção: caso mude a porta onde o projeto está rodando, mude essa informação também na url do Swagger*
 

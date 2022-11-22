@@ -8,6 +8,7 @@ import com.elasbancam.enums.Genero;
 import com.elasbancam.enums.Regiao;
 import com.elasbancam.enums.TipoOperacao;
 import com.elasbancam.exceptions.NegocioException;
+import com.elasbancam.exceptions.validation.ValidationAge;
 import com.elasbancam.models.Conta;
 import com.elasbancam.models.Endereco;
 import com.elasbancam.models.PessoaFisica;
@@ -80,6 +81,9 @@ class ClienteServiceTest {
 
     @Mock
     private ClienteMapper clienteMapper;
+
+    @Mock
+    private ValidationAge validationAge;
     private PessoaFisica pessoaFisica;
     private Optional<PessoaFisica> optionalPessoaFisica;
     private PessoaFisicaUpdateDto pessoaFisicaUpdateDto;

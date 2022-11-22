@@ -4,14 +4,13 @@ import com.elasbancam.controllers.mappers.ClienteMapper;
 import com.elasbancam.dtos.PessoaFisicaUpdateDto;
 import com.elasbancam.dtos.PessoaJuridicaUpdateDto;
 import com.elasbancam.exceptions.NegocioException;
+import com.elasbancam.exceptions.validation.ValidationAge;
 import com.elasbancam.models.Conta;
-import com.elasbancam.models.Pessoa;
 import com.elasbancam.models.PessoaFisica;
 import com.elasbancam.models.PessoaJuridica;
 import com.elasbancam.repositories.PessoaFisicaRepository;
 import com.elasbancam.repositories.PessoaJuridicaRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -25,7 +24,6 @@ import java.util.Optional;
 // controllers os tratem.
 
 @AllArgsConstructor
-@Component
 @Service
 public class ClienteService {
 
@@ -36,9 +34,12 @@ public class ClienteService {
     private ContaService contaService;
 
     private ClienteMapper clienteMapper;
+    private ValidationAge validationAge;
 
     @Transactional
     public PessoaFisica cadastrarPessoaFisica(PessoaFisica pessoaFisica) {
+        validationAge.validarIdadeMenorQue18(pessoaFisica.getDt_nascimento());
+        validationAge.validarIdadeMenorQue18(pessoaFisica.getDt_nascimento());
         Optional<PessoaFisica> cpfJaCadastrado = _repositoryPessoaFisica.buscarPfPorCPF(pessoaFisica.getCpf());
         if (cpfJaCadastrado.isPresent()) {
             throw new NegocioException("CPF já cadastrado no sistema.");
@@ -122,7 +123,7 @@ public class ClienteService {
     }
 
     public Object listarClientePorId(Long idCliente) {
-        Object cliente = new Object();
+        Object cliente;
 
         Optional<PessoaFisica> pessoaFisica = listarPessoaFisicaPorId(idCliente);
         Optional<PessoaJuridica> pessoaJuridica = listarPessoaJuridicaPorId(idCliente);
@@ -141,6 +142,7 @@ public class ClienteService {
     }
 
     public PessoaFisica atualizarPessoaFisica(PessoaFisicaUpdateDto pessoa) {
+        validationAge.validarIdadeMenorQue18(pessoa.getDt_nascimento());
         Optional<PessoaFisica> clienteExiste = listarPessoaFisicaPorId(pessoa.getId());
         if (clienteExiste.isEmpty()) {
             throw new NegocioException("Cliente não encontrado ou inativo (ID:  " + pessoa.getId() + ").");
